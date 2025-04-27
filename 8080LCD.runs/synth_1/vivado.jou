@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2024.1.2 (64-bit)
+# SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
+# IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
+# SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
+# Start of session at: Sat Apr 26 19:27:37 2025
+# Process ID: 4624
+# Current directory: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1
+# Command line: vivado.exe -log mrb3973_test.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mrb3973_test.tcl
+# Log file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/mrb3973_test.vds
+# Journal file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1\vivado.jou
+# Running On        :LAPTOP-7GKHMVFU
+# Platform          :Windows Server 2016 or Windows 10
+# Operating System  :26100
+# Processor Detail  :AMD Ryzen 7 4800HS with Radeon Graphics         
+# CPU Frequency     :2895 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :33736 MB
+# Swap memory       :2147 MB
+# Total Virtual     :35883 MB
+# Available Virtual :20896 MB
+#-----------------------------------------------------------
+source mrb3973_test.tcl -notrace

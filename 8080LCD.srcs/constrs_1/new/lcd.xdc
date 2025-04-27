@@ -1,0 +1,59 @@
+set_property PACKAGE_PIN R2 [get_ports clk]
+set_property IOSTANDARD LVCMOS33 [get_ports clk]
+
+set_property PACKAGE_PIN C8 [get_ports led_1]
+set_property IOSTANDARD LVCMOS33 [get_ports led_1]
+set_property PACKAGE_PIN D8 [get_ports led_2]
+set_property IOSTANDARD LVCMOS33 [get_ports led_2]
+
+set_property PACKAGE_PIN D16 [get_ports reset_n]
+set_property IOSTANDARD LVCMOS33 [get_ports reset_n]
+
+set_property PACKAGE_PIN N4 [get_ports LCD_RS]
+set_property IOSTANDARD LVCMOS33 [get_ports LCD_RS]
+
+set_property PACKAGE_PIN K5 [get_ports LCD_CS]
+set_property IOSTANDARD LVCMOS33 [get_ports LCD_CS]
+
+set_property PACKAGE_PIN L4 [get_ports LCD_WR]
+set_property IOSTANDARD LVCMOS33 [get_ports LCD_WR]
+
+set_property PACKAGE_PIN M5 [get_ports LCD_RESET]
+set_property IOSTANDARD LVCMOS33 [get_ports LCD_RESET]
+
+
+set_property PACKAGE_PIN P4 [get_ports {LCD_DATA[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[0]}]
+set_property PACKAGE_PIN P3 [get_ports {LCD_DATA[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[1]}]
+set_property PACKAGE_PIN U2 [get_ports {LCD_DATA[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[2]}]
+set_property PACKAGE_PIN T2 [get_ports {LCD_DATA[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[3]}]
+set_property PACKAGE_PIN V3 [get_ports {LCD_DATA[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[4]}]
+set_property PACKAGE_PIN T3 [get_ports {LCD_DATA[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[5]}]
+set_property PACKAGE_PIN V4 [get_ports {LCD_DATA[6]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[6]}]
+set_property PACKAGE_PIN U1 [get_ports {LCD_DATA[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[7]}]
+set_property PACKAGE_PIN U6 [get_ports {LCD_DATA[8]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[8]}]
+set_property PACKAGE_PIN V2 [get_ports {LCD_DATA[9]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[9]}]
+set_property PACKAGE_PIN R5 [get_ports {LCD_DATA[10]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[10]}]
+set_property PACKAGE_PIN U4 [get_ports {LCD_DATA[11]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[11]}]
+set_property PACKAGE_PIN R6 [get_ports {LCD_DATA[12]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[12]}]
+set_property PACKAGE_PIN U5 [get_ports {LCD_DATA[13]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[13]}]
+set_property PACKAGE_PIN T7 [get_ports {LCD_DATA[14]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[14]}]
+set_property PACKAGE_PIN T5 [get_ports {LCD_DATA[15]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[15]}]
+
+
+
