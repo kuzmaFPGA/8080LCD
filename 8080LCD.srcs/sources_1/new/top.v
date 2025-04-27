@@ -10,6 +10,15 @@ module mrb3973_test (
     output           led_2
 );
 
+wire lcd_clk;
+wire pll_locked;
+
+clk_wiz_0 lcd_clk_pll (
+    .clk_in1(clk),
+    .resetn(reset_n),
+    .clk_out1(lcd_clk),
+    .locked(pll_locked)
+);
 // ROM ініціалізації
 reg [17:0] init_rom [0:639]; // до 512 команд і даних
 reg [9:0] init_rom_addr;     // лічильник адреси
@@ -21,7 +30,6 @@ wire [15:0] cmd_data = init_rom_data[15:0];
 
     // Станова машина
     reg [3:0] state;
-    reg [23:0] delay_cnt;
     
     reg [31:0] delay_counter;
     reg        delay_active;
@@ -44,7 +52,6 @@ wire [15:0] cmd_data = init_rom_data[15:0];
         LCD_CS    = 1;
         LCD_RESET = 0;
         state     = 0;
-        delay_cnt = 0;
         pixel_cnt = 0;
     end
     
@@ -496,7 +503,7 @@ endtask
     
 
 
-always @(posedge clk or negedge reset_n) begin
+always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
         wr_state <= 0;
         LCD_WR <= 1;
@@ -533,15 +540,8 @@ always @(posedge clk or negedge reset_n) begin
         endcase
     end
 end
-
-    // Основна логіка
     always @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
-            state     <= 0;
-            delay_cnt <= 0;
-            pixel_cnt <= 0;
-            LCD_RESET <= 0;
-            
             delay_counter <= 0;
             delay_active  <= 0;
         end else begin
@@ -551,6 +551,16 @@ end
             else
                 delay_active <= 0;
         end
+     end
+     end
+    // Основна логіка
+    always @(posedge lcd_clk or negedge reset_n) begin
+        if (!reset_n) begin
+            state     <= 0;
+            pixel_cnt <= 0;
+            LCD_RESET <= 0;
+            
+
             case (state)
                 0: begin
                     // Скидання дисплея

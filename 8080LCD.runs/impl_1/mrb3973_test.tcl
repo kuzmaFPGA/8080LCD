@@ -105,7 +105,6 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 4
-  set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 16  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a35tcsg325-1
@@ -117,9 +116,11 @@ OPTRACE "set parameters" START { }
   set_property parent.project_path D:/Xilinx/Projects/8080LCD/8080LCD.xpr [current_project]
   set_property ip_output_repo D:/Xilinx/Projects/8080LCD/8080LCD.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
+  set_property XPM_LIBRARIES XPM_CDC [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/mrb3973_test.dcp
+  read_ip -quiet d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 OPTRACE "read constraints: implementation" END { }
@@ -285,6 +286,7 @@ set rc [catch {
   create_msg_db write_bitstream.pb
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }
+  set_property XPM_LIBRARIES XPM_CDC [current_project]
   catch { write_mem_info -force -no_partial_mmi mrb3973_test.mmi }
 OPTRACE "write_bitstream setup" END { }
 OPTRACE "write_bitstream" START { }
