@@ -643,30 +643,17 @@ always @(posedge lcd_clk or negedge reset_n) begin
 					LCD_WR_DATA(RED);
 					pixel_cnt <= pixel_cnt + 1;
 					end else begin
-					state <= 4;
+					state <= 6;
 				end
 			end
+			5: begin
+
+				end
 			default: state <= 0;
 		endcase
 	end
 end
 
-reg [22:0] clk_div_counter = 0;  // 23 біти достатньо для лічби до 8 млн
 reg        led_1_reg;
-
-//always @(posedge lcd_clk or negedge reset_n) begin
-//    if (!reset_n) begin
-//        clk_div_counter <= 0;
-//        led_1_reg <= 0;
-//    end else begin
-//        if (clk_div_counter == 23'd7999999) begin
-//            clk_div_counter <= 0;
-//            led_1_reg <= ~led_1_reg;  // інверсія стану LED кожну секунду
-//        end else begin
-//            clk_div_counter <= clk_div_counter + 1;
-//        end
-//    end
-//end
-
 assign led_1 = led_1_reg;
 endmodule
