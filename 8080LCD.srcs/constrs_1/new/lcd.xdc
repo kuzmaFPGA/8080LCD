@@ -6,7 +6,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports led_1]
 set_property PACKAGE_PIN D8 [get_ports led_2]
 set_property IOSTANDARD LVCMOS33 [get_ports led_2]
 
-set_property PACKAGE_PIN D16 [get_ports reset_n]
+set_property PACKAGE_PIN H18 [get_ports reset_n]
 set_property IOSTANDARD LVCMOS33 [get_ports reset_n]
 
 set_property PACKAGE_PIN N4 [get_ports LCD_RS]
@@ -21,6 +21,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports LCD_WR]
 set_property PACKAGE_PIN M5 [get_ports LCD_RESET]
 set_property IOSTANDARD LVCMOS33 [get_ports LCD_RESET]
 
+set_property PACKAGE_PIN T4 [get_ports LCD_BL]
+set_property IOSTANDARD LVCMOS33 [get_ports LCD_BL]
 
 set_property PACKAGE_PIN P4 [get_ports {LCD_DATA[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[0]}]
@@ -55,5 +57,11 @@ set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[14]}]
 set_property PACKAGE_PIN T5 [get_ports {LCD_DATA[15]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[15]}]
 
+set_property PACKAGE_PIN K3 [get_ports lcd_clk]
+set_property IOSTANDARD LVCMOS33 [get_ports lcd_clk]
 
-
+#set_property KEEP true [get_nets LCD_RS]
+#set_property KEEP true [get_nets LCD_CS]
+#set_property KEEP true [get_nets LCD_WR]
+#set_property KEEP true [get_nets LCD_RESET]
+#set_property KEEP true [get_nets {LCD_DATA[*]}]

@@ -97,6 +97,7 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
+set_msg_config -id {Common 17-41} -limit 10000000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -120,7 +121,7 @@ OPTRACE "set parameters" START { }
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/mrb3973_test.dcp
-  read_ip -quiet d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+  read_ip -quiet D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 OPTRACE "read constraints: implementation" END { }
@@ -290,7 +291,7 @@ OPTRACE "read constraints: write_bitstream" END { }
   catch { write_mem_info -force -no_partial_mmi mrb3973_test.mmi }
 OPTRACE "write_bitstream setup" END { }
 OPTRACE "write_bitstream" START { }
-  write_bitstream -force mrb3973_test.bit -bin_file
+  write_bitstream -force mrb3973_test.bit -raw_bitfile -bin_file
 OPTRACE "write_bitstream" END { }
 OPTRACE "write_bitstream misc" START { }
 OPTRACE "read constraints: write_bitstream_post" START { }
