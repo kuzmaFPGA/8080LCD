@@ -17,8 +17,8 @@ vcom -work xpm -93  -incr \
 "D:/Xilinx/Vivado/2024.1/data/ip/xpm/xpm_VCOMP.vhd" \
 
 vlog -work xil_defaultlib  -incr -v2k5 "+incdir+../../../ipstatic" -l xpm -l xil_defaultlib \
-"../../../../8080LCD.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
-"../../../../8080LCD.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
+"../../../ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
+"../../../ip/clk_wiz_0/clk_wiz_0.v" \
 
 vlog -work xil_defaultlib \
 "glbl.v"

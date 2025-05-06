@@ -75,7 +75,7 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top.v
-read_ip -quiet d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+read_ip -quiet D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
 set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
 set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
@@ -92,6 +92,8 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 set_property used_in_implementation false [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
 
+read_xdc dont_touch.xdc
+set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental D:/Xilinx/Projects/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp
