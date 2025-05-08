@@ -24,6 +24,9 @@ set_property IOSTANDARD LVCMOS33 [get_ports LCD_RESET]
 set_property PACKAGE_PIN G15 [get_ports LCD_BL]
 set_property IOSTANDARD LVCMOS33 [get_ports LCD_BL]
 
+set_property PACKAGE_PIN B15 [get_ports LCD_RDX]
+set_property IOSTANDARD LVCMOS33 [get_ports LCD_RDX]
+
 set_property PACKAGE_PIN B16 [get_ports {LCD_DATA[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[0]}]
 set_property PACKAGE_PIN A14 [get_ports {LCD_DATA[1]}]
