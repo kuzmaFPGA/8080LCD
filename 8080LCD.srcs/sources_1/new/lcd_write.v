@@ -360,3 +360,221 @@ always @(posedge clk or negedge reset_n) begin
 	end
 end
 endmodule
+
+module lcd_write_pixel (
+    input clk, reset_n, start,
+    input [15:0] x, y, color,
+    output reg done,
+    output reg [15:0] LCD_DATA,
+    output reg LCD_CS, LCD_RS, LCD_WR, LCD_RDX
+);
+    reg [3:0] state;
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            state <= 0;
+            LCD_CS <= 1;
+            LCD_RS <= 0;
+            LCD_WR <= 1;
+            LCD_RDX <= 1;
+            LCD_DATA <= 0;
+            done <= 0;
+        end else begin
+            case (state)
+                0: begin // 0x2A00
+                    if (start) begin
+                        LCD_CS <= 0;
+                        LCD_RS <= 0;
+                        LCD_DATA <= 16'h2A00;
+                        LCD_WR <= 0;
+                        state <= 1;
+                    end
+                end
+                1: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= x >> 8;
+                    LCD_WR <= 0;
+                    state <= 2;
+                end
+                2: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2A01;
+                    LCD_WR <= 0;
+                    state <= 3;
+                end
+                3: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= x & 16'hFF;
+                    LCD_WR <= 0;
+                    state <= 4;
+                end
+                4: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2A02;
+                    LCD_WR <= 0;
+                    state <= 5;
+                end
+                5: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= x >> 8;
+                    LCD_WR <= 0;
+                    state <= 6;
+                end
+                6: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2A03;
+                    LCD_WR <= 0;
+                    state <= 7;
+                end
+                7: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= x & 16'hFF;
+                    LCD_WR <= 0;
+                    state <= 8;
+                end
+                8: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2B00;
+                    LCD_WR <= 0;
+                    state <= 9;
+                end
+                9: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= y >> 8;
+                    LCD_WR <= 0;
+                    state <= 10;
+                end
+                10: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2B01;
+                    LCD_WR <= 0;
+                    state <= 11;
+                end
+                11: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= y & 16'hFF;
+                    LCD_WR <= 0;
+                    state <= 12;
+                end
+                12: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2B02;
+                    LCD_WR <= 0;
+                    state <= 13;
+                end
+                13: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= y >> 8;
+                    LCD_WR <= 0;
+                    state <= 14;
+                end
+                14: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2B03;
+                    LCD_WR <= 0;
+                    state <= 15;
+                end
+                15: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= y & 16'hFF;
+                    LCD_WR <= 0;
+                    state <= 16;
+                end
+                16: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 0;
+                    LCD_DATA <= 16'h2C00;
+                    LCD_WR <= 0;
+                    state <= 17;
+                end
+                17: begin
+                    LCD_WR <= 1;
+                    LCD_RS <= 1;
+                    LCD_DATA <= color;
+                    LCD_WR <= 0;
+                    state <= 18;
+                end
+                18: begin
+                    LCD_WR <= 1;
+                    LCD_CS <= 1;
+                    done <= 1;
+                    state <= 19;
+                end
+                19: begin
+                    if (!start) begin
+                        done <= 0;
+                        state <= 0;
+                    end
+                end
+            endcase
+        end
+    end
+endmodule
+
+module lcd_read_data (
+    input clk, reset_n, start,
+    output reg [15:0] data,
+    output reg done,
+    output reg LCD_CS, LCD_RS, LCD_WR, LCD_RDX,
+    input [15:0] LCD_DATA
+);
+    reg [2:0] state;
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            state <= 0;
+            LCD_CS <= 1;
+            LCD_RS <= 1;
+            LCD_WR <= 1;
+            LCD_RDX <= 1;
+            done <= 0;
+            data <= 0;
+        end else begin
+            case (state)
+                0: begin
+                    if (start) begin
+                        LCD_CS <= 0;
+                        LCD_RS <= 1;
+                        state <= 1;
+                    end
+                end
+                1: begin
+                    LCD_RDX <= 0;
+                    state <= 2;
+                end
+                2: begin
+                    data <= LCD_DATA;
+                    state <= 3;
+                end
+                3: begin
+                    LCD_RDX <= 1;
+                    state <= 4;
+                end
+                4: begin
+                    LCD_CS <= 1;
+                    done <= 1;
+                    state <= 5;
+                end
+                5: begin
+                    if (!start) begin
+                        done <= 0;
+                        state <= 0;
+                    end
+                end
+            endcase
+        end
+    end
+endmodule
