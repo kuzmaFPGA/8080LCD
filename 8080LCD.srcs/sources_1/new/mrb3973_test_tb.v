@@ -32,9 +32,9 @@ module mrb3973_test_tb;
         .LCD_RDX(LCD_RDX),
         .led_1(led_1),
         .led_2(led_2),
-        .lcd_clk(lcd_clk),
-        .state_out(state_out),   // Вивід стану машини станів
-        .init_rom_addr_out(init_rom_addr_out)     // Лічильник адреси
+        .lcd_clk(lcd_clk)
+//        .state_out(state_out),   // Вивід стану машини станів
+ //       .init_rom_addr_out(init_rom_addr_out)     // Лічильник адреси
     );
 
     // Генерація тактового сигналу (50 МГц для clk, період 20 нс)

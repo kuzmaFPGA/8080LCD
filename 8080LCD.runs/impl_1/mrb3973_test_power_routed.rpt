@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date             : Sat May 10 20:04:26 2025
+| Date             : Sat May 10 23:28:57 2025
 | Host             : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command          : report_power -file mrb3973_test_power_routed.rpt -pb mrb3973_test_power_summary_routed.pb -rpx mrb3973_test_power_routed.rpx
 | Design           : mrb3973_test
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.187        |
+| Total On-Chip Power (W)  | 0.193        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.115        |
+| Dynamic (W)              | 0.121        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.8          |
 | Max Ambient (C)          | 84.1         |
@@ -52,18 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |    <0.001 |        5 |       --- |             --- |
-| Slice Logic    |    <0.001 |      692 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      367 |     20800 |            1.76 |
+| Clocks         |     0.001 |        5 |       --- |             --- |
+| Slice Logic    |    <0.001 |      712 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      373 |     20800 |            1.79 |
 |   CARRY4       |    <0.001 |       16 |      8150 |            0.20 |
-|   Register     |    <0.001 |      181 |     41600 |            0.44 |
-|   F7/F8 Muxes  |    <0.001 |       42 |     32600 |            0.13 |
+|   Register     |    <0.001 |      185 |     41600 |            0.44 |
+|   F7/F8 Muxes  |    <0.001 |       44 |     32600 |            0.13 |
 |   Others       |     0.000 |       11 |       --- |             --- |
-| Signals        |    <0.001 |      494 |       --- |             --- |
-| MMCM           |     0.113 |        1 |         5 |           20.00 |
-| I/O            |     0.002 |       27 |       150 |           18.00 |
+| Signals        |    <0.001 |      505 |       --- |             --- |
+| MMCM           |     0.105 |        1 |         5 |           20.00 |
+| I/O            |     0.013 |       27 |       150 |           18.00 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.187 |          |           |                 |
+| Total          |     0.193 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,9 +73,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.010 |       0.001 |      0.010 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.075 |       0.063 |      0.013 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.012 |       0.003 |      0.010 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.071 |       0.059 |      0.013 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.005 |       0.004 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -130,7 +130,7 @@ Table of Contents
 | Clock              | Domain                              | Constraint (ns) |
 +--------------------+-------------------------------------+-----------------+
 | clk                | clk                                 |            20.0 |
-| clk_out1_clk_wiz_0 | lcd_clk_pll/inst/clk_out1_clk_wiz_0 |           125.0 |
+| clk_out1_clk_wiz_0 | lcd_clk_pll/inst/clk_out1_clk_wiz_0 |            16.0 |
 | clkfbout_clk_wiz_0 | lcd_clk_pll/inst/clkfbout_clk_wiz_0 |            20.0 |
 +--------------------+-------------------------------------+-----------------+
 
@@ -144,9 +144,9 @@ Table of Contents
 +---------------+-----------+
 | Name          | Power (W) |
 +---------------+-----------+
-| mrb3973_test  |     0.115 |
-|   lcd_clk_pll |     0.113 |
-|     inst      |     0.113 |
+| mrb3973_test  |     0.121 |
+|   lcd_clk_pll |     0.105 |
+|     inst      |     0.105 |
 +---------------+-----------+
 
 

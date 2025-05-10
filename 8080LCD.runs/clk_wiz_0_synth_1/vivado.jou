@@ -3,12 +3,12 @@
 # SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
 # IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
 # SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
-# Start of session at: Sat May 10 20:03:29 2025
-# Process ID: 5208
-# Current directory: D:/Xilinx/Projects/8080LCD/8080LCD.runs/impl_1
-# Command line: vivado.exe -log mrb3973_test.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source mrb3973_test.tcl -notrace
-# Log file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/impl_1/mrb3973_test.vdi
-# Journal file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/impl_1\vivado.jou
+# Start of session at: Sat May 10 23:10:43 2025
+# Process ID: 18928
+# Current directory: D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1
+# Command line: vivado.exe -log clk_wiz_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source clk_wiz_0.tcl
+# Log file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0.vds
+# Journal file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1\vivado.jou
 # Running On        :LAPTOP-7GKHMVFU
 # Platform          :Windows Server 2016 or Windows 10
 # Operating System  :26100
@@ -19,6 +19,6 @@
 # Host memory       :33736 MB
 # Swap memory       :2147 MB
 # Total Virtual     :35883 MB
-# Available Virtual :16972 MB
+# Available Virtual :16557 MB
 #-----------------------------------------------------------
-source mrb3973_test.tcl -notrace
+source clk_wiz_0.tcl -notrace

@@ -56,7 +56,6 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 4
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcsg325-1
 
@@ -95,8 +94,6 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 set_property used_in_implementation false [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
 
-read_xdc dont_touch.xdc
-set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental D:/Xilinx/Projects/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp
