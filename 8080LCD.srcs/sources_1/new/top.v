@@ -84,7 +84,8 @@ localparam S_INIT = 5'd0,           // Очікування PLL
            S_SET_ADDR = 5'd26,      // Встановлення адреси (0x2C00)
            S_PREP_FILL = 5'd27,     // Підготовка до заповнення пікселів
            S_FILL_PIXELS = 5'd28,   // Заповнення пікселів
-           S_LOOP = 5'd29;          // Повторне заповнення
+           S_LOOP = 5'd29,          // Повторне заповнення
+           S_PAUSE = 5'd30;         // пауза
 
 // Станова машина
 reg [4:0] state;             // 5 біт для підтримки всіх станів
@@ -93,16 +94,40 @@ reg [4:0] state;             // 5 біт для підтримки всіх ст
 reg [31:0] delay_counter;
 
 // Константи кольорів (RGB565)
-parameter RED = 16'hF83F;
+parameter WHITE = 16'hFFFF;
+parameter BLACK = 16'h0000; 
+parameter BLUE = 16'h001F; 
+parameter BRED = 16'hF81F;
+parameter GRED 	= 16'hFFE0;
+parameter GBLUE = 16'h07FF;
+parameter RED = 16'hF800;
+parameter MAGENTA = 16'hF81F;
+parameter GREEN = 16'h07E0;
+parameter CYAN = 16'h7FFF;
+parameter YELLOW = 16'hFFE0;
+parameter BROWN = 16'hBC40; 
+parameter BRRED = 16'hFC07;
+parameter GRAY = 16'h8430; 
+
+parameter DARKBLUE = 16'h01CF;	
+parameter LIGHTBLUE = 16'h7D7C; 
+parameter GRAYBLUE = 16'h5458; 
+
+parameter LIGHTGREEN = 16'h841F; 
+parameter LIGHTGRAY = 16'hEF5B; 
+parameter LGRAY = 16'hC618; 
+
+parameter LGRAYBLUE = 16'hA651; 
+parameter LBBLUE = 16'h2B12;
 
 // Загальна кількість пікселів для 800x480 дисплея
 parameter TOTAL_PIXELS = 800 * 480;
 
 // Координати для області заповнення
 parameter X_START = 0;
-parameter X_END = 799;
+parameter X_END = 480 - 1;
 parameter Y_START = 0;
-parameter Y_END = 479;
+parameter Y_END = 800 - 1;
 
 // Сигнали керування модулями
 reg cmd_start;               // Запуск lcd_write_cmd
@@ -131,7 +156,19 @@ localparam WRITER_NONE = 3'd0,
 // Лічильник пікселів
 reg [31:0] pixel_cnt;
 
+
 // Інстанціювання модулів
+
+keypad_4x4 keyboard (
+    .clk(clk),             // Тактовий сигнал
+    .rst_n(reset_n),       // Сигнал скидання (активний низький)
+    .col(col),             // Стовпці (A12, B11, D10, D9)
+    .row(row),             // Рядки (D14, D13, C12, E13)
+    .key_code(key_code),   // Код натиснутої клавіші
+    .key_valid(led_1)      // Сигнал, що клавіша натиснута
+);
+
+
 lcd_write_cmd cmd_writer (
     .clk(lcd_clk),
     .reset_n(reset_n),
@@ -158,13 +195,13 @@ lcd_write_cmd_data cmd_data_writer (
     .LCD_DATA(cmd_data_LCD_DATA),
     .done(cmd_data_done)
 );
-
+reg [15:0] fillcolor;
 lcd_write_cmd_ndata cmd_ndata_writer (
     .clk(lcd_clk),
     .reset_n(reset_n),
     .start(cmd_ndata_start),
     .cmd(16'h2C00), // Команда для запису пікселів
-    .data(RED),     // Червоний колір
+    .data(fillcolor),     // Червоний колір
     .n(TOTAL_PIXELS),
     .LCD_CS(cmd_ndata_LCD_CS),
     .LCD_RS(cmd_ndata_LCD_RS),
@@ -178,6 +215,7 @@ reg read_start;
 wire read_done;
 wire [15:0] read_data;
 reg [15:0] lcd_id;
+
 lcd_read_data read_writer (
     .clk(lcd_clk),
     .reset_n(reset_n),
@@ -234,7 +272,7 @@ always @(*) begin
             LCD_RS_reg = 0;
             LCD_WR_reg = 1;
             LCD_RDX_reg = 1;
-            LCD_DATA_reg = 16'h0000;
+            LCD_DATA_reg = 16'hzzzz;
         end
     endcase
 end
@@ -424,7 +462,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_SET_DIR: begin // Встановлення напрямку (0x3600, 0x00)
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h3600;
-                    write_data <= 16'h00;
+                    write_data <= 16'h00; //(1<<5)|(1<<6); 
                     active_writer <= WRITER_CMD_DATA;
                     cmd_data_start <= 1;
                 end else if (cmd_data_done) begin
@@ -543,6 +581,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             end
             S_BACKLIGHT: begin // Увімкнення підсвітки
                 state <= S_SET_ADDR;
+                fillcolor <= GREEN;
             end
             S_SET_ADDR: begin // Встановлення адреси (команда 0x2C00)
                 if (!cmd_start) begin
@@ -566,10 +605,19 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_ndata_done) begin
                     cmd_ndata_start <= 0;
                     active_writer <= WRITER_NONE;
+                    delay_counter <= 1000 * LCD_FREQ_MHZ; // 1 с затримка
+                    state <= S_PAUSE;
+                end
+            end
+            S_PAUSE : begin
+                if (delay_counter > 0) begin
+                    delay_counter <= delay_counter - 1;
+                end else begin
                     state <= S_LOOP;
                 end
             end
             S_LOOP: begin // Повторне заповнення
+                fillcolor <= GRAY;
                 state <= S_SET_ADDR;
             end
             default: state <= S_INIT;

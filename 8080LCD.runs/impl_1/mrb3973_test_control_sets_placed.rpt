@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Sat May 10 23:28:36 2025
+| Date         : Wed May 14 14:18:47 2025
 | Host         : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file mrb3973_test_control_sets_placed.rpt
 | Design       : mrb3973_test
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    15 |
-|    Minimum number of control sets                        |    15 |
+| Total control sets                                       |    16 |
+|    Minimum number of control sets                        |    16 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    47 |
+| Unused register locations in slices containing registers |    57 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    15 |
-| >= 0 to < 4        |     3 |
-| >= 4 to < 6        |     4 |
+| Total control sets |    16 |
+| >= 0 to < 4        |     4 |
+| >= 4 to < 6        |     3 |
 | >= 6 to < 8        |     0 |
 | >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     0 |
 | >= 14 to < 16      |     2 |
-| >= 16              |     5 |
+| >= 16              |     6 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,11 +58,11 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |               2 |            2 |
-| No           | No                    | Yes                    |              28 |           12 |
+| No           | No                    | No                     |               2 |            1 |
+| No           | No                    | Yes                    |              55 |           18 |
 | No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |              30 |           10 |
-| Yes          | No                    | Yes                    |             125 |           46 |
+| Yes          | No                    | No                     |              34 |           10 |
+| Yes          | No                    | Yes                    |             116 |           46 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
@@ -70,24 +70,25 @@ Table of Contents
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------------------+---------------------------------------+--------------------------+------------------+----------------+--------------+
-|        Clock Signal        |             Enable Signal             |     Set/Reset Signal     | Slice Load Count | Bel Load Count | Bels / Slice |
-+----------------------------+---------------------------------------+--------------------------+------------------+----------------+--------------+
-|  lcd_clk_pll/inst/clk_out1 | LCD_RESET_reg                         | cmd_ndata_writer/reset_n |                1 |              1 |         1.00 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_writer/state_reg[2]               | cmd_ndata_writer/reset_n |                1 |              1 |         1.00 |
-|  lcd_clk_pll/inst/clk_out1 |                                       |                          |                2 |              2 |         1.00 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/wr_substate_reg[2]_0 | cmd_ndata_writer/reset_n |                2 |              4 |         2.00 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/E[0]                 | cmd_ndata_writer/reset_n |                1 |              5 |         5.00 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_writer/E[0]                       | cmd_ndata_writer/reset_n |                3 |              5 |         1.67 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_data_writer/cmd_data_start_reg    | cmd_ndata_writer/reset_n |                2 |              5 |         2.50 |
-|  lcd_clk_pll/inst/clk_out1 | write_data[7]_i_1_n_0                 | cmd_ndata_writer/reset_n |                5 |              8 |         1.60 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_data[15]_i_1_n_0                  | cmd_ndata_writer/reset_n |                6 |             14 |         2.33 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_writer/E[0]                       |                          |                5 |             14 |         2.80 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_data_writer/cmd_data_start_reg    |                          |                5 |             16 |         3.20 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_data_writer/E[0]                  | cmd_ndata_writer/reset_n |                5 |             18 |         3.60 |
-|  lcd_clk_pll/inst/clk_out1 |                                       | cmd_ndata_writer/reset_n |               12 |             28 |         2.33 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/data_count_0         | cmd_ndata_writer/reset_n |                9 |             32 |         3.56 |
-|  lcd_clk_pll/inst/clk_out1 | cmd_writer/state_reg[0]_0[0]          | cmd_ndata_writer/reset_n |               11 |             32 |         2.91 |
-+----------------------------+---------------------------------------+--------------------------+------------------+----------------+--------------+
++----------------------------+-----------------------------------------+--------------------------+------------------+----------------+--------------+
+|        Clock Signal        |              Enable Signal              |     Set/Reset Signal     | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------------------+-----------------------------------------+--------------------------+------------------+----------------+--------------+
+|  lcd_clk_pll/inst/clk_out1 | LCD_RESET_reg                           | cmd_ndata_writer/reset_n |                1 |              1 |         1.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_writer/cmd_start_reg_0              | cmd_ndata_writer/reset_n |                1 |              1 |         1.00 |
+|  clk_IBUF                  | keyboard/p_0_in                         | cmd_ndata_writer/reset_n |                1 |              1 |         1.00 |
+|  lcd_clk_pll/inst/clk_out1 |                                         |                          |                1 |              2 |         2.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/E[0]                   |                          |                1 |              4 |         4.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/E[0]                   | cmd_ndata_writer/reset_n |                1 |              4 |         4.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/state_reg[1][0]        | cmd_ndata_writer/reset_n |                2 |              5 |         2.50 |
+|  lcd_clk_pll/inst/clk_out1 | write_data[7]_i_1_n_0                   | cmd_ndata_writer/reset_n |                3 |              8 |         2.67 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_data[15]_i_1_n_0                    | cmd_ndata_writer/reset_n |                7 |             14 |         2.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_writer/LCD_DATA[15]_i_1_n_0         |                          |                2 |             14 |         7.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_data_writer/LCD_DATA[15]_i_1__0_n_0 |                          |                7 |             16 |         2.29 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_data_writer/E[0]                    | cmd_ndata_writer/reset_n |                5 |             18 |         3.60 |
+|  clk_IBUF                  |                                         | cmd_ndata_writer/reset_n |                5 |             20 |         4.00 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/data_count[31]_i_1_n_0 | cmd_ndata_writer/reset_n |               11 |             32 |         2.91 |
+|  lcd_clk_pll/inst/clk_out1 | cmd_ndata_writer/state_reg[2][0]        | cmd_ndata_writer/reset_n |               14 |             32 |         2.29 |
+|  lcd_clk_pll/inst/clk_out1 |                                         | cmd_ndata_writer/reset_n |               13 |             35 |         2.69 |
++----------------------------+-----------------------------------------+--------------------------+------------------+----------------+--------------+
 
 

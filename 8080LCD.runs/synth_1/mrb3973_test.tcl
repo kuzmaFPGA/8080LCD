@@ -56,6 +56,8 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 4
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcsg325-1
 
@@ -74,6 +76,7 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_mem D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/init.mem
 read_verilog -library xil_defaultlib {
+  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/keyboard.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top.v
 }

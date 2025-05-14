@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date                      : Sat May 10 23:28:36 2025
+| Date                      : Wed May 14 14:18:47 2025
 | Host                      : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command                   : report_io -file mrb3973_test_io_placed.rpt
 | Design                    : mrb3973_test
@@ -78,7 +78,7 @@ Table of Contents
 | C5         |              |            | MGTAVCC                      | Gigabit Power |             |         |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | C6         |              |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | C7         |              |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
-| C8         | led_1        | High Range | IO_L1N_T0_AD0N_15            | TRISTATE      | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
+| C8         | led_1        | High Range | IO_L1N_T0_AD0N_15            | OUTPUT        | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | C9         |              | High Range | IO_L2N_T0_AD8N_15            | User IO       |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | C10        |              | High Range | VCCO_15                      | VCCO          |             |      15 |            |      |                     |                      |    3.30 |            |           |          |      |                  |              |                   |              |
 | C11        |              | High Range | IO_L4P_T0_15                 | User IO       |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |

@@ -62,3 +62,12 @@ set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[15]}]
 
 set_property PACKAGE_PIN D14 [get_ports lcd_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports lcd_clk]
+
+set_property -dict { PACKAGE_PIN D14 IOSTANDARD LVCMOS33 } [get_ports { row[0] }];
+set_property -dict { PACKAGE_PIN D13 IOSTANDARD LVCMOS33 } [get_ports { row[1] }];
+set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33 } [get_ports { row[2] }];
+set_property -dict { PACKAGE_PIN E13 IOSTANDARD LVCMOS33 } [get_ports { row[3] }];
+set_property -dict { PACKAGE_PIN A12 IOSTANDARD LVCMOS33 } [get_ports { col[0] }];
+set_property -dict { PACKAGE_PIN B11 IOSTANDARD LVCMOS33 } [get_ports { col[1] }];
+set_property -dict { PACKAGE_PIN D10 IOSTANDARD LVCMOS33 } [get_ports { col[2] }];
+set_property -dict { PACKAGE_PIN D9  IOSTANDARD LVCMOS33 } [get_ports { col[3] }];
