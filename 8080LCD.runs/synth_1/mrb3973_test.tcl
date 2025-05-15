@@ -74,6 +74,7 @@ set_property ip_output_repo d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip [current
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
+read_verilog D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
 read_mem D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/init.mem
 read_verilog -library xil_defaultlib {
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/keyboard.v

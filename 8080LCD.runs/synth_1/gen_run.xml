@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1747221424" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mrb3973_test.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1747226393" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mrb3973_test.dcp">
   <File Type="PA-TCL" Name="mrb3973_test.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="mrb3973_test_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="mrb3973_test_reports.tcl"/>
@@ -11,6 +11,19 @@
   <File Type="VDS-TIMING-PB" Name="mrb3973_test_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/constants.vh">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+        <Attr Name="IsVisible" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/init.mem">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/keyboard.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -29,12 +42,6 @@
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/init.mem">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
