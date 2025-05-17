@@ -60,14 +60,43 @@ set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[14]}]
 set_property PACKAGE_PIN C17 [get_ports {LCD_DATA[15]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {LCD_DATA[15]}]
 
-set_property PACKAGE_PIN D14 [get_ports lcd_clk]
-set_property IOSTANDARD LVCMOS33 [get_ports lcd_clk]
+set_property PACKAGE_PIN D14 [get_ports {row_data_in[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row_data_in[0]}]
+set_property PACKAGE_PIN D13 [get_ports {row_data_in[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row_data_in[1]}]
+set_property PACKAGE_PIN C12 [get_ports {row_data_in[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row_data_in[2]}]
+set_property PACKAGE_PIN E13 [get_ports {row_data_in[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row_data_in[3]}]
+set_property PACKAGE_PIN A12 [get_ports {col_data_out[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col_data_out[0]}]
+set_property PACKAGE_PIN B11 [get_ports {col_data_out[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col_data_out[1]}]
+set_property PACKAGE_PIN D10 [get_ports {col_data_out[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col_data_out[2]}]
+set_property PACKAGE_PIN D9 [get_ports {col_data_out[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col_data_out[3]}]
 
-set_property -dict { PACKAGE_PIN D14 IOSTANDARD LVCMOS33 } [get_ports { row[0] }];
-set_property -dict { PACKAGE_PIN D13 IOSTANDARD LVCMOS33 } [get_ports { row[1] }];
-set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33 } [get_ports { row[2] }];
-set_property -dict { PACKAGE_PIN E13 IOSTANDARD LVCMOS33 } [get_ports { row[3] }];
-set_property -dict { PACKAGE_PIN A12 IOSTANDARD LVCMOS33 } [get_ports { col[0] }];
-set_property -dict { PACKAGE_PIN B11 IOSTANDARD LVCMOS33 } [get_ports { col[1] }];
-set_property -dict { PACKAGE_PIN D10 IOSTANDARD LVCMOS33 } [get_ports { col[2] }];
-set_property -dict { PACKAGE_PIN D9  IOSTANDARD LVCMOS33 } [get_ports { col[3] }];
+set_property PACKAGE_PIN F14 [get_ports {la_out[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {la_out[0]}]
+set_property PACKAGE_PIN B12 [get_ports {la_out[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {la_out[1]}]
+set_property PACKAGE_PIN C11 [get_ports {la_out[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {la_out[2]}]
+set_property PACKAGE_PIN D11 [get_ports {la_out[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {la_out[3]}]
+set_property PACKAGE_PIN C9 [get_ports {la_out[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {la_out[4]}]
+
+#set_property PACKAGE_PIN A10 [get_ports {la_out[5]}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {la_out[5]}]
+#set_property PACKAGE_PIN A9 [get_ports {la_out[6]}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {la_out[6]}]
+#set_property PACKAGE_PIN B10 [get_ports {la_out[7]}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {la_out[7]}]
+
+
+set_property PULLTYPE PULLUP [get_ports {col_data_out[3]}]
+set_property PULLTYPE PULLUP [get_ports {col_data_out[2]}]
+set_property PULLTYPE PULLUP [get_ports {col_data_out[1]}]
+set_property PULLTYPE PULLUP [get_ports {col_data_out[0]}]
