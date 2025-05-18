@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date             : Wed May 14 14:19:08 2025
+| Date             : Sun May 18 10:52:21 2025
 | Host             : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command          : report_power -file mrb3973_test_power_routed.rpt -pb mrb3973_test_power_summary_routed.pb -rpx mrb3973_test_power_routed.rpx
 | Design           : mrb3973_test
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.190        |
+| Total On-Chip Power (W)  | 0.193        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.118        |
+| Dynamic (W)              | 0.121        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.8          |
 | Max Ambient (C)          | 84.1         |
@@ -59,11 +59,11 @@ Table of Contents
 |   Register     |    <0.001 |      207 |     41600 |            0.50 |
 |   F7/F8 Muxes  |    <0.001 |       47 |     32600 |            0.14 |
 |   Others       |     0.000 |       13 |       --- |             --- |
-| Signals        |    <0.001 |      487 |       --- |             --- |
+| Signals        |    <0.001 |      485 |       --- |             --- |
 | MMCM           |     0.105 |        1 |         5 |           20.00 |
-| I/O            |     0.011 |       27 |       150 |           18.00 |
+| I/O            |     0.014 |       32 |       150 |           21.33 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.190 |          |           |                 |
+| Total          |     0.193 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Vccint    |       1.000 |     0.012 |       0.002 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.071 |       0.059 |      0.013 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.004 |       0.003 |      0.001 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.005 |       0.004 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -144,7 +144,7 @@ Table of Contents
 +---------------+-----------+
 | Name          | Power (W) |
 +---------------+-----------+
-| mrb3973_test  |     0.118 |
+| mrb3973_test  |     0.121 |
 |   lcd_clk_pll |     0.105 |
 |     inst      |     0.105 |
 +---------------+-----------+

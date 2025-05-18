@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Wed May 14 14:18:02 2025
+| Date         : Sun May 18 10:51:15 2025
 | Host         : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command      : report_utilization -file mrb3973_test_utilization_synth.rpt -pb mrb3973_test_utilization_synth.pb
 | Design       : mrb3973_test
@@ -93,7 +93,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |   27 |     0 |          0 |       150 | 18.00 |
+| Bonded IOB                  |   32 |     0 |          0 |       150 | 21.33 |
 | Bonded IPADs                |    0 |     0 |          0 |        14 |  0.00 |
 | Bonded OPADs                |    0 |     0 |          0 |         8 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         5 |  0.00 |
@@ -163,8 +163,8 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | LUT3     |   26 |                 LUT |
 | CARRY4   |   21 |          CarryLogic |
 | OBUFT    |   17 |                  IO |
+| OBUF     |   13 |                  IO |
 | FDPE     |    9 |        Flop & Latch |
-| OBUF     |    8 |                  IO |
 | MUXF8    |    7 |               MuxFx |
 | IBUF     |    2 |                  IO |
 +----------+------+---------------------+

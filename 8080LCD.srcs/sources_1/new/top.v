@@ -10,7 +10,8 @@ module mrb3973_test (
     output           LCD_RDX,    // RDX (read control)
     output           led_1,      // LED для дебагу
     output           led_2,      // LED для PLL
-    output           lcd_clk     // Тактовий сигнал для LCD
+    output           lcd_clk,     // Тактовий сигнал для LCD
+    output    [4:0]  la_out
 );
 localparam LCD_FREQ_MHZ = 62500;
 // Регістри для вихідних сигналів
@@ -89,7 +90,7 @@ localparam S_INIT = 5'd0,           // Очікування PLL
 
 // Станова машина
 reg [4:0] state;             // 5 біт для підтримки всіх станів
-
+assign la_out = state;
 // Лічильник затримок
 reg [31:0] delay_counter;
 
