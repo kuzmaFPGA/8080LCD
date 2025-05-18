@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Sun May 18 09:12:48 2025
+| Date         : Sun May 18 18:30:51 2025
 | Host         : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_level_control_sets_placed.rpt
 | Design       : top_level
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    23 |
-|    Minimum number of control sets                        |    23 |
+| Total control sets                                       |    21 |
+|    Minimum number of control sets                        |    21 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    76 |
+| Unused register locations in slices containing registers |    73 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    23 |
-| >= 0 to < 4        |     2 |
-| >= 4 to < 6        |    10 |
+| Total control sets |    21 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     7 |
 | >= 6 to < 8        |     0 |
-| >= 8 to < 10       |     1 |
+| >= 8 to < 10       |     3 |
 | >= 10 to < 12      |     0 |
-| >= 12 to < 14      |     0 |
+| >= 12 to < 14      |     1 |
 | >= 14 to < 16      |     2 |
-| >= 16              |     8 |
+| >= 16              |     5 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,44 +58,42 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |               0 |            0 |
-| No           | No                    | Yes                    |              58 |           22 |
+| No           | No                    | No                     |               2 |            1 |
+| No           | No                    | Yes                    |              55 |           16 |
 | No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |              35 |            9 |
-| Yes          | No                    | Yes                    |             175 |           65 |
-| Yes          | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |              22 |            7 |
+| Yes          | No                    | Yes                    |             136 |           51 |
+| Yes          | Yes                   | No                     |               8 |            3 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+-------------------------------------+---------------------------------------------------------+-------------------------------------+------------------+----------------+--------------+
-|             Clock Signal            |                      Enable Signal                      |           Set/Reset Signal          | Slice Load Count | Bel Load Count | Bels / Slice |
-+-------------------------------------+---------------------------------------------------------+-------------------------------------+------------------+----------------+--------------+
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/LCD_BL_reg_i_1_n_0                             | lcd_inst/cmd_ndata_writer/reset_n   |                1 |              1 |         1.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/LCD_RESET_reg_i_1_n_0                          | lcd_inst/cmd_ndata_writer/reset_n   |                1 |              1 |         1.00 |
-|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[0]                             | lcd_inst/cmd_ndata_writer/reset_n   |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Sum[3]_i_1_n_0                      | lcd_inst/cmd_ndata_writer/reset_n   |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG                      | keypad_inst/Scanner/RowColVector[3]_i_1_n_0             | lcd_inst/cmd_ndata_writer/reset_n   |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[5]                             | lcd_inst/cmd_ndata_writer/reset_n   |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[10]                            | lcd_inst/cmd_ndata_writer/reset_n   |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[13]                            | lcd_inst/cmd_ndata_writer/reset_n   |                1 |              4 |         4.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/state_reg[0][0]                | lcd_inst/cmd_ndata_writer/reset_n   |                2 |              4 |         2.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/state_reg[1][0]                | lcd_inst/cmd_ndata_writer/reset_n   |                2 |              4 |         2.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_ndata_writer/FSM_sequential_state_reg[0]_0 | lcd_inst/cmd_ndata_writer/reset_n   |                1 |              4 |         4.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_ndata_writer/FSM_sequential_state_reg[0]_0 |                                     |                1 |              5 |         5.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/write_data                                     | lcd_inst/cmd_ndata_writer/reset_n   |                4 |              9 |         2.25 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data                                       | lcd_inst/cmd_ndata_writer/reset_n   |               10 |             14 |         1.40 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_writer/LCD_DATA[15]_i_1_n_0                |                                     |                3 |             14 |         4.67 |
-|  clk_IBUF_BUFG                      |                                                         | lcd_inst/cmd_ndata_writer/reset_n   |                5 |             16 |         3.20 |
-|  clk_IBUF_BUFG                      |                                                         | keypad_inst/Scanner/LFSRReset_reg_0 |                5 |             16 |         3.20 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/LCD_DATA[15]_i_1__0_n_0        |                                     |                5 |             16 |         3.20 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/E[0]                           | lcd_inst/cmd_ndata_writer/reset_n   |                6 |             18 |         3.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 |                                                         | lcd_inst/cmd_ndata_writer/reset_n   |               12 |             26 |         2.17 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/total_pixels[31]_i_1_n_0                       | lcd_inst/cmd_ndata_writer/reset_n   |                8 |             32 |         4.00 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_ndata_writer/data_count                    | lcd_inst/cmd_ndata_writer/reset_n   |                7 |             32 |         4.57 |
-|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_writer/E[0]                                | lcd_inst/cmd_ndata_writer/reset_n   |               13 |             32 |         2.46 |
-+-------------------------------------+---------------------------------------------------------+-------------------------------------+------------------+----------------+--------------+
++-------------------------------------+------------------------------------------------+-----------------------------------------------+------------------+----------------+--------------+
+|             Clock Signal            |                  Enable Signal                 |                Set/Reset Signal               | Slice Load Count | Bel Load Count | Bels / Slice |
++-------------------------------------+------------------------------------------------+-----------------------------------------------+------------------+----------------+--------------+
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/LCD_BL_reg_i_1_n_0                    | lcd_inst/cmd_ndata_writer/reset_n             |                1 |              1 |         1.00 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/LCD_RESET_reg                         | lcd_inst/cmd_ndata_writer/reset_n             |                1 |              1 |         1.00 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 |                                                |                                               |                1 |              2 |         2.00 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_ndata_writer/wr_substate_reg[2]_0 | lcd_inst/cmd_ndata_writer/reset_n             |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Sum[3]_i_1_n_0             | lcd_inst/cmd_ndata_writer/reset_n             |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[10]                   | lcd_inst/cmd_ndata_writer/reset_n             |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[0]                    | lcd_inst/cmd_ndata_writer/reset_n             |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[13]                   | lcd_inst/cmd_ndata_writer/reset_n             |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                      | keypad_inst/Scanner/Data[5]                    | lcd_inst/cmd_ndata_writer/reset_n             |                1 |              4 |         4.00 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/E[0]                  | lcd_inst/cmd_ndata_writer/reset_n             |                2 |              5 |         2.50 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/LCD_DATA[7]_i_1_n_0   |                                               |                3 |              8 |         2.67 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/LCD_DATA[7]_i_1_n_0   | lcd_inst/cmd_data_writer/LCD_DATA[15]_i_1_n_0 |                3 |              8 |         2.67 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/write_data[15]_i_1_n_0                | lcd_inst/cmd_ndata_writer/reset_n             |                4 |              9 |         2.25 |
+|  clk_IBUF_BUFG                      |                                                | lcd_inst/cmd_ndata_writer/reset_n             |                4 |             13 |         3.25 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_writer/LCD_DATA[15]_i_1__0_n_0    |                                               |                4 |             14 |         3.50 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data[15]_i_1_n_0                  | lcd_inst/cmd_ndata_writer/reset_n             |                7 |             14 |         2.00 |
+|  clk_IBUF_BUFG                      |                                                | keypad_inst/Scanner/LFSRReset_reg_0           |                3 |             16 |         5.33 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_data_writer/done_reg_1[0]         | lcd_inst/cmd_ndata_writer/reset_n             |                5 |             18 |         3.60 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 |                                                | lcd_inst/cmd_ndata_writer/reset_n             |                9 |             26 |         2.89 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_writer/E[0]                       | lcd_inst/cmd_ndata_writer/reset_n             |               15 |             32 |         2.13 |
+|  lcd_inst/lcd_clk_pll/inst/clk_out1 | lcd_inst/cmd_ndata_writer/data_count_0         | lcd_inst/cmd_ndata_writer/reset_n             |                8 |             32 |         4.00 |
++-------------------------------------+------------------------------------------------+-----------------------------------------------+------------------+----------------+--------------+
 
 

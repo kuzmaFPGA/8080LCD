@@ -12,7 +12,8 @@ module top_level (
     output        LCD_RESET,
     output        LCD_BL,
     output        LCD_RDX,
-    output [4:0]  la_out
+    output [7:0]  la_out,
+    output        led_1
 );
 
 wire key_ready;
@@ -22,19 +23,19 @@ reg  key_read;
 reg  [15:0] fill_color;
 reg  update_screen;
 reg  [15:0] x_start, x_end, y_start, y_end;
-wire [4:0] state_mashine;
+wire [7:0] debug_port_1;
 reg  init_screen; // Новий регістр для ініціалізації екрана
 
-assign la_out = state_mashine;
+assign la_out[7:0] = debug_port_1;
 
 lcd lcd_inst (
     .clk(clk),
     .reset_n(reset_n),
-    .fill_color(fill_color), // Використовуємо змінну fill_color
-    .x_start(x_start),
-    .x_end(x_end),
-    .y_start(y_start),
-    .y_end(y_end),
+    .fill_color(RED),
+    .x_start(0),
+    .x_end(479),
+    .y_start(0),
+    .y_end(799),
     .update_screen(update_screen),
     .LCD_DATA(LCD_DATA),
     .LCD_WR(LCD_WR),
@@ -43,7 +44,9 @@ lcd lcd_inst (
     .LCD_RESET(LCD_RESET),
     .LCD_BL(LCD_BL),
     .LCD_RDX(LCD_RDX),
-    .state_mashine_out(state_mashine)
+    .debug_port_1(debug_port_1),
+    .led_1_reg(led_1),
+    .led_2_reg(led_2)
 );
 
 KeyPadInterpreter keypad_inst (

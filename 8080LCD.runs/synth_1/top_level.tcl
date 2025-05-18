@@ -58,6 +58,7 @@ if {$::dispatch::connected} {
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 4
 set_param xicom.use_bs_reader 1
+set_msg_config -id {Synth 8-3332} -limit 0
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcsg325-1
 
@@ -74,12 +75,15 @@ set_property ip_output_repo d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip [current
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
 read_mem D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/init.mem
+read_verilog -library xil_defaultlib -sv {
+  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
+  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v
+}
+set_property file_type SystemVerilog [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/constants.vh]
 read_verilog -library xil_defaultlib {
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v
-  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v
