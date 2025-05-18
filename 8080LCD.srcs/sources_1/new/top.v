@@ -85,12 +85,14 @@ localparam S_INIT = 5'd0,           // Очікування PLL
            S_SET_ADDR = 5'd26,      // Встановлення адреси (0x2C00)
            S_PREP_FILL = 5'd27,     // Підготовка до заповнення пікселів
            S_FILL_PIXELS = 5'd28,   // Заповнення пікселів
-           S_LOOP = 5'd29,          // Повторне заповнення
-           S_PAUSE = 5'd30;         // пауза
+           S_NOOP   = 5'd29,
+           S_LOOP = 5'd30,          // Повторне заповнення
+           S_PAUSE = 5'd31;         // пауза
 
 // Станова машина
 reg [4:0] state;             // 5 біт для підтримки всіх станів
-assign la_out = state;
+reg [4:0] count;
+assign la_out = count;
 // Лічильник затримок
 reg [31:0] delay_counter;
 
@@ -295,7 +297,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
         write_data <= 0;
         read_start <= 0;
         lcd_id <= 0;
+        count <=0;
+        fillcolor <= RED;
     end else begin
+        fillcolor <= fillcolor;
         case (state)
             S_INIT: begin // Очікування PLL
                 if (pll_locked) begin
@@ -582,9 +587,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
             end
             S_BACKLIGHT: begin // Увімкнення підсвітки
                 state <= S_SET_ADDR;
-                fillcolor <= GREEN;
+                //fillcolor <= GREEN;
             end
             S_SET_ADDR: begin // Встановлення адреси (команда 0x2C00)
+                
                 if (!cmd_start) begin
                     cmd_data <= 16'h2C00;
                     active_writer <= WRITER_CMD;
@@ -592,6 +598,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_done) begin
                     cmd_start <= 0;
                     active_writer <= WRITER_NONE;
+                    count <= count + 1;
                     state <= S_PREP_FILL;
                 end
             end
@@ -607,8 +614,20 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     cmd_ndata_start <= 0;
                     active_writer <= WRITER_NONE;
                     delay_counter <= 1000 * LCD_FREQ_MHZ; // 1 с затримка
-                    state <= S_PAUSE;
+                    state <= S_NOOP;
                 end
+            end
+            S_NOOP: begin
+                if (!cmd_data_start) begin
+                    cmd_data <= 16'h0000;
+                    write_data <= 16'h0000; 
+                    active_writer <= WRITER_CMD_DATA;
+                    cmd_data_start <= 1;
+                end else if (cmd_data_done) begin
+                    cmd_data_start <= 0;
+                    active_writer <= WRITER_NONE;
+                    state <= S_PAUSE;
+                end            
             end
             S_PAUSE : begin
                 if (delay_counter > 0) begin
@@ -618,8 +637,37 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end
             end
             S_LOOP: begin // Повторне заповнення
-                fillcolor <= GRAY;
-                state <= S_SET_ADDR;
+                
+                case (count)
+                5'd1: fillcolor <= GRAY;
+                5'd2: fillcolor <= WHITE;
+ 5'd3:fillcolor <= BLACK; 
+ 5'd4:fillcolor <= BLUE; 
+ 5'd5:fillcolor <= BRED;
+ 5'd6:fillcolor <= GRED;
+ 5'd7:fillcolor <= GBLUE;
+ 5'd8:fillcolor <= RED;
+ 5'd9:fillcolor <= MAGENTA;
+ 5'd10:fillcolor <= GREEN;
+ 5'd11:fillcolor <= CYAN;
+ 5'd12:fillcolor <= YELLOW;
+ 5'd13:fillcolor <= BROWN; 
+ 5'd14:fillcolor <= BRRED;
+ 5'd15:fillcolor <= GRAY ; 
+
+ 5'd16:fillcolor <= DARKBLUE;	
+ 5'd17:fillcolor <= LIGHTBLUE; 
+ 5'd18:fillcolor <= GRAYBLUE; 
+
+ 5'd19:fillcolor <= LIGHTGREEN; 
+ 5'd20:fillcolor <= LIGHTGRAY; 
+ 5'd21:fillcolor <= LGRAY; 
+
+ 5'd22:fillcolor <= LGRAYBLUE; 
+ 5'd23:fillcolor <= LBBLUE;
+ 5'd24:count <=0;
+ endcase
+                state <= S_SET_XSTART_H;
             end
             default: state <= S_INIT;
         endcase
