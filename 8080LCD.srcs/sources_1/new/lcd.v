@@ -15,7 +15,7 @@ module lcd (
     output           LCD_CS,     // CSX (active low)
     output           LCD_RESET,  // LCD reset (active low)
     output           LCD_BL,     // Backlight
-    output           LCD_RDX,     // RDX (read control)
+    output           LCD_RDX,    // RDX (read control)
     output    [4:0]  state_mashine_out
 );
 
@@ -62,8 +62,9 @@ reg [15:0] write_data;       // Data for cmd_data module
 
 // State machine
 reg [4:0] state;             // 5 bits for all states
-reg [2:0] fill_substate;
+reg [4:0] fill_substate;     // Changed to 5 bits to match constants
 assign state_mashine_out = state;
+
 // Delay counter
 reg [31:0] delay_counter;
 
@@ -159,49 +160,50 @@ always @(*) begin
             LCD_WR_reg = 1;
             LCD_RDX_reg = 1;
             LCD_DATA_reg = 16'h0000;
-		end
+        end
         WRITER_CMD: begin
             LCD_CS_reg = cmd_LCD_CS;
             LCD_RS_reg = cmd_LCD_RS;
             LCD_WR_reg = cmd_LCD_WR;
             LCD_RDX_reg = cmd_LCD_RDX;
             LCD_DATA_reg = cmd_LCD_DATA;
-		end
+        end
         WRITER_CMD_DATA: begin
             LCD_CS_reg = cmd_data_LCD_CS;
             LCD_RS_reg = cmd_data_LCD_RS;
             LCD_WR_reg = cmd_data_LCD_WR;
             LCD_RDX_reg = cmd_data_LCD_RDX;
             LCD_DATA_reg = cmd_data_LCD_DATA;
-		end
+        end
         WRITER_CMD_NDATA: begin
             LCD_CS_reg = cmd_ndata_LCD_CS;
             LCD_RS_reg = cmd_ndata_LCD_RS;
             LCD_WR_reg = cmd_ndata_LCD_WR;
             LCD_RDX_reg = cmd_ndata_LCD_RDX;
             LCD_DATA_reg = cmd_ndata_LCD_DATA;
-		end
+        end
         WRITER_READ: begin
             LCD_CS_reg = cmd_read_LCD_CS;
             LCD_RS_reg = cmd_read_LCD_RS;
             LCD_WR_reg = cmd_read_LCD_WR;
             LCD_RDX_reg = cmd_read_LCD_RDX;
             LCD_DATA_reg = 16'hZZZZ; // High impedance for reading
-		end
+        end
         default: begin
             LCD_CS_reg = 1;
             LCD_RS_reg = 0;
             LCD_WR_reg = 1;
             LCD_RDX_reg = 1;
             LCD_DATA_reg = 16'hzzzz;
-		end
-	endcase
+        end
+    endcase
 end
 
 // FSM logic
 always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
         state <= S_INIT;
+        fill_substate <= S_IDLE;
         pixel_cnt <= 0;
         total_pixels <= 0;
         LCD_RESET_reg <= 0;
@@ -216,7 +218,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
         write_data <= 0;
         read_start <= 0;
         lcd_id <= 0;
-		end else begin
+    end else begin
         case (state)
             S_INIT: begin // Wait for PLL
                 if (pll_locked) begin
@@ -224,24 +226,24 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     init_rom_addr <= 0;
                     delay_counter <= 100 * LCD_FREQ_MHZ; // 100 ms at 8 MHz
                     state <= S_RESET_LOW;
-				end
-			end
+                end
+            end
             S_RESET_LOW: begin // Low reset
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
-					end else begin
+                end else begin
                     LCD_RESET_reg <= 1;
                     delay_counter <= 50 * LCD_FREQ_MHZ; // 50 ms
                     state <= S_RESET_HIGH;
-				end
-			end
+                end
+            end
             S_RESET_HIGH: begin // High reset
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
-					end else begin
+                end else begin
                     state <= S_ROM_INIT;
-				end
-			end
+                end
+            end
             S_ROM_INIT: begin // ROM initialization
                 if (init_rom_addr <= 778) begin
                     if (!cmd_data_start) begin
@@ -249,204 +251,208 @@ always @(posedge lcd_clk or negedge reset_n) begin
                         write_data <= init_rom[init_rom_addr + 1];
                         active_writer <= WRITER_CMD_DATA;
                         cmd_data_start <= 1;
-						end else if (cmd_data_done) begin
+                    end else if (cmd_data_done) begin
                         cmd_data_start <= 0;
                         active_writer <= WRITER_NONE;
                         init_rom_addr <= init_rom_addr + 2;
-					end
-					end else begin
+                    end
+                end else begin
                     state <= S_SOFT_RESET;
-				end
-			end
+                end
+            end
             S_SOFT_RESET: begin // Soft reset
                 if (!cmd_start) begin
                     cmd_data <= 16'h1100;
                     active_writer <= WRITER_CMD;
                     cmd_start <= 1;
-					end else if (cmd_done) begin
+                end else if (cmd_done) begin
                     cmd_start <= 0;
                     active_writer <= WRITER_NONE;
                     delay_counter <= 120 * LCD_FREQ_MHZ; // 120 ms delay
                     state <= S_DELAY;
-				end
-			end
+                end
+            end
             S_DELAY: begin // Delay after initialization
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
-					end else begin
+                end else begin
                     state <= S_DISPLAY_ON;
-				end
-			end
-			S_DISPLAY_ON: begin // Enable display (0x2900)
+                end
+            end
+            S_DISPLAY_ON: begin // Enable display (0x2900)
                 if (!cmd_start) begin
                     cmd_data <= 16'h2900;
                     active_writer <= WRITER_CMD;
                     cmd_start <= 1;
-					end else if (cmd_done) begin
-                    cmd_start <= 0;
-                    LCD_BL_reg <= 1; // Enable backlight
-                    active_writer <= WRITER_NONE;
-                    state <= S_SET_ADDR;
-				end
-			end
-			S_SET_ADDR: begin // Set address (0x2C00)
-                if (!cmd_start) begin
-                    cmd_data <= 16'h2C00;
-                    active_writer <= WRITER_CMD;
-                    cmd_start <= 1;
-					end else if (cmd_done) begin
+                end else if (cmd_done) begin
                     cmd_start <= 0;
                     active_writer <= WRITER_NONE;
-                    state <= S_BACKLIGHT;
-				end
-			end
-            S_BACKLIGHT: begin // Backlight on
-                LCD_BL_reg <= 1;
-                state <= S_SET_DIR;
-			end
-			S_SET_DIR: begin // Set direction (0x3600, 0x00)
+                    state <= S_SET_DIR;
+                end
+            end
+            S_SET_DIR: begin // Set direction (0x3600, 0x00)
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h3600;
                     write_data <= 16'h00;
                     active_writer <= WRITER_CMD_DATA;
                     cmd_data_start <= 1;
-					end else if (cmd_data_done) begin
+                end else if (cmd_data_done) begin
                     cmd_data_start <= 0;
                     active_writer <= WRITER_NONE;
-                    fill_substate <=  S_FILL;
-				end
-			end
-            S_FILL: begin
-				case (fill_substate)
-            		S_IDLE: begin
-						fill_substate <=S_SET_XSTART_H;
-					end
-					S_SET_XSTART_H: begin // Set xStart high byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2A00;
-							write_data <= (x_start >> 8);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_XSTART_L;
-						end
-					end
-					S_SET_XSTART_L: begin // Set xStart low byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2A01;
-							write_data <= (x_start & 16'hFF);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_XEND_H;
-						end
-					end
-					S_SET_XEND_H: begin // Set xEnd high byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2A02;
-							write_data <= (x_end >> 8);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_XEND_L;
-						end
-					end
-					S_SET_XEND_L: begin // Set xEnd low byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2A03;
-							write_data <= (x_end & 16'hFF);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_YSTART_H;
-						end
-					end
-					S_SET_YSTART_H: begin // Set yStart high byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2B00;
-							write_data <= (y_start >> 8);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_YSTART_L;
-						end
-					end
-					S_SET_YSTART_L: begin // Set yStart low byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2B01;
-							write_data <= (y_start & 16'hFF);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_YEND_H;
-						end
-					end
-					S_SET_YEND_H: begin // Set yEnd high byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2B02;
-							write_data <= (y_end >> 8);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_SET_YEND_L;
-						end
-					end
-					S_SET_YEND_L: begin // Set yEnd low byte
-						if (!cmd_data_start) begin
-							cmd_data <= 16'h2B03;
-							write_data <= (y_end & 16'hFF);
-							active_writer <= WRITER_CMD_DATA;
-							cmd_data_start <= 1;
-							end else if (cmd_data_done) begin
-							cmd_data_start <= 0;
-							active_writer <= WRITER_NONE;
-							fill_substate <= S_PREP_FILL;
-						end
-					end
-					
-					S_PREP_FILL: begin // Prepare for pixel fill
-						pixel_cnt <= 0;
-						total_pixels <= (x_end - x_start + 1) * (y_end - y_start + 1);
-						fill_substate <= S_FILL_PIXELS;
-					end
-					S_FILL_PIXELS: begin // Fill pixels
-						if (!cmd_ndata_start) begin
-							active_writer <= WRITER_CMD_NDATA;
-							cmd_ndata_start <= 1;
-							end else if (cmd_ndata_done) begin
-							cmd_ndata_start <= 0;
-							active_writer <= WRITER_NONE;
-							delay_counter <= 1000 * LCD_FREQ_MHZ; // 1 s delay
-							fill_substate <= S_PAUSE;
-						end
-					end
-				endcase
-			end
-            S_PAUSE: begin
-                if (delay_counter > 0) begin
-                    delay_counter <= delay_counter - 1;
-					end else begin
-					fill_substate <= S_IDLE;
                     state <= S_FILL;
-				end
-			end
+                    fill_substate <= S_IDLE;
+                end
+            end
+            S_FILL: begin
+                case (fill_substate)
+                    S_IDLE: begin
+//                        if (update_screen) begin
+                            fill_substate <= S_SET_XSTART_H;
+//                        end
+                    end
+                    S_SET_XSTART_H: begin // Set xStart high byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2A00;
+                            write_data <= (x_end >= x_start) ? (x_start >> 8) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_XSTART_L;
+                        end
+                    end
+                    S_SET_XSTART_L: begin // Set xStart low byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2A01;
+                            write_data <= (x_end >= x_start) ? (x_start & 16'hFF) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_XEND_H;
+                        end
+                    end
+                    S_SET_XEND_H: begin // Set xEnd high byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2A02;
+                            write_data <= (x_end >= x_start) ? (x_end >> 8) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_XEND_L;
+                        end
+                    end
+                    S_SET_XEND_L: begin // Set xEnd low byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2A03;
+                            write_data <= (x_end >= x_start) ? (x_end & 16'hFF) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_YSTART_H;
+                        end
+                    end
+                    S_SET_YSTART_H: begin // Set yStart high byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2B00;
+                            write_data <= (y_end >= y_start) ? (y_start >> 8) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_YSTART_L;
+                        end
+                    end
+                    S_SET_YSTART_L: begin // Set yStart low byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2B01;
+                            write_data <= (y_end >= y_start) ? (y_start & 16'hFF) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_YEND_H;
+                        end
+                    end
+                    S_SET_YEND_H: begin // Set yEnd high byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2B02;
+                            write_data <= (y_end >= y_start) ? (y_end >> 8) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_YEND_L;
+                        end
+                    end
+                    S_SET_YEND_L: begin // Set yEnd low byte
+                        if (!cmd_data_start) begin
+                            cmd_data <= 16'h2B03;
+                            write_data <= (y_end >= y_start) ? (y_end & 16'hFF) : 0;
+                            active_writer <= WRITER_CMD_DATA;
+                            cmd_data_start <= 1;
+                        end else if (cmd_data_done) begin
+                            cmd_data_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_SET_ADDR;
+                        end
+                    end
+                    S_SET_ADDR: begin // Set address (0x2C00)
+                        if (!cmd_start) begin
+                            cmd_data <= 16'h2C00;
+                            active_writer <= WRITER_CMD;
+                            cmd_start <= 1;
+                        end else if (cmd_done) begin
+                            cmd_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            fill_substate <= S_PREP_FILL;
+                        end
+                    end
+                    S_PREP_FILL: begin // Prepare for pixel fill
+                        pixel_cnt <= 0;
+                        total_pixels <= (x_end >= x_start && y_end >= y_start) ? 
+                                        ((x_end - x_start + 1) * (y_end - y_start + 1)) : 0;
+                        fill_substate <= S_FILL_PIXELS;
+                    end
+                    S_FILL_PIXELS: begin // Fill pixels
+                        if (!cmd_ndata_start) begin
+                            active_writer <= WRITER_CMD_NDATA;
+                            cmd_ndata_start <= 1;
+                        end else if (cmd_ndata_done) begin
+                            cmd_ndata_start <= 0;
+                            active_writer <= WRITER_NONE;
+                            delay_counter <= 1000 * LCD_FREQ_MHZ; // 1 s delay
+                            fill_substate <= S_PAUSE;
+                        end
+                    end
+                    S_PAUSE: begin
+                        if (delay_counter > 0) begin
+                            delay_counter <= delay_counter - 1;
+                        end else begin
+                            fill_substate <= S_IDLE;
+                            state <= S_BACKLIGHT;
+                        end
+                    end
+                    default: fill_substate <= S_IDLE;
+                endcase
+            end
+            S_BACKLIGHT: begin // Backlight on
+                LCD_BL_reg <= 1;
+                state <= S_FILL;
+                fill_substate <= S_IDLE;
+            end
             default: state <= S_INIT;
-		endcase
-	end
+        endcase
+    end
 end
 
 endmodule

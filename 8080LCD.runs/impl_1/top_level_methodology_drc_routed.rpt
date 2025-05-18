@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Sat May 17 22:56:19 2025
+| Date         : Sun May 18 09:13:10 2025
 | Host         : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_level_methodology_drc_routed.rpt -pb top_level_methodology_drc_routed.pb -rpx top_level_methodology_drc_routed.rpx
 | Design       : top_level
@@ -23,12 +23,13 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 57
+             Violations found: 60
 +-----------+------------------+-------------------------------------------+------------+
 | Rule      | Severity         | Description                               | Violations |
 +-----------+------------------+-------------------------------------------+------------+
 | TIMING-17 | Critical Warning | Non-clocked sequential cell               | 56         |
 | TIMING-27 | Critical Warning | Invalid primary clock on hierarchical pin | 1          |
+| SYNTH-10  | Warning          | Wide multiplier                           | 3          |
 +-----------+------------------+-------------------------------------------+------------+
 
 2. REPORT DETAILS
@@ -316,6 +317,21 @@ Related violations: <none>
 TIMING-27#1 Critical Warning
 Invalid primary clock on hierarchical pin  
 A primary clock lcd_inst/lcd_clk_pll/inst/clk_in1 is created on an inappropriate internal pin lcd_inst/lcd_clk_pll/inst/clk_in1. It is not recommended to create a primary clock on a hierarchical pin when its driver pin has a fanout connected to multiple clock pins
+Related violations: <none>
+
+SYNTH-10#1 Warning
+Wide multiplier  
+Detected multiplier at lcd_inst/total_pixels1 of size 18x18, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#2 Warning
+Wide multiplier  
+Detected multiplier at lcd_inst/total_pixels1__0 of size 18x16, it is decomposed from a wide multipler into 4 DSP blocks.
+Related violations: <none>
+
+SYNTH-10#3 Warning
+Wide multiplier  
+Detected multiplier at lcd_inst/total_pixels1__1 of size 16x18, it is decomposed from a wide multipler into 4 DSP blocks.
 Related violations: <none>
 
 

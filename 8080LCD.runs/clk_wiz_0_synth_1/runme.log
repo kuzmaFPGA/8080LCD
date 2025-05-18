@@ -8,18 +8,18 @@
   **** SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
   **** IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
   **** SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
-  **** Start of session at: Sat May 17 18:52:35 2025
+  **** Start of session at: Sun May 18 08:51:43 2025
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source clk_wiz_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 539.516 ; gain = 140.684
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 539.457 ; gain = 139.426
 INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: clk_wiz_0
-INFO: [IP_Flow 19-6922] IPCACHE: Exporting cached entry 00e7f914f37cb99e to dir: D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/0/0/00e7f914f37cb99e/clk_wiz_0.dcp to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0.dcp.
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/0/0/00e7f914f37cb99e/clk_wiz_0_sim_netlist.v to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_sim_netlist.v.
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/0/0/00e7f914f37cb99e/clk_wiz_0_sim_netlist.vhdl to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_sim_netlist.vhdl.
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/0/0/00e7f914f37cb99e/clk_wiz_0_stub.v to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_stub.v.
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/0/0/00e7f914f37cb99e/clk_wiz_0_stub.vhdl to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_stub.vhdl.
-INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP clk_wiz_0, cache-ID = 00e7f914f37cb99e.
-INFO: [Common 17-206] Exiting Vivado at Sat May 17 18:52:47 2025...
+INFO: [IP_Flow 19-6922] IPCACHE: Exporting cached entry f6ea244183aeb88b to dir: D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1
+INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/f/6/f6ea244183aeb88b/clk_wiz_0.dcp to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0.dcp.
+INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/f/6/f6ea244183aeb88b/clk_wiz_0_sim_netlist.v to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_sim_netlist.v.
+INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/f/6/f6ea244183aeb88b/clk_wiz_0_sim_netlist.vhdl to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_sim_netlist.vhdl.
+INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/f/6/f6ea244183aeb88b/clk_wiz_0_stub.v to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_stub.v.
+INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip/2024.1.2/f/6/f6ea244183aeb88b/clk_wiz_0_stub.vhdl to D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_stub.vhdl.
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP clk_wiz_0, cache-ID = f6ea244183aeb88b.
+INFO: [Common 17-206] Exiting Vivado at Sun May 18 08:51:54 2025...
