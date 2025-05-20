@@ -199,6 +199,7 @@ reg [31:0] data_count;   // Лічильник записаних даних
 
 // Стани FSM
 localparam IDLE = 0, CMD_WRITE = 1, DATA_WRITE = 2, DONE = 3;
+localparam LCD_RS_CLR = 0, LCD_RS_SET = 1, LCD_CS_CLR = 2, LCD_CS_SET = 3, LCD_WR_CLR = 4, LCD_WR_SET =5, DATAOUT =6;
 
 always @(posedge clk or negedge reset_n) begin
 	if (!reset_n) begin
@@ -216,122 +217,76 @@ always @(posedge clk or negedge reset_n) begin
 			IDLE: begin
 				if (start) begin
 					state <= CMD_WRITE;
-					wr_substate <= 0;
+					wr_substate <= LCD_RS_CLR;
 					data_count <= 0;
 					done <= 0;
 				end
 			end
 			CMD_WRITE: begin
 				case (wr_substate)
-					0: begin
-						LCD_CS <= 1;
-						LCD_RS <= 0; // Команда
-						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						wr_substate <= 1;
+					LCD_RS_CLR: begin
+						if (start) begin
+							LCD_RS <= 0; // Команда
+							wr_substate <= LCD_CS_CLR;
+						end
 					end
-					1: begin
+					LCD_CS_CLR: begin
 						LCD_CS <= 0;
-						LCD_RS <= 0;
-						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						wr_substate <= 2;
+						wr_substate <= DATAOUT;
 					end
-					2: begin
-						LCD_CS <= 0;
-						LCD_RS <= 0;
+					DATAOUT: begin
+						LCD_DATA <= cmd; // Встановлення команди
+						wr_substate <= LCD_WR_CLR;
+					end
+					LCD_WR_CLR: begin
 						LCD_WR <= 0;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						wr_substate <= 3;
+						wr_substate <= LCD_WR_SET;
 					end
-					3: begin
-						LCD_CS <= 0;
-						LCD_RS <= 0;
-						LCD_WR <= 0;
-						LCD_RDX <= 1;
-						LCD_DATA <= cmd;
-						wr_substate <= 4;
-					end
-					4: begin
-						LCD_CS <= 0;
-						LCD_RS <= 0;
+					LCD_WR_SET: begin
 						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= cmd;
-						wr_substate <= 5;
-					end
-					5: begin
-						LCD_CS <= 1;
-						LCD_RS <= 0;
-						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						state <= (n > 0) ? DATA_WRITE : DONE;
-						wr_substate <= 0;
+						wr_substate <= LCD_RS_SET;
+						state <= DATA_WRITE;
 					end
 				endcase
 			end
 			DATA_WRITE: begin
 				case (wr_substate)
-					0: begin
-						LCD_CS <= 1;
-						LCD_RS <= 1; // Дані
-						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						wr_substate <= 1;
+					LCD_RS_SET: begin
+						if (start) begin
+							LCD_RS <= 1; // data
+							wr_substate <= DATAOUT;
+						end
 					end
-					1: begin
-						LCD_CS <= 0;
-						LCD_RS <= 1;
-						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						wr_substate <= 2;
+					DATAOUT: begin
+						LCD_DATA <= data; // Встановлення data
+						wr_substate <= LCD_WR_CLR;
 					end
-					2: begin
-						LCD_CS <= 0;
-						LCD_RS <= 1;
+					LCD_WR_CLR: begin
 						LCD_WR <= 0;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
-						wr_substate <= 3;
+						wr_substate <= LCD_WR_SET;
 					end
-					3: begin
-						LCD_CS <= 0;
-						LCD_RS <= 1;
-						LCD_WR <= 0;
-						LCD_RDX <= 1;
-						LCD_DATA <= data;
-						wr_substate <= 4;
-					end
-					4: begin
-						LCD_CS <= 0;
-						LCD_RS <= 1;
+					LCD_WR_SET: begin
 						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= data;
-						wr_substate <= 5;
-					end
-					5: begin
-						LCD_CS <= 1;
-						LCD_RS <= 1;
-						LCD_WR <= 1;
-						LCD_RDX <= 1;
-						LCD_DATA <= 16'bz;
 						data_count <= data_count + 1;
 						if (data_count + 1 >= n) begin
-							state <= DONE;
+							state <= LCD_CS_SET;
+						end	
+						else begin		
+							wr_substate <= DATAOUT;			
+							//state <= DATA_WRITE;
 						end
-						wr_substate <= 0;
 					end
+					LCD_CS_SET: begin
+						LCD_CS <= 1;
+						wr_substate <= DONE;
+						
+					end 
 				endcase
 			end
+			
 			DONE: begin
 				done <= 1;
+				wr_substate <= LCD_RS_CLR;
 				state <= IDLE;
 			end
 			default: state <= IDLE;

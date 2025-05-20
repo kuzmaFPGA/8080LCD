@@ -399,17 +399,6 @@ always @(posedge lcd_clk or negedge reset_n) begin
 					end else if (cmd_done) begin
 					cmd_start <= 0;
 					active_writer <= WRITER_NONE;
-					state <= S_SET_ADDR;
-				end
-			end
-			S_SET_ADDR: begin // Set address (0x2C00)
-				if (!cmd_start) begin
-					cmd_data <= 16'h2C00;
-					active_writer <= WRITER_CMD;
-					cmd_start <= 1;
-					end else if (cmd_done) begin
-					cmd_start <= 0;
-					active_writer <= WRITER_NONE;
 					state <= S_PREP_FILL;
 				end
 			end
@@ -436,14 +425,14 @@ always @(posedge lcd_clk or negedge reset_n) begin
 					state <= S_BACKLIGHT;
 				end
 			end
-		S_BACKLIGHT: begin // Backlight on
-			LCD_BL_reg <= 1;
-			state <= S_SET_ADDR;
-			//fill_substate <= S_IDLE;
-		end
-		default: state <= S_INIT;
-	endcase
-end
+			S_BACKLIGHT: begin // Backlight on
+				LCD_BL_reg <= 1;
+				state <= S_FILL;
+				//fill_substate <= S_IDLE;
+			end
+			default: state <= S_INIT;
+		endcase
+	end
 end
 
 endmodule
