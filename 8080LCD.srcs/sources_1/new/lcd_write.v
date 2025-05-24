@@ -30,9 +30,10 @@ always @(posedge clk or negedge reset_n) begin
 			LCD_RS_CLR: begin
 				if (start) begin
 					LCD_RS <= 0; // Команда
-					done <= 0;
+					//done <= 0;
 					wr_substate <= LCD_CS_CLR;
 				end
+				done <= 0;
 			end
 			LCD_CS_CLR: begin
 				LCD_CS <= 0;
@@ -99,8 +100,9 @@ always @(posedge clk or negedge reset_n) begin
 				if (start) begin
 					state <= CMD_WRITE;
 					wr_substate <= 0;
-					done <= 0;
+					//done <= 0;
 				end
+				done <= 0;
 			end
 			CMD_WRITE: begin
 				case (wr_substate)
@@ -190,106 +192,97 @@ module lcd_write_cmd_ndata (
 	output reg LCD_RDX,      // RDX (read control)
 	output reg [15:0] LCD_DATA, // Шина даних
 	output reg done          // Сигнал завершення запису
+	//output wire [7:0] debug
 );
 
-// Регістр стану FSM
-reg [3:0] state;
-reg [2:0] wr_substate;
-reg [31:0] data_count;   // Лічильник записаних даних
+typedef enum logic [3:0] {
+    IDLE,
+    SET_COMMAND,
+    WRITE_COMMAND_TO_LCD,
+    NOOP_AFTER_WRITE_COMMAND,
+    SET_DATA,
+    WRITE_DATA_TO_LCD,
+    PAUSE,
+    FILL_DONE
+} fill_display_state_t;
 
-// Стани FSM
-localparam IDLE = 0, CMD_WRITE = 1, DATA_WRITE = 2, DONE = 3;
-localparam LCD_RS_CLR = 0, LCD_RS_SET = 1, LCD_CS_CLR = 2, LCD_CS_SET = 3, LCD_WR_CLR = 4, LCD_WR_SET =5, DATAOUT =6;
+fill_display_state_t fill_display_state;
+//assign debug[3:0] = fill_display_state;
+reg [31:0] data_count;   // Лічильник записаних даних
 
 always @(posedge clk or negedge reset_n) begin
 	if (!reset_n) begin
-		state <= IDLE;
-		wr_substate <= 0;
+		fill_display_state <= IDLE;
 		data_count <= 0;
 		LCD_CS <= 1;
 		LCD_RS <= 0;
 		LCD_WR <= 1;
 		LCD_RDX <= 1;
-		LCD_DATA <= 16'bz;
+		LCD_DATA <= 16'h0000;
 		done <= 0;
 		end else begin
-		case (state)
+		case (fill_display_state)
 			IDLE: begin
 				if (start) begin
-					state <= CMD_WRITE;
-					wr_substate <= LCD_RS_CLR;
+				    LCD_CS <= 1;
+		            LCD_RS <= 0;
+		            LCD_WR <= 1;
+		            LCD_RDX <= 1;
+					fill_display_state <= SET_COMMAND;
 					data_count <= 0;
-					done <= 0;
+					//done <= 0;
 				end
+				done <= 0;
 			end
-			CMD_WRITE: begin
-				case (wr_substate)
-					LCD_RS_CLR: begin
-						if (start) begin
-							LCD_RS <= 0; // Команда
-							wr_substate <= LCD_CS_CLR;
-						end
-					end
-					LCD_CS_CLR: begin
-						LCD_CS <= 0;
-						wr_substate <= DATAOUT;
-					end
-					DATAOUT: begin
-						LCD_DATA <= cmd; // Встановлення команди
-						wr_substate <= LCD_WR_CLR;
-					end
-					LCD_WR_CLR: begin
-						LCD_WR <= 0;
-						wr_substate <= LCD_WR_SET;
-					end
-					LCD_WR_SET: begin
-						LCD_WR <= 1;
-						wr_substate <= LCD_RS_SET;
-						state <= DATA_WRITE;
-					end
-				endcase
+			SET_COMMAND: begin
+                LCD_CS <= 0;
+		        LCD_RS <= 0;
+		        LCD_WR <= 0;
+				LCD_DATA <= cmd; // Встановлення команди
+				fill_display_state <= WRITE_COMMAND_TO_LCD;
 			end
-			DATA_WRITE: begin
-				case (wr_substate)
-					LCD_RS_SET: begin
-						if (start) begin
-							LCD_RS <= 1; // data
-							wr_substate <= DATAOUT;
-						end
-					end
-					DATAOUT: begin
-						LCD_DATA <= data; // Встановлення data
-						wr_substate <= LCD_WR_CLR;
-					end
-					LCD_WR_CLR: begin
-						LCD_WR <= 0;
-						wr_substate <= LCD_WR_SET;
-					end
-					LCD_WR_SET: begin
-						LCD_WR <= 1;
-						data_count <= data_count + 1;
-						if (data_count + 1 >= n) begin
-							state <= LCD_CS_SET;
-						end	
-						else begin		
-							wr_substate <= DATAOUT;			
-							//state <= DATA_WRITE;
-						end
-					end
-					LCD_CS_SET: begin
-						LCD_CS <= 1;
-						wr_substate <= DONE;
-						
-					end 
-				endcase
+			WRITE_COMMAND_TO_LCD: begin
+			    LCD_CS <= 0;
+				LCD_RS <= 0;
+		        LCD_WR <= 1;
+				LCD_DATA <= cmd; // Встановлення команди
+				fill_display_state <= NOOP_AFTER_WRITE_COMMAND;
 			end
-			
-			DONE: begin
-				done <= 1;
-				wr_substate <= LCD_RS_CLR;
-				state <= IDLE;
+			NOOP_AFTER_WRITE_COMMAND: begin
+				//LCD_CS <= 0;
+				LCD_RS <= 1;
+				LCD_WR <= 0;
+				//LCD_DATA <= cmd; 
+				fill_display_state <= SET_DATA;			
 			end
-			default: state <= IDLE;
+			SET_DATA: begin
+				LCD_CS <= 0;
+				LCD_RS <= 1;
+				LCD_WR <= 0;
+				LCD_DATA <= data; 
+				fill_display_state <= WRITE_DATA_TO_LCD;			
+			end			
+			WRITE_DATA_TO_LCD: begin
+				LCD_CS <= 0;
+				LCD_RS <= 1;
+				LCD_WR <= 1;
+				LCD_DATA <= data; 
+				data_count <= data_count + 1;
+				if (data_count + 1 > n) begin
+					fill_display_state <= PAUSE;
+				end	
+				else begin		
+					fill_display_state <= SET_DATA;			
+				end						
+			end			
+			PAUSE : begin
+			     done <= 1;
+			     fill_display_state <= FILL_DONE;
+			end		
+			FILL_DONE: begin
+				fill_display_state <= IDLE;
+			end
+			default: fill_display_state <= IDLE;
 		endcase
 	end
 end
@@ -511,4 +504,4 @@ always @(posedge clk or negedge reset_n) begin
 		endcase
 	end
 end
-endmodule
+endmodule	

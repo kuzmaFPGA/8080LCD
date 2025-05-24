@@ -64,7 +64,11 @@ reg [15:0] write_data;       // Data for cmd_data module
 state_t state;               // Використовуємо тип state_t
 //fill_substate_t fill_substate; // Використовуємо тип fill_substate_t
 
-assign debug_port_1 = state;
+//assign debug_port_1 = active_writer;
+//assign debug_port_1[3:0] = LCD_DATA[4:0];   // LCD data bus
+//assign debug_port_1[5:5] = LCD_WR;     // WRX (write control)
+//assign debug_port_1[6:6] = LCD_RS;     // D/CX (0 - command, 1 - data)
+//assign debug_port_1[7:7] = LCD_CS;     // CSX (active low)
 //assign debug_port_2 = fill_substate;
 
 // Delay counter
@@ -87,7 +91,9 @@ wire cmd_LCD_RDX, cmd_data_LCD_RDX, cmd_ndata_LCD_RDX, cmd_read_LCD_RDX;
 
 // Active writer selection
 writer_t active_writer;       // Використовуємо тип writer_t
-
+assign debug_port_1[2:0] = active_writer;
+assign debug_port_1[3:3] = cmd_ndata_done;
+assign debug_port_1[4:4] = cmd_ndata_start;
 // Pixel counter
 reg [31:0] total_pixels;
 
@@ -124,33 +130,34 @@ lcd_write_cmd_ndata cmd_ndata_writer (
     .reset_n(reset_n),
     .start(cmd_ndata_start),
     .cmd(16'h2C00), // Pixel write command
-    .data(RED), // Use input fill color
-    .n(TOTAL_PIXELS), // Number of pixels in window
+    .data(fill_color), // Use input fill color
+    .n(total_pixels), // Number of pixels in window
     .LCD_CS(cmd_ndata_LCD_CS),
     .LCD_RS(cmd_ndata_LCD_RS),
     .LCD_WR(cmd_ndata_LCD_WR),
     .LCD_RDX(cmd_ndata_LCD_RDX),
     .LCD_DATA(cmd_ndata_LCD_DATA),
-    .done(cmd_ndata_done)
+    .done(cmd_ndata_done)//,
+    //.debug(debug_port_1)
 );
 
-//reg read_start;
-	//wire read_done;
-	//wire [15:0] read_data;
-//reg [15:0] lcd_id;
+reg read_start;
+wire read_done;
+wire [15:0] read_data;
+reg [15:0] lcd_id;
 
-//lcd_read_data read_writer (
-	//    .clk(lcd_clk),
-	//    .reset_n(reset_n),
-	//    .start(read_start),
-	//    .data(read_data),
-	//    .done(read_done),
-	//    .LCD_CS(cmd_read_LCD_CS),
-	//    .LCD_RS(cmd_read_LCD_RS),
-	//    .LCD_WR(cmd_read_LCD_WR),
-	//    .LCD_RDX(cmd_read_LCD_RDX),
-	//    .LCD_DATA(LCD_DATA)
-//);
+lcd_read_data read_writer (
+	    .clk(lcd_clk),
+	    .reset_n(reset_n),
+	    .start(read_start),
+	    .data(read_data),
+	    .done(read_done),
+	    .LCD_CS(cmd_read_LCD_CS),
+	    .LCD_RS(cmd_read_LCD_RS),
+	    .LCD_WR(cmd_read_LCD_WR),
+	    .LCD_RDX(cmd_read_LCD_RDX),
+	    .LCD_DATA(LCD_DATA)
+);
 
 // Multiplexer for signal selection
 always @(*) begin
@@ -405,6 +412,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
 			S_PREP_FILL: begin // Prepare for pixel fill
 				total_pixels <= ((x_end - x_start + 1) * (y_end - y_start + 1));
 				state <= S_FILL_PIXELS;
+				cmd_ndata_start <= 0;
 			end
 			S_FILL_PIXELS: begin // Fill pixels
 				if (!cmd_ndata_start) begin
@@ -430,6 +438,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
 				state <= S_FILL;
 				//fill_substate <= S_IDLE;
 			end
+			
 			default: state <= S_INIT;
 		endcase
 	end

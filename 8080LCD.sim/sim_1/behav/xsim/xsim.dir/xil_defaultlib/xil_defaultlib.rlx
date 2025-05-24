@@ -1,9 +1,0 @@
-0.7
-2020.2
-Sep  5 2024
-15:23:16
-D:/Xilinx/Projects/8080LCD/8080LCD.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v,1746041958,verilog,,D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/mrb3973_test_tb.v,,clk_wiz_0,,,../../../../8080LCD.ip_user_files/ipstatic,,,,,
-D:/Xilinx/Projects/8080LCD/8080LCD.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v,1746274176,verilog,,D:/Xilinx/Projects/8080LCD/8080LCD.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v,,clk_wiz_0_clk_wiz,,,../../../../8080LCD.ip_user_files/ipstatic,,,,,
-D:/Xilinx/Projects/8080LCD/8080LCD.sim/sim_1/behav/xsim/glbl.v,1708598507,verilog,,,,glbl,,,,,,,,
-D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/mrb3973_test_tb.v,1746262751,verilog,,D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top.v,,tb_mrb3973_test,,,../../../../8080LCD.ip_user_files/ipstatic,,,,,
-D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top.v,1746270117,verilog,,D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/mrb3973_test_tb.v,,mrb3973_test,,,../../../../8080LCD.ip_user_files/ipstatic,,,,,

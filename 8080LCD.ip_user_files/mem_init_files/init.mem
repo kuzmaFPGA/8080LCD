@@ -385,6 +385,7 @@ FF00 00AA
 FF01 0055
 FF02 0025
 FF03 0001
-3500 0000
-3600 0000
-3a00 0055 
+3500 0000 //TEON: Tearing Effect Line ON (3500h)
+3600 0000 //MADCTL: Memory Data Access Control (3600h), 
+3a00 0055 //COLMOD: Interface Pixel Format (3A00h), 0055 - 16bit/pixel
+

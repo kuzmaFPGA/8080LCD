@@ -1,7 +1,0 @@
-Running: xsim.dir/mrb3973_test_tb_behav/xsimk.exe -simmode gui -wdb mrb3973_test_tb_behav.wdb -simrunnum 0 -socket 55354
-Design successfully loaded
-Design Loading Memory Usage: 9880 KB (Peak: 9880 KB)
-Design Loading CPU Usage: 46 ms
-Simulation completed
-Simulation Memory Usage: 19264 KB (Peak: 19264 KB)
-Simulation CPU Usage: 1430936 ms

@@ -1,25 +1,50 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="19480" HostCore="16" HostMemory="033736433664">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="14964" HostCore="16" HostMemory="033736433664">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="12476" HostCore="16" HostMemory="033736433664">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="23476" HostCore="16" HostMemory="033736433664">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="3216" HostCore="16" HostMemory="033736433664">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="23300" HostCore="16" HostMemory="033736433664">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="12440" HostCore="16" HostMemory="033736433664">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="12812" HostCore="16" HostMemory="033736433664">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="13040" HostCore="16" HostMemory="033736433664">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="20464" HostCore="16" HostMemory="033736433664">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="14564" HostCore="16" HostMemory="033736433664">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="15404" HostCore="16" HostMemory="033736433664">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="17180" HostCore="16" HostMemory="033736433664">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="16916" HostCore="16" HostMemory="033736433664">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="LAPTOP-7GKHMVFU" Pid="8248" HostCore="16" HostMemory="033736433664">
     </Process>
 </ProcessHandle>

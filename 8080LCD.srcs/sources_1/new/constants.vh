@@ -2,7 +2,7 @@
 `define CONSTANTS_V
 
 // Частота LCD (у кГц)
-parameter LCD_FREQ_MHZ = 6250;
+parameter LCD_FREQ_MHZ = 100000;//62500;
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;
@@ -19,7 +19,7 @@ parameter YELLOW = 16'hFFE0;
 parameter BROWN = 16'hBC40; 
 parameter BRRED = 16'hFC07;
 parameter GRAY = 16'h8430; 
-parameter DARKBLUE = 16'h01CF;	
+parameter DARKBLUE = 16'b1010101010101010;	
 parameter LIGHTBLUE = 16'h7D7C; 
 parameter GRAYBLUE = 16'h5458; 
 parameter LIGHTGREEN = 16'h841F; 
@@ -67,11 +67,11 @@ typedef enum logic [4:0] {
 
 // Перерахування для типів writer
 typedef enum logic [2:0] {
-    WRITER_NONE,
-    WRITER_CMD,
-    WRITER_CMD_DATA,
-    WRITER_CMD_NDATA,
-    WRITER_READ
+    WRITER_NONE  = 0,
+    WRITER_CMD = 1,
+    WRITER_CMD_DATA = 3,
+    WRITER_CMD_NDATA = 4,
+    WRITER_READ = 5
 } writer_t;
 
 `endif

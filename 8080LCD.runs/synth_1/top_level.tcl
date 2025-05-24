@@ -77,12 +77,12 @@ OPTRACE "Adding files" START { }
 read_mem D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/init.mem
 read_verilog -library xil_defaultlib -sv {
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
+  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v
+  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v
 }
 set_property file_type SystemVerilog [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/constants.vh]
 read_verilog -library xil_defaultlib {
-  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v
-  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v
