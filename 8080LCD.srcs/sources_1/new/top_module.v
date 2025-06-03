@@ -114,7 +114,7 @@ always @(posedge clk or negedge reset_n) begin
 				end
 				1: begin
 					count <= count +1;
-					delay_counter <= 100 * LCD_FREQ_MHZ; 
+					delay_counter <= 1000 * LCD_FREQ_MHZ; 
 					state <= 2;
 				end
 				2 : begin

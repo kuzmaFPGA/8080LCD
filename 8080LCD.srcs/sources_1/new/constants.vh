@@ -3,6 +3,7 @@
 
 // Частота LCD (у кГц)
 parameter LCD_FREQ_MHZ = 100000;//62500;
+parameter SYS_CLK_FREQ_MHZ = 50; // Частота системного годинника у МГц
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date                      : Sat May 24 21:57:39 2025
+| Date                      : Sun May 25 11:04:58 2025
 | Host                      : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command                   : report_io -file top_level_io_placed.rpt
 | Design                    : top_level
@@ -44,7 +44,7 @@ Table of Contents
 | A7         |                 |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | A8         |                 |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | A9         | la_out[6]       | High Range | IO_L3N_T0_DQS_AD1N_15        | TRISTATE      | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
-| A10        | la_out[5]       | High Range | IO_L5N_T0_AD9N_15            | TRISTATE      | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
+| A10        | la_out[5]       | High Range | IO_L5N_T0_AD9N_15            | OUTPUT        | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | A11        |                 |            | GND                          | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | A12        | col_data_out[0] | High Range | IO_L7N_T1_AD2N_15            | TRISTATE      | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      | PULLUP    |          |      | NONE             |              |                   |              |
 | A13        | LCD_CS          | High Range | IO_L8P_T1_AD10P_15           | OUTPUT        | LVCMOS33    |      15 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
