@@ -50,7 +50,7 @@ quad_spi_master #(
 	.SPI_FREQ(10_000_000)
     ) spi_inst (
 	.clk(clk),
-	.rst(rst),
+	.rst(~reset_n),
 	.start(start),
 	.addr(addr),
 	.num_bytes(num_bytes),
@@ -96,6 +96,39 @@ KeyPadInterpreter keypad_inst (
     .ColDataOut(col_data_out),
     .PressCount(press_count)
 );
+
+ // Логіка збору пікселів
+    reg [7:0] data_buf;
+    reg [15:0] pixel_reg;
+    reg pixel_valid;
+
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            start <= 0;
+            pixel_valid <= 0;
+            data_buf <= 0;
+            pixel_reg <= 0;
+        end else begin
+            if (!start && !done) begin
+                start <= 1; // Почати зчитування
+            end else begin
+                start <= 0;
+            end
+
+            if (valid) begin
+                if (!pixel_valid) begin
+                    data_buf <= data_out;
+                    pixel_valid <= 1;
+                end else begin
+                    pixel_reg <= {data_buf, data_out};
+                    pixel_valid <= 0;
+                end
+            end
+        end
+    end
+
+    assign pixel_data = pixel_reg;
+    
 reg [4:0] count;
 always @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
