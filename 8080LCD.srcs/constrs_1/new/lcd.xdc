@@ -99,3 +99,11 @@ set_property PULLTYPE PULLUP [get_ports {col_data_out[3]}]
 set_property PULLTYPE PULLUP [get_ports {col_data_out[2]}]
 set_property PULLTYPE PULLUP [get_ports {col_data_out[1]}]
 set_property PULLTYPE PULLUP [get_ports {col_data_out[0]}]
+
+set_property -dict { E8 IOSTANDARD LVCMOS33 } [get_ports sclk] 
+set_property -dict { L15 IOSTANDARD LVCMOS33 } [get_ports cs_n] 
+set_property -dict { K16 IOSTANDARD LVCMOS33 } [get_ports {dq[0]}] 
+set_property -dict { L17 IOSTANDARD LVCMOS33 } [get_ports {dq[1]}] 
+set_property -dict { J15 IOSTANDARD LVCMOS33 } [get_ports {dq[2]}] 
+set_property -dict { J16 IOSTANDARD LVCMOS33 } [get_ports {dq[3]}] 
+

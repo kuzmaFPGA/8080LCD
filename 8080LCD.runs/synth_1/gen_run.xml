@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1748160191" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mrb3973_test.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1749396742" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mrb3973_test.dcp">
   <File Type="PA-TCL" Name="top_level.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="top_level_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="top_level_reports.tcl"/>
@@ -74,6 +74,13 @@
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/imports/Keyboard/KeyPadScanner.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/quad_spi_master.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>

@@ -13,7 +13,12 @@ module top_level (
     output        LCD_BL,
     output        LCD_RDX,
     output [7:0]  la_out,
-    output        led_1
+    output        led_1,
+    
+    output wire sclk,            // SPI такт
+    output wire cs_n,            // SPI Chip Select
+    inout wire [3:0] dq,         // Бідирекційні піни DQ0-DQ3
+    output wire [15:0] pixel_data // Вихідні дані пікселя
 );
 
 wire key_ready;
@@ -30,6 +35,35 @@ reg [31:0] delay_counter;
 
 
 assign la_out[7:0] = debug_port_1;
+
+reg start;
+reg [23:0] addr = 24'h400000; // Початкова адреса зображення
+reg [15:0] num_bytes = 32768; // 32 КБ
+wire [7:0] data_out;
+wire valid, done;
+wire [3:0] dq_out;
+wire dq_oe;
+
+// Quad SPI контролер
+quad_spi_master #(
+	.CLK_FREQ(50_000_000),
+	.SPI_FREQ(10_000_000)
+    ) spi_inst (
+	.clk(clk),
+	.rst(rst),
+	.start(start),
+	.addr(addr),
+	.num_bytes(num_bytes),
+	.data_out(data_out),
+	.valid(valid),
+	.done(done),
+	.sclk(sclk),
+	.cs_n(cs_n),
+    .dq_out(dq_out),
+	.dq_oe(dq_oe),
+	.dq(dq)
+);
+
 
 lcd lcd_inst (
     .clk(clk),

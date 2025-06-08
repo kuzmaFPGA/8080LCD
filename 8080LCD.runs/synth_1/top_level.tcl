@@ -56,8 +56,6 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 4
-set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcsg325-1
 
@@ -88,6 +86,7 @@ read_verilog -library xil_defaultlib {
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v
   D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v
+  D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v
 }
 read_ip -quiet D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
