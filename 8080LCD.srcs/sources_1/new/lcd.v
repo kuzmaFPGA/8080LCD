@@ -340,10 +340,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_data_done) begin
                     cmd_data_start <= 0;
                     active_writer <= WRITER_NONE;
-                    state <= S_SET_XEND_H;
+                    state <= S_SET_Xend_H;
                 end
             end
-            S_SET_XEND_H: begin // Set xEnd high byte
+            S_SET_Xend_H: begin // Set xEnd high byte
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h2A02;
                     write_data <= (x_end >> 8);
@@ -352,10 +352,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_data_done) begin
                     cmd_data_start <= 0;
                     active_writer <= WRITER_NONE;
-                    state <= S_SET_XEND_L;
+                    state <= S_SET_Xend_L;
                 end
             end
-            S_SET_XEND_L: begin // Set xEnd low byte
+            S_SET_Xend_L: begin // Set xEnd low byte
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h2A03;
                     write_data <= (x_end & 16'hFF);
@@ -388,10 +388,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_data_done) begin
                     cmd_data_start <= 0;
                     active_writer <= WRITER_NONE;
-                    state <= S_SET_YEND_H;
+                    state <= S_SET_Yend_H;
                 end
             end
-            S_SET_YEND_H: begin // Set yEnd high byte
+            S_SET_Yend_H: begin // Set yEnd high byte
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h2B02;
                     write_data <= (y_end >> 8);
@@ -400,10 +400,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_data_done) begin
                     cmd_data_start <= 0;
                     active_writer <= WRITER_NONE;
-                    state <= S_SET_YEND_L;
+                    state <= S_SET_Yend_L;
                 end
             end
-            S_SET_YEND_L: begin // Set yEnd low byte
+            S_SET_Yend_L: begin // Set yEnd low byte
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h2B03;
                     write_data <= (y_end & 16'hFF);
