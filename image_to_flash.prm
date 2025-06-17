@@ -1,0 +1,12 @@
+===================================
+Configuration Memory information
+===================================
+File Format        BIN
+Interface          SPIX1
+Size               8M
+Start Address      0x00000000
+End Address        0x007FFFFF
+
+Addr1         Addr2         Date                    File(s)
+0x00000000    0x0021728B    Jun 17 14:06:48 2025    D:/Github/8080LCD/8080LCD.runs/impl_1/top_level.bit
+0x00400000    0x00466CC7    Jun 17 14:40:58 2025    D:/Github/8080LCD/test_image.bin
