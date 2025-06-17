@@ -1,24 +1,24 @@
 #-----------------------------------------------------------
-# Vivado v2024.1.2 (64-bit)
-# SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
-# IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
-# SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
-# Start of session at: Sun Jun 15 12:06:22 2025
-# Process ID: 14076
-# Current directory: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1
-# Command line: vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
-# Log file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/top_level.vds
-# Journal file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1\vivado.jou
-# Running On        :LAPTOP-7GKHMVFU
-# Platform          :Windows Server 2016 or Windows 10
-# Operating System  :26100
-# Processor Detail  :AMD Ryzen 7 4800HS with Radeon Graphics         
-# CPU Frequency     :2895 MHz
-# CPU Physical cores:8
-# CPU Logical cores :16
-# Host memory       :33736 MB
-# Swap memory       :2147 MB
-# Total Virtual     :35883 MB
-# Available Virtual :20288 MB
+# Vivado v2024.2.2 (64-bit)
+# SW Build 6060944 on Thu Mar 06 19:10:01 MST 2025
+# IP Build 6050500 on Thu Mar  6 23:33:39 MST 2025
+# SharedData Build 6060542 on Thu Mar 06 10:31:07 MST 2025
+# Start of session at: Tue Jun 17 14:01:39 2025
+# Process ID         : 11328
+# Current directory  : D:/Github/8080LCD/8080LCD.runs/synth_1
+# Command line       : vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
+# Log file           : D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.vds
+# Journal file       : D:/Github/8080LCD/8080LCD.runs/synth_1\vivado.jou
+# Running On         : DESKTOP-H05VBGI
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 19045
+# Processor Detail   : AMD A8-3850 APU with Radeon(tm) HD Graphics
+# CPU Frequency      : 2900 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 4
+# Host memory        : 17156 MB
+# Swap memory        : 2550 MB
+# Total Virtual      : 19706 MB
+# Available Virtual  : 11132 MB
 #-----------------------------------------------------------
 source top_level.tcl -notrace

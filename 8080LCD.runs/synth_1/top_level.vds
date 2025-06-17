@@ -1,156 +1,170 @@
 #-----------------------------------------------------------
-# Vivado v2024.1.2 (64-bit)
-# SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
-# IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
-# SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
-# Start of session at: Sun Jun 15 12:06:22 2025
-# Process ID: 14076
-# Current directory: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1
-# Command line: vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
-# Log file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/top_level.vds
-# Journal file: D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1\vivado.jou
-# Running On        :LAPTOP-7GKHMVFU
-# Platform          :Windows Server 2016 or Windows 10
-# Operating System  :26100
-# Processor Detail  :AMD Ryzen 7 4800HS with Radeon Graphics         
-# CPU Frequency     :2895 MHz
-# CPU Physical cores:8
-# CPU Logical cores :16
-# Host memory       :33736 MB
-# Swap memory       :2147 MB
-# Total Virtual     :35883 MB
-# Available Virtual :20288 MB
+# Vivado v2024.2.2 (64-bit)
+# SW Build 6060944 on Thu Mar 06 19:10:01 MST 2025
+# IP Build 6050500 on Thu Mar  6 23:33:39 MST 2025
+# SharedData Build 6060542 on Thu Mar 06 10:31:07 MST 2025
+# Start of session at: Tue Jun 17 14:01:39 2025
+# Process ID         : 11328
+# Current directory  : D:/Github/8080LCD/8080LCD.runs/synth_1
+# Command line       : vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
+# Log file           : D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.vds
+# Journal file       : D:/Github/8080LCD/8080LCD.runs/synth_1\vivado.jou
+# Running On         : DESKTOP-H05VBGI
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 19045
+# Processor Detail   : AMD A8-3850 APU with Radeon(tm) HD Graphics
+# CPU Frequency      : 2900 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 4
+# Host memory        : 17156 MB
+# Swap memory        : 2550 MB
+# Total Virtual      : 19706 MB
+# Available Virtual  : 11132 MB
 #-----------------------------------------------------------
+Sourcing tcl script 'C:/Xilinx/Vivado/2024.2/scripts/Vivado_init.tcl'
+0 Beta devices matching pattern found, 0 enabled.
 source top_level.tcl -notrace
-create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 540.629 ; gain = 140.918
-Command: read_checkpoint -auto_incremental -incremental D:/Xilinx/Projects/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp
-INFO: [Vivado 12-5825] Read reference checkpoint from D:/Xilinx/Projects/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp for incremental synthesis
+Command: read_checkpoint -auto_incremental -incremental D:/Github/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from D:/Github/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top top_level -part xc7a35tcsg325-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Device 21-403] Loading part xc7a35tcsg325-1
-INFO: [Device 21-9227] Part: xc7a35tcsg325-1 does not have CEAM library.
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 14788
+INFO: [Synth 8-7075] Helper process launched with PID 11224
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1405.516 ; gain = 450.688
+Starting RTL Elaboration : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 961.188 ; gain = 470.312
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'spi_dq_out', assumed default net type 'wire' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:61]
-INFO: [Synth 8-11241] undeclared symbol 'dq', assumed default net type 'wire' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:63]
-INFO: [Synth 8-11241] undeclared symbol 'led_2', assumed default net type 'wire' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:85]
-INFO: [Synth 8-11241] undeclared symbol 'lcd_clk', assumed default net type 'wire' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:47]
-INFO: [Synth 8-6157] synthesizing module 'top_level' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:3]
-INFO: [Synth 8-6157] synthesizing module 'quad_spi_master' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:1]
+INFO: [Synth 8-11241] undeclared symbol 'end_of_startup', assumed default net type 'wire' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:93]
+INFO: [Synth 8-11241] undeclared symbol 'spi_sclk', assumed default net type 'wire' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:100]
+INFO: [Synth 8-11241] undeclared symbol 'spi_dq_out', assumed default net type 'wire' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:129]
+INFO: [Synth 8-11241] undeclared symbol 'dq', assumed default net type 'wire' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:131]
+INFO: [Synth 8-11241] undeclared symbol 'led_2', assumed default net type 'wire' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:153]
+INFO: [Synth 8-11241] undeclared symbol 'lcd_clk', assumed default net type 'wire' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:47]
+INFO: [Synth 8-6157] synthesizing module 'top_level' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:3]
+INFO: [Synth 8-6157] synthesizing module 'xpt2046' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:1]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:128]
+INFO: [Synth 8-6155] done synthesizing module 'xpt2046' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:1]
+INFO: [Synth 8-6157] synthesizing module 'STARTUPE2' [C:/Xilinx/Vivado/2024.2/scripts/rt/data/unisim_comp.v:149215]
+	Parameter PROG_USR bound to: FALSE - type: string 
+	Parameter SIM_CCLK_FREQ bound to: 10.000000 - type: double 
+INFO: [Synth 8-6155] done synthesizing module 'STARTUPE2' (0#1) [C:/Xilinx/Vivado/2024.2/scripts/rt/data/unisim_comp.v:149215]
+INFO: [Synth 8-6157] synthesizing module 'quad_spi_master' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:1]
 	Parameter CLK_FREQ bound to: 50000000 - type: integer 
 	Parameter SPI_FREQ bound to: 10000000 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'quad_spi_master' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:1]
-WARNING: [Synth 8-689] width (1) of port connection 'dq_out' does not match port width (4) of module 'quad_spi_master' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:61]
-WARNING: [Synth 8-689] width (1) of port connection 'dq' does not match port width (4) of module 'quad_spi_master' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:63]
-INFO: [Synth 8-6157] synthesizing module 'lcd' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:3]
-INFO: [Synth 8-3876] $readmem data file 'init.mem' is read successfully [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:56]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-14076-LAPTOP-7GKHMVFU/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-14076-LAPTOP-7GKHMVFU/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:1]
-INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:1]
-INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd_data' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:65]
-INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd_data' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:65]
-INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd_ndata' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:182]
-INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd_ndata' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:182]
-INFO: [Synth 8-6157] synthesizing module 'lcd_read_data' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:455]
-INFO: [Synth 8-155] case statement is not full and has no default [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:473]
-INFO: [Synth 8-6155] done synthesizing module 'lcd_read_data' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:455]
-INFO: [Synth 8-6155] done synthesizing module 'lcd' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:3]
-INFO: [Synth 8-6157] synthesizing module 'KeyPadInterpreter' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v:14]
-INFO: [Synth 8-6157] synthesizing module 'LFSR25000' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v:14]
-INFO: [Synth 8-6155] done synthesizing module 'LFSR25000' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v:14]
-INFO: [Synth 8-6157] synthesizing module 'KeyPadScanner' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v:14]
-INFO: [Synth 8-226] default block is never used [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v:61]
-INFO: [Synth 8-6155] done synthesizing module 'KeyPadScanner' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v:14]
-INFO: [Synth 8-6157] synthesizing module 'PulseCounter' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v:14]
-INFO: [Synth 8-6155] done synthesizing module 'PulseCounter' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v:14]
-INFO: [Synth 8-6157] synthesizing module 'KeyPadDecoder' [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v:14]
-INFO: [Synth 8-226] default block is never used [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v:28]
-INFO: [Synth 8-6155] done synthesizing module 'KeyPadDecoder' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v:14]
-INFO: [Synth 8-6155] done synthesizing module 'KeyPadInterpreter' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v:14]
-INFO: [Synth 8-155] case statement is not full and has no default [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:151]
-INFO: [Synth 8-155] case statement is not full and has no default [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:149]
-INFO: [Synth 8-6155] done synthesizing module 'top_level' (0#1) [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:3]
-WARNING: [Synth 8-7137] Register addr_reg_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:60]
-WARNING: [Synth 8-7137] Register byte_count_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:61]
-WARNING: [Synth 8-7137] Register bit_count_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:62]
-WARNING: [Synth 8-7137] Register shift_reg_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:63]
-WARNING: [Synth 8-7137] Register dummy_count_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:99]
-WARNING: [Synth 8-7137] Register data_out_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:135]
-WARNING: [Synth 8-3848] Net read_start in module/entity lcd does not have driver. [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:160]
-WARNING: [Synth 8-7137] Register toggle_reg in module PulseCounter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v:33]
-WARNING: [Synth 8-6014] Unused sequential element pixel_reg_reg was removed.  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:111]
-WARNING: [Synth 8-7137] Register count_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:151]
-WARNING: [Synth 8-7137] Register state_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:149]
-WARNING: [Synth 8-7137] Register delay_counter_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:185]
+INFO: [Synth 8-6155] done synthesizing module 'quad_spi_master' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:1]
+WARNING: [Synth 8-689] width (1) of port connection 'dq_out' does not match port width (4) of module 'quad_spi_master' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:129]
+WARNING: [Synth 8-689] width (1) of port connection 'dq' does not match port width (4) of module 'quad_spi_master' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:131]
+INFO: [Synth 8-6157] synthesizing module 'lcd' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:3]
+INFO: [Synth 8-3876] $readmem data file 'init.mem' is read successfully [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:56]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [D:/Github/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-11328-DESKTOP-H05VBGI/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [D:/Github/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-11328-DESKTOP-H05VBGI/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:1]
+INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd_data' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:65]
+INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd_data' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:65]
+INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd_ndata' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:182]
+INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd_ndata' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:182]
+INFO: [Synth 8-6157] synthesizing module 'lcd_read_data' [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:455]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:473]
+INFO: [Synth 8-6155] done synthesizing module 'lcd_read_data' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:455]
+INFO: [Synth 8-6155] done synthesizing module 'lcd' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KeyPadInterpreter' [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v:14]
+INFO: [Synth 8-6157] synthesizing module 'LFSR25000' [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'LFSR25000' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v:14]
+INFO: [Synth 8-6157] synthesizing module 'KeyPadScanner' [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v:14]
+INFO: [Synth 8-226] default block is never used [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v:61]
+INFO: [Synth 8-6155] done synthesizing module 'KeyPadScanner' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v:14]
+INFO: [Synth 8-6157] synthesizing module 'PulseCounter' [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'PulseCounter' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v:14]
+INFO: [Synth 8-6157] synthesizing module 'KeyPadDecoder' [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v:14]
+INFO: [Synth 8-226] default block is never used [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v:28]
+INFO: [Synth 8-6155] done synthesizing module 'KeyPadDecoder' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'KeyPadInterpreter' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v:14]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:219]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:217]
+INFO: [Synth 8-6155] done synthesizing module 'top_level' (0#1) [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:3]
+WARNING: [Synth 8-7137] Register CONV_DONE_reg in module xpt2046 has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:196]
+WARNING: [Synth 8-7137] Register addr_reg_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:60]
+WARNING: [Synth 8-7137] Register byte_count_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:61]
+WARNING: [Synth 8-7137] Register bit_count_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:62]
+WARNING: [Synth 8-7137] Register shift_reg_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:63]
+WARNING: [Synth 8-7137] Register dummy_count_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:99]
+WARNING: [Synth 8-7137] Register data_out_reg in module quad_spi_master has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v:135]
+WARNING: [Synth 8-3848] Net read_start in module/entity lcd does not have driver. [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:160]
+WARNING: [Synth 8-7137] Register toggle_reg in module PulseCounter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v:33]
+WARNING: [Synth 8-6014] Unused sequential element la_select_reg was removed.  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:67]
+WARNING: [Synth 8-6014] Unused sequential element pixel_reg_reg was removed.  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:179]
+WARNING: [Synth 8-7137] Register count_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:219]
+WARNING: [Synth 8-7137] Register state_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:217]
+WARNING: [Synth 8-7137] Register delay_counter_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:253]
 WARNING: [Synth 8-7129] Port debug_port_1[7] in module lcd is either unconnected or has no load
 WARNING: [Synth 8-7129] Port debug_port_1[6] in module lcd is either unconnected or has no load
+WARNING: [Synth 8-7129] Port BUSY in module xpt2046 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[3] in module top_level is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[2] in module top_level is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[1] in module top_level is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[0] in module top_level is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1530.824 ; gain = 575.996
+Finished RTL Elaboration : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1086.348 ; gain = 595.473
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1530.824 ; gain = 575.996
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1086.348 ; gain = 595.473
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1530.824 ; gain = 575.996
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1086.348 ; gain = 595.473
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1530.824 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.064 . Memory (MB): peak = 1086.348 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-14076-LAPTOP-7GKHMVFU/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
-Finished Parsing XDC File [D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-14076-LAPTOP-7GKHMVFU/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
-Parsing XDC File [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
-WARNING: [Vivado 12-584] No ports matched 'led_2'. [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc:6]
-WARNING: [Vivado 12-584] No ports matched 'led_2'. [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc:7]
-Finished Parsing XDC File [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
-WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/top_level_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_level_propImpl.xdc].
+Parsing XDC File [D:/Github/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-11328-DESKTOP-H05VBGI/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
+Finished Parsing XDC File [D:/Github/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-11328-DESKTOP-H05VBGI/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
+Parsing XDC File [D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
+WARNING: [Vivado 12-584] No ports matched 'led_2'. [D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc:6]
+WARNING: [Vivado 12-584] No ports matched 'led_2'. [D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc:7]
+Finished Parsing XDC File [D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/top_level_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_level_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_level_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1629.801 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1176.914 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1629.801 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 1176.914 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Constraint Validation : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1176.914 ; gain = 686.039
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcsg325-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1176.914 ; gain = 686.039
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-14076-LAPTOP-7GKHMVFU/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-14076-LAPTOP-7GKHMVFU/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  D:/Github/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-11328-DESKTOP-H05VBGI/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  D:/Github/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-11328-DESKTOP-H05VBGI/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
 Applied set_property KEEP_HIERARCHY = SOFT for lcd_inst/lcd_clk_pll. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1176.914 ; gain = 686.039
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'quad_spi_master'
 INFO: [Synth 8-802] inferred FSM for state register 'wr_substate_reg' in module 'lcd_write_cmd'
@@ -162,14 +176,14 @@ INFO: [Synth 8-802] inferred FSM for state register 'Col_reg' in module 'KeyPadS
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-                    IDLE |                              000 |                              000
-                     CMD |                              001 |                              001
-                    ADDR |                              010 |                              010
-                   DUMMY |                              011 |                              011
-                    DATA |                              100 |                              100
-                    DONE |                              101 |                              101
+                    IDLE |                           000001 |                              000
+                     CMD |                           000010 |                              001
+                    ADDR |                           000100 |                              010
+                   DUMMY |                           001000 |                              011
+                    DATA |                           010000 |                              100
+                    DONE |                           100000 |                              101
 ---------------------------------------------------------------------------------------------------
-INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'quad_spi_master'
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'quad_spi_master'
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -244,7 +258,6 @@ INFO: [Synth 8-3354] encoded FSM with state register 'fill_display_state_reg' us
                  iSTATE1 |                              011 |                              011
                  iSTATE2 |                              100 |                              100
                  iSTATE3 |                              101 |                              101
-                 iSTATE5 |                              110 |                              111
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'lcd_read_data'
 ---------------------------------------------------------------------------------------------------
@@ -266,7 +279,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'Col_reg' using encoding 's
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'State_reg' using encoding 'sequential' in module 'KeyPadScanner'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1176.914 ; gain = 686.039
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -275,10 +288,12 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input   32 Bit       Adders := 3     
 	   3 Input   32 Bit       Adders := 2     
-	   2 Input   20 Bit       Adders := 1     
+	   2 Input   20 Bit       Adders := 2     
+	   4 Input   17 Bit       Adders := 2     
 	   2 Input   16 Bit       Adders := 1     
 	   2 Input   10 Bit       Adders := 2     
-	   2 Input    5 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 2     
+	   2 Input    5 Bit       Adders := 2     
 	   2 Input    4 Bit       Adders := 2     
 	  17 Input    4 Bit       Adders := 1     
 	   2 Input    3 Bit       Adders := 2     
@@ -288,14 +303,17 @@ Detailed RTL Component Info :
 +---Registers : 
 	               32 Bit    Registers := 5     
 	               24 Bit    Registers := 1     
+	               20 Bit    Registers := 1     
 	               16 Bit    Registers := 12    
 	               15 Bit    Registers := 1     
+	               12 Bit    Registers := 9     
 	               10 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
-	                5 Bit    Registers := 2     
+	                6 Bit    Registers := 2     
+	                5 Bit    Registers := 3     
 	                4 Bit    Registers := 5     
 	                3 Bit    Registers := 5     
-	                1 Bit    Registers := 43    
+	                1 Bit    Registers := 52    
 +---Multipliers : 
 	              32x32  Multipliers := 1     
 +---Muxes : 
@@ -303,30 +321,33 @@ Detailed RTL Component Info :
 	   2 Input   32 Bit        Muxes := 2     
 	   4 Input   32 Bit        Muxes := 1     
 	   6 Input   24 Bit        Muxes := 1     
-	   2 Input   20 Bit        Muxes := 2     
+	   2 Input   20 Bit        Muxes := 4     
 	   6 Input   16 Bit        Muxes := 3     
 	   4 Input   16 Bit        Muxes := 4     
 	   8 Input   16 Bit        Muxes := 1     
 	  21 Input   16 Bit        Muxes := 2     
 	   2 Input   16 Bit        Muxes := 1     
+	   2 Input   12 Bit        Muxes := 3     
 	  21 Input   10 Bit        Muxes := 1     
 	   2 Input    8 Bit        Muxes := 2     
 	   6 Input    8 Bit        Muxes := 1     
-	   2 Input    5 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 2     
+	   2 Input    5 Bit        Muxes := 3     
 	   4 Input    5 Bit        Muxes := 1     
 	   2 Input    4 Bit        Muxes := 2     
 	   6 Input    4 Bit        Muxes := 2     
 	   4 Input    4 Bit        Muxes := 1     
-	   6 Input    3 Bit        Muxes := 4     
+	   6 Input    3 Bit        Muxes := 3     
 	   7 Input    3 Bit        Muxes := 2     
 	   4 Input    3 Bit        Muxes := 3     
 	   8 Input    3 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 6     
 	   4 Input    2 Bit        Muxes := 3     
 	   2 Input    2 Bit        Muxes := 3     
-	   2 Input    1 Bit        Muxes := 31    
-	   6 Input    1 Bit        Muxes := 24    
-	   7 Input    1 Bit        Muxes := 19    
+	   2 Input    1 Bit        Muxes := 44    
+	  47 Input    1 Bit        Muxes := 3     
+	   6 Input    1 Bit        Muxes := 32    
+	   7 Input    1 Bit        Muxes := 12    
 	   4 Input    1 Bit        Muxes := 26    
 	   8 Input    1 Bit        Muxes := 10    
 	  21 Input    1 Bit        Muxes := 8     
@@ -362,113 +383,114 @@ DSP Report: operator total_pixels0 is absorbed into DSP total_pixels0.
 DSP Report: operator total_pixels0 is absorbed into DSP total_pixels0.
 WARNING: [Synth 8-7129] Port debug_port_1[7] in module lcd is either unconnected or has no load
 WARNING: [Synth 8-7129] Port debug_port_1[6] in module lcd is either unconnected or has no load
+WARNING: [Synth 8-7129] Port BUSY in module xpt2046 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[3] in module top_level is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[2] in module top_level is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[1] in module top_level is either unconnected or has no load
 WARNING: [Synth 8-7129] Port spi_dq[0] in module top_level is either unconnected or has no load
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[47]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[46]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[45]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[44]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[43]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[42]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[41]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[40]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[39]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[38]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[37]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[36]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[35]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[34]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[33]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[32]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[31]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[30]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[29]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[28]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[27]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[26]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[25]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[24]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[23]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[22]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[21]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[20]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[19]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[18]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[17]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[16]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[15]) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[47]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[46]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[45]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[44]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[43]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[42]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[41]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[40]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[39]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[38]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[37]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[36]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[35]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[34]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[33]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[32]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[31]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[30]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[29]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[28]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[27]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[26]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[25]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[24]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[23]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[22]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[21]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[20]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[19]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[18]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[17]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[16]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[15]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[14]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[13]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[12]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[11]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[10]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[9]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[8]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[7]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[6]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[5]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[4]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[3]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[2]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[1]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[0]__0) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[47]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[46]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[45]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[44]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[43]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[42]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[41]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[40]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[39]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[38]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[37]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[36]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[35]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[34]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[33]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[32]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[31]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[30]__1) is unused and will be removed from module top_level.
-WARNING: [Synth 8-3332] Sequential element (lcd_inst/total_pixels_reg[29]__1) is unused and will be removed from module top_level.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[47]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[46]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[45]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[44]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[43]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[42]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[41]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[40]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[39]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[38]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[37]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[36]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[35]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[34]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[33]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[32]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[31]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[30]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[29]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[28]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[27]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[26]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[25]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[24]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[23]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[22]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[21]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[20]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[19]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[18]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[17]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[16]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[15]) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[47]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[46]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[45]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[44]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[43]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[42]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[41]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[40]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[39]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[38]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[37]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[36]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[35]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[34]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[33]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[32]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[31]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[30]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[29]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[28]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[27]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[26]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[25]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[24]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[23]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[22]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[21]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[20]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[19]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[18]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[17]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[16]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[15]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[14]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[13]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[12]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[11]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[10]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[9]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[8]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[7]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[6]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[5]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[4]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[3]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[2]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[1]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[0]__0) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[47]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[46]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[45]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[44]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[43]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[42]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[41]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[40]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[39]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[38]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[37]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[36]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[35]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[34]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[33]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[32]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[31]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[30]__1) is unused and will be removed from module lcd.
+WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[29]__1) is unused and will be removed from module lcd.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:28 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:05 ; elapsed = 00:01:07 . Memory (MB): peak = 1176.914 ; gain = 686.039
 ---------------------------------------------------------------------------------
  Sort Area is  total_pixels0_0 : 0 0 : 3101 5879 : Used 1 time 0
  Sort Area is  total_pixels0_0 : 0 1 : 2778 5879 : Used 1 time 0
@@ -482,10 +504,14 @@ ROM: Preliminary Mapping Report
 +------------+------------+---------------+----------------+
 |Module Name | RTL Object | Depth x Width | Implemented As | 
 +------------+------------+---------------+----------------+
+|xpt2046     | DCLK       | 64x1          | LUT            | 
+|xpt2046     | DIN        | 64x1          | LUT            | 
 |lcd         | state      | 32x5          | LUT            | 
 |lcd         | init_rom   | 1024x16       | LUT            | 
 |lcd         | init_rom   | 1024x16       | LUT            | 
 |top_level   | fill_color | 32x16         | LUT            | 
+|xpt2046     | DCLK       | 64x1          | LUT            | 
+|xpt2046     | DIN        | 64x1          | LUT            | 
 |lcd         | state      | 32x5          | LUT            | 
 |lcd         | p_0_out    | 1024x16       | LUT            | 
 |lcd         | p_0_out    | 1024x16       | LUT            | 
@@ -511,19 +537,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:35 ; elapsed = 00:00:37 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:26 ; elapsed = 00:01:30 . Memory (MB): peak = 1325.945 ; gain = 835.070
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:36 ; elapsed = 00:00:38 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Timing Optimization : Time (s): cpu = 00:01:29 ; elapsed = 00:01:33 . Memory (MB): peak = 1364.289 ; gain = 873.414
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:36 ; elapsed = 00:00:39 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Technology Mapping : Time (s): cpu = 00:01:30 ; elapsed = 00:01:34 . Memory (MB): peak = 1365.711 ; gain = 874.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -541,37 +567,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished IO Insertion : Time (s): cpu = 00:01:53 ; elapsed = 00:01:56 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:53 ; elapsed = 00:01:56 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:53 ; elapsed = 00:01:57 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:53 ; elapsed = 00:01:57 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:53 ; elapsed = 00:01:57 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:53 ; elapsed = 00:01:57 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -595,51 +621,52 @@ Report BlackBoxes:
 +------+--------------+----------+
 
 Report Cell Usage: 
-+------+--------+------+
-|      |Cell    |Count |
-+------+--------+------+
-|1     |clk_wiz |     1|
-|2     |CARRY4  |    41|
-|3     |DSP48E1 |     3|
-|5     |LUT1    |    82|
-|6     |LUT2    |   102|
-|7     |LUT3    |    95|
-|8     |LUT4    |    79|
-|9     |LUT5    |   137|
-|10    |LUT6    |   222|
-|11    |MUXF7   |    39|
-|12    |MUXF8   |     4|
-|13    |FDCE    |   240|
-|14    |FDPE    |    48|
-|15    |FDRE    |    93|
-|16    |FDSE    |    16|
-|17    |IBUF    |     5|
-|18    |OBUF    |    17|
-|19    |OBUFT   |    20|
-+------+--------+------+
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |clk_wiz   |     1|
+|2     |CARRY4    |    46|
+|3     |DSP48E1   |     3|
+|5     |LUT1      |    83|
+|6     |LUT2      |   104|
+|7     |LUT3      |   120|
+|8     |LUT4      |    86|
+|9     |LUT5      |   138|
+|10    |LUT6      |   229|
+|11    |MUXF7     |    39|
+|12    |MUXF8     |     4|
+|13    |STARTUPE2 |     1|
+|14    |FDCE      |   283|
+|15    |FDPE      |    50|
+|16    |FDRE      |    98|
+|17    |FDSE      |    12|
+|18    |IBUF      |     6|
+|19    |OBUF      |    19|
+|20    |OBUFT     |    20|
++------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:53 ; elapsed = 00:01:57 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 184 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:32 ; elapsed = 00:00:42 . Memory (MB): peak = 1629.801 ; gain = 575.996
-Synthesis Optimization Complete : Time (s): cpu = 00:00:42 ; elapsed = 00:00:45 . Memory (MB): peak = 1629.801 ; gain = 674.973
+Synthesis finished with 0 errors, 0 critical warnings and 185 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:29 ; elapsed = 00:01:51 . Memory (MB): peak = 1555.285 ; gain = 973.844
+Synthesis Optimization Complete : Time (s): cpu = 00:01:53 ; elapsed = 00:01:57 . Memory (MB): peak = 1555.285 ; gain = 1064.410
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1629.801 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 87 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.039 . Memory (MB): peak = 1555.285 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 93 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1629.801 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1557.395 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: e4dd482c
+Synth Design complete | Checksum: 6691149c
 INFO: [Common 17-83] Releasing license: Synthesis
-74 Infos, 162 Warnings, 0 Critical Warnings and 0 Errors encountered.
+82 Infos, 166 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:48 ; elapsed = 00:00:51 . Memory (MB): peak = 1629.801 ; gain = 1069.805
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1629.801 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/top_level.dcp' has been generated.
+synth_design: Time (s): cpu = 00:02:02 ; elapsed = 00:02:11 . Memory (MB): peak = 1557.395 ; gain = 1257.199
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1557.395 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file top_level_utilization_synth.rpt -pb top_level_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Jun 15 12:07:25 2025...
+INFO: [Common 17-206] Exiting Vivado at Tue Jun 17 14:03:56 2025...

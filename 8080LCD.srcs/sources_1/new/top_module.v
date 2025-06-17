@@ -13,12 +13,18 @@ module top_level (
     output        LCD_BL,
     output        LCD_RDX,
     output [7:0]  la_out,
-    output        led_1
-    
-//    output spi_sclk,            // SPI такт
-//    output spi_cs_n,            // SPI Chip Select
-//    inout [3:0] spi_dq         // Бідирекційні піни DQ0-DQ3
-//    //output wire [15:0] pixel_data // Вихідні дані пікселя
+    output        led_1,
+        // Сигнали для XPT2046
+    output        ts_clk,        // SPI такт (DCLK)
+    output        ts_cs,         // SPI Chip Select (CS_N)
+    input         ts_miso,       // SPI MISO (DOUT)
+    output        ts_mosi,       // SPI MOSI (DIN)
+    input         ts_pen,         // Сигнал переривання від XPT2046
+    // сигнали для SPI flash
+    //output spi_sclk,            // SPI такт
+    output spi_cs_n,            // SPI Chip Select
+    inout [3:0] spi_dq         // Бідирекційні піни DQ0-DQ3
+    //output wire [15:0] pixel_data // Вихідні дані пікселя
 );
 
 wire key_ready;
@@ -33,35 +39,97 @@ reg  init_screen; // Новий регістр для ініціалізації
 reg [2:0] state;
 reg [31:0] delay_counter;
 
+// Сигнали для XPT2046
+wire [11:0] x_value, y_value;
+wire get_flag;
+reg  touch_en;
+
+// Інстанція модуля XPT2046
+xpt2046 touch_inst (
+    .Clk50m(clk),
+    .Rst_n(reset_n),
+    .EN(touch_en),
+    .X_Value(x_value),
+    .Y_Value(y_value),
+    .Get_Flag(get_flag),
+    .PenIrq_n(ts_pen),
+    .DCLK(ts_clk),
+    .DIN(ts_mosi),
+    .DOUT(ts_miso),
+    .CS_N(ts_cs),
+    .BUSY(1'b0) // Припускаємо, що BUSY не використовується (підключіть, якщо потрібно)
+);
+
+// Логіка для виведення координат на la_out
+reg la_select; // Вибір між X та Y для la_out
+always @(posedge clk or negedge reset_n) begin
+    if (!reset_n) begin
+        la_select <= 0;
+    end else if (get_flag) begin
+        la_select <= ~la_select; // Чергування між X та Y
+    end
+end
+
+//assign la_out = la_select ? x_value[11:4] : y_value[11:4]; // Виводимо старші 8 біт X або Y
+
+// Логіка для активації сенсорного екрану
+always @(posedge clk or negedge reset_n) begin
+    if (!reset_n) begin
+        touch_en <= 1'b0;
+    end else begin
+        touch_en <= 1'b1; // Постійно активуємо сенсорний екран
+    end
+end
+
 //assign la_out[7:0] = debug_port_1;
 
-//reg start;
-//reg [23:0] addr = 24'h400000; // Початкова адреса зображення
-//reg [15:0] num_bytes = 800*480*16;
-//wire [7:0] data_out;
-//wire valid, done;
-//wire [3:0] dq_out;
-//wire dq_oe;
 
-//// Quad SPI контролер
-//quad_spi_master #(
-//	.CLK_FREQ(50_000_000),
-//	.SPI_FREQ(10_000_000)
-//    ) spi_inst (
-//	.clk(clk),
-//	.rst(~reset_n),
-//	.start(start),
-//	.addr(addr),
-//	.num_bytes(num_bytes),
-//	.data_out(data_out),
-//	.valid(valid),
-//	.done(done),
-//	.sclk(spi_sclk),
-//	.cs_n(spi_cs_n),
-//    .dq_out(spi_dq_out),
-//	.dq_oe(dq_oe),
-//	.dq(dq)
-//);
+    STARTUPE2 #(
+       .PROG_USR("FALSE"),
+       .SIM_CCLK_FREQ(10.0)
+    ) STARTUPE2_inst (
+        .CFGCLK(),
+        .CFGMCLK(),
+        .EOS(end_of_startup),
+        .PREQ(),
+        .CLK(1'b0),
+        .GSR(1'b0),
+        .GTS(1'b0),
+        .KEYCLEARB(1'b0),
+        .PACK(1'b0),
+        .USRCCLKO(spi_sclk),
+        .USRCCLKTS(1'b0),
+        .USRDONEO(1'b1),
+        .USRDONETS(1'b1)
+    );
+    
+reg start;
+reg [23:0] addr = 24'h400000; // Початкова адреса зображення
+reg [15:0] num_bytes = 800*480*16;
+wire [7:0] data_out;
+wire valid, done;
+wire [3:0] dq_out;
+wire dq_oe;
+
+// Quad SPI контролер
+quad_spi_master #(
+	.CLK_FREQ(50_000_000),
+	.SPI_FREQ(10_000_000)
+    ) spi_inst (
+	.clk(clk),
+	.rst(~reset_n),
+	.start(start),
+	.addr(addr),
+	.num_bytes(num_bytes),
+	.data_out(data_out),
+	.valid(valid),
+	.done(done),
+	.sclk(spi_sclk),
+	.cs_n(spi_cs_n),
+    .dq_out(spi_dq_out),
+	.dq_oe(dq_oe),
+	.dq(dq)
+);
 
 
 lcd lcd_inst (
@@ -96,39 +164,39 @@ KeyPadInterpreter keypad_inst (
     .PressCount(press_count)
 );
 
-// // Логіка збору пікселів
-//    reg [7:0] data_buf;
-//    reg [15:0] pixel_reg;
-//    reg pixel_valid;
+ // Логіка збору пікселів
+    reg [7:0] data_buf;
+    reg [15:0] pixel_reg;
+    reg pixel_valid;
     
-//assign la_out[7:0] = data_buf[7:0];
+assign la_out[7:0] = data_buf[7:0];
 
-//    always @(posedge clk or negedge reset_n) begin
-//        if (!reset_n) begin
-//            start <= 0;
-//            pixel_valid <= 0;
-//            data_buf <= 0;
-//            pixel_reg <= 0;
-//        end else begin
-//            if (!start && !done) begin
-//                start <= 1; // Почати зчитування
-//            end else begin
-//                start <= 0;
-//            end
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            start <= 0;
+            pixel_valid <= 0;
+            data_buf <= 0;
+            pixel_reg <= 0;
+        end else begin
+            if (!start && !done) begin
+                start <= 1; // Почати зчитування
+            end else begin
+                start <= 0;
+            end
 
-//            if (valid) begin
-//                if (!pixel_valid) begin
-//                    data_buf <= data_out;
-//                    pixel_valid <= 1;
-//                end else begin
-//                    pixel_reg <= {data_buf, data_out};
-//                    pixel_valid <= 0;
-//                end
-//            end
-//        end
-//    end
+            if (valid) begin
+                if (!pixel_valid) begin
+                    data_buf <= data_out;
+                    pixel_valid <= 1;
+                end else begin
+                    pixel_reg <= {data_buf, data_out};
+                    pixel_valid <= 0;
+                end
+            end
+        end
+    end
 
-//    //assign pixel_data = pixel_reg;
+    //assign pixel_data = pixel_reg;
     
 reg [4:0] count;
 always @(posedge clk or negedge reset_n) begin

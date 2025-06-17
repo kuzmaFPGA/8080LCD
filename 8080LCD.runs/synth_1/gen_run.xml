@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1749978378" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mrb3973_test.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1750158092" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mrb3973_test.dcp">
   <File Type="PA-TCL" Name="top_level.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="top_level_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="top_level_reports.tcl"/>
   <File Type="RDS-RDS" Name="top_level.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="top_level_drc_synth.rpt"/>
   <File Type="RDS-UTIL" Name="top_level_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="top_level_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="top_level.dcp"/>
@@ -81,6 +81,13 @@
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/new/quad_spi_master.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/xpt2046_controller.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>

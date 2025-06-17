@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "D:/Xilinx/Projects/8080LCD/8080LCD.runs/impl_1/top_level.tcl"
+  variable script "D:/Github/8080LCD/8080LCD.runs/impl_1/top_level.tcl"
   variable category "vivado_impl"
 }
 
@@ -97,6 +97,7 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
+set_msg_config -id {Common 17-41} -limit 10000000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -104,25 +105,26 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param chipscope.maxJobs 4
-  set_param runs.launchOptions { -jobs 16  }
+  set_param chipscope.maxJobs 1
+  set_param xicom.use_bs_reader 1
+  set_param runs.launchOptions { -jobs 4  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a35tcsg325-1
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir D:/Xilinx/Projects/8080LCD/8080LCD.cache/wt [current_project]
-  set_property parent.project_path D:/Xilinx/Projects/8080LCD/8080LCD.xpr [current_project]
-  set_property ip_output_repo D:/Xilinx/Projects/8080LCD/8080LCD.cache/ip [current_project]
+  set_property webtalk.parent_dir D:/Github/8080LCD/8080LCD.cache/wt [current_project]
+  set_property parent.project_path D:/Github/8080LCD/8080LCD.xpr [current_project]
+  set_property ip_output_repo D:/Github/8080LCD/8080LCD.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES XPM_CDC [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet D:/Xilinx/Projects/8080LCD/8080LCD.runs/synth_1/top_level.dcp
-  read_ip -quiet D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+  add_files -quiet D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.dcp
+  read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 OPTRACE "read constraints: implementation" START { }
-  read_xdc D:/Xilinx/Projects/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
+  read_xdc D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }

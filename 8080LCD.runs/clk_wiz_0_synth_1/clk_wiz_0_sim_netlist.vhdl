@@ -1,11 +1,11 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
--- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+-- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
--- Date        : Sat May 24 21:47:23 2025
--- Host        : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
+-- Tool Version: Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
+-- Date        : Mon Jun 16 10:39:32 2025
+-- Host        : DESKTOP-H05VBGI running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_sim_netlist.vhdl
+--               D:/Github/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_sim_netlist.vhdl
 -- Design      : clk_wiz_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
