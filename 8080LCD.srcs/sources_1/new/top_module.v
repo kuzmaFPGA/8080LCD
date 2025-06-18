@@ -60,18 +60,6 @@ xpt2046 touch_inst (
     .BUSY(1'b0) // Припускаємо, що BUSY не використовується (підключіть, якщо потрібно)
 );
 
-// Логіка для виведення координат на la_out
-reg la_select; // Вибір між X та Y для la_out
-always @(posedge clk or negedge reset_n) begin
-    if (!reset_n) begin
-        la_select <= 0;
-    end else if (get_flag) begin
-        la_select <= ~la_select; // Чергування між X та Y
-    end
-end
-
-//assign la_out = la_select ? x_value[11:4] : y_value[11:4]; // Виводимо старші 8 біт X або Y
-
 // Логіка для активації сенсорного екрану
 always @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
@@ -80,9 +68,6 @@ always @(posedge clk or negedge reset_n) begin
         touch_en <= 1'b1; // Постійно активуємо сенсорний екран
     end
 end
-
-//assign la_out[7:0] = debug_port_1;
-
 
     STARTUPE2 #(
        .PROG_USR("FALSE"),
@@ -104,8 +89,8 @@ end
     );
     
 reg start;
-reg [23:0] addr = 24'h400000; // Початкова адреса зображення
-reg [15:0] num_bytes = 800*480*16;
+reg [23:0] addr = 24'h400_000; // Початкова адреса зображення
+reg [15:0] num_bytes = 256*256*16;
 wire [7:0] data_out;
 wire valid, done;
 wire [3:0] dq_out;
