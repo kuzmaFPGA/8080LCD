@@ -56,6 +56,7 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "blk_mem_gen_0_synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 1
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }
@@ -74,7 +75,7 @@ set_property ip_output_repo d:/Github/8080LCD/8080LCD.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
 set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
 
 OPTRACE "Adding files" END { }
@@ -176,15 +177,15 @@ if { [catch {
 close [open .end.used_ip_cache.rst w]
 }; # end if cacheID 
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v -of_objects [get_files d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl -of_objects [get_files d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v -of_objects [get_files d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl -of_objects [get_files d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.dcp -of_objects [get_files d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.dcp -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
 if {[file isdir D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
   catch { 

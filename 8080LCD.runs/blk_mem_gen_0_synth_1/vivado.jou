@@ -3,8 +3,8 @@
 # SW Build 6060944 on Thu Mar 06 19:10:01 MST 2025
 # IP Build 6050500 on Thu Mar  6 23:33:39 MST 2025
 # SharedData Build 6060542 on Thu Mar 06 10:31:07 MST 2025
-# Start of session at: Wed Jun 18 15:26:06 2025
-# Process ID         : 6288
+# Start of session at: Thu Jun 19 09:02:25 2025
+# Process ID         : 336
 # Current directory  : D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1
 # Command line       : vivado.exe -log blk_mem_gen_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source blk_mem_gen_0.tcl
 # Log file           : D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.vds
@@ -19,6 +19,6 @@
 # Host memory        : 17156 MB
 # Swap memory        : 2550 MB
 # Total Virtual      : 19706 MB
-# Available Virtual  : 11957 MB
+# Available Virtual  : 13311 MB
 #-----------------------------------------------------------
 source blk_mem_gen_0.tcl -notrace

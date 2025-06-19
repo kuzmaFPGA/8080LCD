@@ -52,12 +52,12 @@ typedef enum logic [4:0] {
     S_IDLE = 9,
     S_SET_XSTART_H = 10,   // Set xStart high byte (0x2A00)
     S_SET_XSTART_L = 11,   // Set xStart low byte (0x2A01)
-    S_SET_Xend_H =12 ,     // Set xEnd high byte (0x2A02)
-    S_SET_Xend_L = 13,     // Set xEnd low byte (0x2A03)
+    S_SET_XEND_H =12 ,     // Set xEnd high byte (0x2A02)
+    S_SET_XEND_L = 13,     // Set xEnd low byte (0x2A03)
     S_SET_YSTART_H = 14,   // Set yStart high byte (0x2B00)
     S_SET_YSTART_L = 15,   // Set yStart low byte (0x2B01)
-    S_SET_Yend_H =16,     // Set yEnd high byte (0x2B02)
-    S_SET_Yend_L =17,     // Set yEnd low byte (0x2B03)
+    S_SET_YEND_H =16,     // Set yEnd high byte (0x2B02)
+    S_SET_YEND_L =17,     // Set yEnd low byte (0x2B03)
     S_DISPLAY_ON = 18,     // Enable display (0x2900)
     S_SET_ADDR = 19,       // Set address (0x2C00)
     S_PREP_FILL =20,      // Prepare for pixel fill

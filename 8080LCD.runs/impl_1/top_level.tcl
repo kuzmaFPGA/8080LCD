@@ -97,7 +97,6 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
-set_msg_config -id {Common 17-41} -limit 10000000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -118,11 +117,12 @@ OPTRACE "set parameters" START { }
   set_property parent.project_path D:/Github/8080LCD/8080LCD.xpr [current_project]
   set_property ip_output_repo D:/Github/8080LCD/8080LCD.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
-  set_property XPM_LIBRARIES XPM_CDC [current_project]
+  set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.dcp
   read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+  read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 OPTRACE "read constraints: implementation" END { }
@@ -288,7 +288,7 @@ set rc [catch {
   create_msg_db write_bitstream.pb
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }
-  set_property XPM_LIBRARIES XPM_CDC [current_project]
+  set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
   catch { write_mem_info -force -no_partial_mmi top_level.mmi }
 OPTRACE "write_bitstream setup" END { }
 OPTRACE "write_bitstream" START { }

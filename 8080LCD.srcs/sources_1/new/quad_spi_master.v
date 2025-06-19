@@ -1,28 +1,27 @@
 module quad_spi_master #(
-    parameter CLK_FREQ = 50_000_000, // Частота тактового сигналу FPGA (50 МГц)
-    parameter SPI_FREQ = 10_000_000  // Частота SPI (10 МГц)
+    parameter CLK_FREQ = 50_000_000,
+    parameter SPI_FREQ = 10_000_000
 )(
-    input wire clk,                  // Системний такт
-    input wire rst,                  // Скидання
-    input wire start,                // Сигнал для початку зчитування
-    input wire [23:0] addr,          // Адреса для зчитування (3 байти)
-    input wire [15:0] num_bytes,     // Кількість байтів для зчитування
-    output reg [7:0] data_out,       // Зчитані дані
-    output reg valid,                // Сигнал готовності даних
-    output reg done,                 // Сигнал завершення
-    // Quad SPI інтерфейс
-    output reg sclk,                 // Такт SPI
-    output reg cs_n,                 // Chip Select
-    output reg [3:0] dq_out,         // Вихідні дані (Quad mode)
-    output reg dq_oe,                // Output Enable для DQ
-    inout wire [3:0] dq              // Бідирекційні піни DQ0-DQ3
+    input wire clk,
+    input wire rst,
+    input wire start,
+    input wire [23:0] addr,
+    input wire [15:0] num_bytes,
+    output reg [7:0] data_out,
+    output reg valid,
+    output reg done,
+    output reg sclk,
+    output reg cs_n,
+    output reg [3:0] dq_out,
+    output reg dq_oe,
+    inout wire [3:0] dq
 );
 
-    localparam CLK_DIV = CLK_FREQ / (2 * SPI_FREQ); // Дільник для SCLK
+    localparam CLK_DIV = CLK_FREQ / (2 * SPI_FREQ);
     localparam IDLE = 0, CMD = 1, ADDR = 2, DUMMY = 3, DATA = 4, DONE = 5;
 
     reg [2:0] state = IDLE;
-    reg [7:0] cmd = 8'h6B;          // Quad Output Fast Read
+    reg [7:0] cmd = 8'h6B;
     reg [23:0] addr_reg;
     reg [15:0] byte_count;
     reg [3:0] bit_count;
@@ -30,11 +29,8 @@ module quad_spi_master #(
     reg [7:0] shift_reg;
     reg [2:0] dummy_count;
 
-    // Вхідні дані з бідирекційних пінів
     wire [3:0] dq_in;
     assign dq_in = dq;
-
-    // Керування бідирекційними пінами
     assign dq = dq_oe ? dq_out : 4'bz;
 
     always @(posedge clk or posedge rst) begin
@@ -61,10 +57,10 @@ module quad_spi_master #(
                         byte_count <= num_bytes;
                         bit_count <= 0;
                         shift_reg <= cmd;
-                        dq_oe <= 1; // Вмикаємо вихід для команди
+                        dq_oe <= 1;
                     end
                 end
-                CMD: begin // Надсилання команди (Standard SPI, DQ0)
+                CMD: begin
                     if (clk_count < CLK_DIV - 1) begin
                         clk_count <= clk_count + 1;
                     end else begin
@@ -73,7 +69,7 @@ module quad_spi_master #(
                         if (sclk) begin
                             bit_count <= bit_count + 1;
                             shift_reg <= {shift_reg[6:0], 1'b0};
-                            dq_out <= {3'b0, shift_reg[7]}; // Використовуємо DQ0
+                            dq_out <= {3'b0, shift_reg[7]};
                             if (bit_count == 7) begin
                                 state <= ADDR;
                                 bit_count <= 0;
@@ -82,7 +78,7 @@ module quad_spi_master #(
                         end
                     end
                 end
-                ADDR: begin // Надсилання адреси (Quad SPI)
+                ADDR: begin
                     if (clk_count < CLK_DIV - 1) begin
                         clk_count <= clk_count + 1;
                     end else begin
@@ -90,14 +86,14 @@ module quad_spi_master #(
                         sclk <= ~sclk;
                         if (sclk) begin
                             bit_count <= bit_count + 1;
-                            dq_out <= shift_reg[7:4]; // Надсилаємо 4 біти за такт
+                            dq_out <= shift_reg[7:4];
                             shift_reg <= {shift_reg[3:0], 4'b0};
                             if (bit_count == 1) begin
                                 bit_count <= 0;
                                 if (addr_reg[15:0] == 0) begin
                                     state <= DUMMY;
                                     dummy_count <= 0;
-                                    dq_oe <= 0; // Вимикаємо вихід для dummy
+                                    dq_oe <= 0;
                                 end else begin
                                     addr_reg <= {addr_reg[15:0], 8'h00};
                                     shift_reg <= addr_reg[15:8];
@@ -106,7 +102,7 @@ module quad_spi_master #(
                         end
                     end
                 end
-                DUMMY: begin // Dummy cycles (8 тактів)
+                DUMMY: begin
                     if (clk_count < CLK_DIV - 1) begin
                         clk_count <= clk_count + 1;
                     end else begin
@@ -122,14 +118,14 @@ module quad_spi_master #(
                         end
                     end
                 end
-                DATA: begin // Зчитування даних (Quad SPI)
+                DATA: begin
                     if (clk_count < CLK_DIV - 1) begin
                         clk_count <= clk_count + 1;
                     end else begin
                         clk_count <= 0;
                         sclk <= ~sclk;
                         if (!sclk) begin
-                            shift_reg <= {shift_reg[3:0], dq_in}; // Зчитуємо 4 біти
+                            shift_reg <= {shift_reg[3:0], dq_in};
                             bit_count <= bit_count + 1;
                             if (bit_count == 1) begin
                                 data_out <= {shift_reg[3:0], dq_in};

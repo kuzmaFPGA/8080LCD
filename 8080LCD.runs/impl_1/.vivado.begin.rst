@@ -1,15 +1,50 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="11420" HostCore="4" HostMemory="017156087808">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="3188" HostCore="4" HostMemory="017156087808">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="2312" HostCore="4" HostMemory="017156087808">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="6636" HostCore="4" HostMemory="017156087808">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="876" HostCore="4" HostMemory="017156087808">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="6140" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="11404" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="6988" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="8580" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="8524" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="8544" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="11532" HostCore="4" HostMemory="017156087808">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="kuzem" Host="DESKTOP-H05VBGI" Pid="9416" HostCore="4" HostMemory="017156087808">
     </Process>
 </ProcessHandle>
