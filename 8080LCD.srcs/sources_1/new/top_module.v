@@ -19,11 +19,7 @@ module top_level (
     output        ts_cs,         // SPI Chip Select (CS_N)
     input         ts_miso,       // SPI MISO (DOUT)
     output        ts_mosi,       // SPI MOSI (DIN)
-    input         ts_pen,        // Сигнал переривання від XPT2046
-    // Сигнали для SPI флеш
-    //output        spi_sclk,      // SPI такт
-    output        spi_cs_n,      // SPI Chip Select
-    inout  [3:0]  spi_dq         // Бідирекційні піни DQ0-DQ3
+    input         ts_pen         // Сигнал переривання від XPT2046
 );
 
 wire key_ready;
@@ -35,24 +31,13 @@ reg  update_screen;
 reg  [15:0] x_start, x_end, y_start, y_end;
 wire [7:0] debug_port_1;
 reg  init_screen;
-reg  [2:0] state;
+reg  [1:0] state;
 reg  [31:0] delay_counter;
 
 // Сигнали для XPT2046
 wire [11:0] x_value, y_value;
 wire get_flag;
 reg  touch_en;
-
-// Сигнали для SPI флеш
-reg  start;
-reg  [23:0] addr = 24'h400000; // Початкова адреса зображення
-reg  [15:0] num_bytes = 32768; // 32 КБ (128x128x2)
-wire [7:0] data_out;
-wire valid, done;
-
-    assign la_out[5] = spi_sclk;
-    assign la_out[4] = spi_cs_n;
-    assign la_out[3:0] = spi_dq; 
 
 // Сигнали для BRAM
 wire [15:0] bram_douta, bram_doutb;
@@ -62,7 +47,7 @@ reg  bram_wea, bram_web;
 wire [15:0] pixel_data;
 
 // FSM стани
-localparam S_INIT = 0, S_READ_SPI = 1, S_WAIT_SPI = 2, S_DISPLAY = 3;
+localparam S_INIT = 0, S_WAIT = 1, S_DISPLAY = 2;
 
 // BRAM інстанція
 blk_mem_gen_0 bram_inst (
@@ -76,43 +61,6 @@ blk_mem_gen_0 bram_inst (
     .addrb(bram_addrb),
     .dinb(16'h0),
     .doutb(bram_doutb)
-);
-STARTUPE2 #(
-       .PROG_USR("FALSE"),
-       .SIM_CCLK_FREQ(10.0)
-    ) STARTUPE2_inst (
-        .CFGCLK(),
-        .CFGMCLK(),
-        .EOS(end_of_startup),
-        .PREQ(),
-        .CLK(1'b0),
-        .GSR(1'b0),
-        .GTS(1'b0),
-        .KEYCLEARB(1'b0),
-        .PACK(1'b0),
-        .USRCCLKO(spi_sclk),
-        .USRCCLKTS(1'b0),
-        .USRDONEO(1'b1),
-        .USRDONETS(1'b1)
-    );
-// Quad SPI контролер
-quad_spi_master #(
-    .CLK_FREQ(50_000_000),
-    .SPI_FREQ(10_000_000)
-) spi_inst (
-    .clk(clk),
-    .rst(~reset_n),
-    .start(start),
-    .addr(addr),
-    .num_bytes(num_bytes),
-    .data_out(data_out),
-    .valid(valid),
-    .done(done),
-    .sclk(spi_sclk),
-    .cs_n(spi_cs_n),
-    .dq_out(),
-    .dq_oe(),
-    .dq(spi_dq)
 );
 
 // LCD інстанція
@@ -174,40 +122,14 @@ always @(posedge clk or negedge reset_n) begin
     end
 end
 
-// Логіка збору пікселів для BRAM
-reg [7:0] data_buf;
-reg pixel_valid;
-reg [13:0] write_addr;
-
+// Логіка для BRAM
 always @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
-        start <= 0;
-        pixel_valid <= 0;
-        data_buf <= 0;
-        write_addr <= 0;
         bram_wea <= 0;
         bram_dina <= 0;
+        bram_addra <= 0;
     end else begin
-        if (!start && !done && state == S_WAIT_SPI) begin
-            start <= 1;
-        end else begin
-            start <= 0;
-        end
-
-        if (valid) begin
-            if (!pixel_valid) begin
-                data_buf <= data_out;
-                pixel_valid <= 1;
-            end else begin
-                bram_dina <= {data_buf, data_out}; // Формуємо 16-бітний піксель
-                bram_wea <= 1;
-                bram_addra <= write_addr;
-                write_addr <= write_addr + 1;
-                pixel_valid <= 0;
-            end
-        end else begin
-            bram_wea <= 0;
-        end
+        bram_wea <= 0; // Запис відключений, BRAM ініціалізовано файлом
     end
 end
 
@@ -233,16 +155,11 @@ always @(posedge clk or negedge reset_n) begin
                     update_screen <= 1;
                     init_screen <= 0;
                 end else if (!update_screen) begin
-                    state <= S_READ_SPI;
+                    state <= S_WAIT;
+                    delay_counter <= 50_000_000; // 1 с затримки
                 end
             end
-            S_READ_SPI: begin
-                if (done) begin
-                    state <= S_WAIT_SPI;
-                    delay_counter <= 500_000_000; // 1 с затримки
-                end
-            end
-            S_WAIT_SPI: begin
+            S_WAIT: begin
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
@@ -252,11 +169,9 @@ always @(posedge clk or negedge reset_n) begin
             end
             S_DISPLAY: begin
                 update_screen <= 0;
-                // Зчитування з BRAM для LCD
                 bram_addrb <= bram_addrb + 1;
                 if (bram_addrb == 16383) begin
                     bram_addrb <= 0;
-                    update_screen <= 1;
                 end
             end
         endcase
@@ -264,6 +179,6 @@ always @(posedge clk or negedge reset_n) begin
 end
 
 assign pixel_data = bram_doutb;
-//assign la_out = data_buf;
+assign la_out = pixel_data[7:0]; // Вихід для дебагу не використовується
 
 endmodule

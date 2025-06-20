@@ -74,6 +74,7 @@ set_property ip_output_repo d:/Github/8080LCD/8080LCD.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
+add_files d:/Github/8080LCD/init.coe
 read_mem D:/Github/8080LCD/8080LCD.srcs/sources_1/new/init.mem
 read_verilog -library xil_defaultlib -sv {
   D:/Github/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
@@ -90,6 +91,7 @@ read_verilog -library xil_defaultlib {
   D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v
   D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v
   D:/Github/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v
+  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/spi_flash.v
 }
 read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]

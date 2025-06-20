@@ -3,8 +3,8 @@
 # SW Build 6060944 on Thu Mar 06 19:10:01 MST 2025
 # IP Build 6050500 on Thu Mar  6 23:33:39 MST 2025
 # SharedData Build 6060542 on Thu Mar 06 10:31:07 MST 2025
-# Start of session at: Thu Jun 19 12:39:43 2025
-# Process ID         : 1712
+# Start of session at: Fri Jun 20 13:14:38 2025
+# Process ID         : 10256
 # Current directory  : D:/Github/8080LCD/8080LCD.runs/synth_1
 # Command line       : vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
 # Log file           : D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.vds
@@ -19,6 +19,6 @@
 # Host memory        : 17156 MB
 # Swap memory        : 2550 MB
 # Total Virtual      : 19706 MB
-# Available Virtual  : 10146 MB
+# Available Virtual  : 12024 MB
 #-----------------------------------------------------------
 source top_level.tcl -notrace
