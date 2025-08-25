@@ -28,39 +28,40 @@ wire [4:0] press_count;
 reg  key_read;
 reg  [15:0] fill_color;
 reg  update_screen;
+reg  init_done;
+reg [31:0] data_count;
+reg  start_read_data;
 reg  [15:0] x_start, x_end, y_start, y_end;
 wire [7:0] debug_port_1;
-reg  init_screen;
+//reg  init_screen;
 reg  [1:0] state;
 reg  [31:0] delay_counter;
-
+reg  [4:0]  lcd_state;
 // Сигнали для XPT2046
 wire [11:0] x_value, y_value;
 wire get_flag;
 reg  touch_en;
 
 // Сигнали для BRAM
-wire [15:0] bram_douta, bram_doutb;
-reg  [13:0] bram_addra, bram_addrb;
-reg  [15:0] bram_dina;
-reg  bram_wea, bram_web;
+wire [15:0] bram_douta;
+reg [13:0] bram_addra;
 wire [15:0] pixel_data;
 
-// FSM стани
-localparam S_INIT = 0, S_WAIT = 1, S_DISPLAY = 2;
+wire clk_main;
 
-// BRAM інстанція
-blk_mem_gen_0 bram_inst (
-    .clka(clk),
-    .wea(bram_wea),
-    .addra(bram_addra),
-    .dina(bram_dina),
-    .douta(bram_douta),
-    .clkb(clk),
-    .web(bram_web),
-    .addrb(bram_addrb),
-    .dinb(16'h0),
-    .doutb(bram_doutb)
+clk_wiz_1 main_clk_pll (
+    .clk_in1(clk),
+    .resetn(reset_n),
+    .clk_out1(clk_main)
+);
+
+// FSM стани
+localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3;
+
+blk_mem_gen_0 bram (
+  .clka(clk),    // input wire clka
+  .addra(bram_addra),  // input wire [13 : 0] addra
+  .douta(bram_douta)  // output wire [15 : 0] douta
 );
 
 // LCD інстанція
@@ -82,7 +83,12 @@ lcd lcd_inst (
     .LCD_RDX(LCD_RDX),
     .debug_port_1(debug_port_1),
     .led_1_reg(led_1),
-    .led_2_reg()
+    .led_2_reg(),
+    .start_read_data(start_read_data),
+    .lcd_clk(lcd_clk),  // Підключаємо lcd_clk
+    .lcd_state(lcd_state),
+    .init_done(init_done),
+    .lcd_data_count(data_count)
 );
 
 // KeyPad інстанція
@@ -122,22 +128,11 @@ always @(posedge clk or negedge reset_n) begin
     end
 end
 
-// Логіка для BRAM
-always @(posedge clk or negedge reset_n) begin
-    if (!reset_n) begin
-        bram_wea <= 0;
-        bram_dina <= 0;
-        bram_addra <= 0;
-    end else begin
-        bram_wea <= 0; // Запис відключений, BRAM ініціалізовано файлом
-    end
-end
-
 // FSM для керування
-always @(posedge clk or negedge reset_n) begin
+always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
+        bram_addra <= 0;
         state <= S_INIT;
-        init_screen <= 1;
         update_screen <= 0;
         x_start <= 0;
         x_end <= 127; // 128-1
@@ -146,39 +141,49 @@ always @(posedge clk or negedge reset_n) begin
         fill_color <= GREEN;
         key_read <= 0;
         delay_counter <= 0;
-        bram_addrb <= 0;
-        bram_web <= 0;
     end else begin
         case (state)
             S_INIT: begin
-                if (init_screen) begin
-                    update_screen <= 1;
-                    init_screen <= 0;
-                end else if (!update_screen) begin
+                if (init_done) begin
                     state <= S_WAIT;
-                    delay_counter <= 50_000_000; // 1 с затримки
+                    delay_counter <= 1 * MAIN_CLK_FREQ_KHZ; // 1 с затримки
                 end
-            end
+            end    
             S_WAIT: begin
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
-                    state <= S_DISPLAY;
+                    state <= S_TRIGGER_WAIT;
                     update_screen <= 1;
+                    delay_counter <= 10;
+                end
+            end
+            S_TRIGGER_WAIT: begin
+                if (delay_counter > 0) begin
+                    delay_counter <= delay_counter - 1;
+                end else begin
+                    state <= S_DISPLAY;
+                    bram_addra <= 0;
                 end
             end
             S_DISPLAY: begin
                 update_screen <= 0;
-                bram_addrb <= bram_addrb + 1;
-                if (bram_addrb == 16383) begin
-                    bram_addrb <= 0;
+                if (start_read_data) begin
+                    bram_addra <= data_count;
+                    if (bram_addra == 16383) begin
+                        bram_addra <= 0;
+                        //delay_counter <= 1 * MAIN_CLK_FREQ_KHZ; // 1 с затримки
+                        //state <= S_WAIT;
+                    end
                 end
             end
         endcase
     end
 end
-
-assign pixel_data = bram_doutb;
-assign la_out = pixel_data[7:0]; // Вихід для дебагу не використовується
+assign pixel_data = bram_douta;
+//assign la_out[7:1] = bram_addra[7:1];
+assign la_out[0:0] = start_read_data;
+assign la_out[5:1] = lcd_state[4:0];
+assign la_out[7:6] = state;
 
 endmodule

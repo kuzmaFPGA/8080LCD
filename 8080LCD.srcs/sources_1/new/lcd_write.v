@@ -191,7 +191,9 @@ module lcd_write_cmd_ndata (
 	output reg LCD_WR,       // WRX (write control)
 	output reg LCD_RDX,      // RDX (read control)
 	output reg [15:0] LCD_DATA, // Шина даних
-	output reg done          // Сигнал завершення запису
+	output reg done,          // Сигнал завершення запису
+    reg [31:0] data_count   // Лічильник записаних даних	
+//output reg next_data      // сигнал на зчитування наступного пікселя
 	//output wire [7:0] debug
 );
 
@@ -208,7 +210,7 @@ typedef enum logic [3:0] {
 
 fill_display_state_t fill_display_state;
 //assign debug[3:0] = fill_display_state;
-reg [31:0] data_count;   // Лічильник записаних даних
+
 
 always @(posedge clk or negedge reset_n) begin
 	if (!reset_n) begin
@@ -253,9 +255,10 @@ always @(posedge clk or negedge reset_n) begin
 				LCD_RS <= 1;
 				LCD_WR <= 0;
 				//LCD_DATA <= cmd; 
-				fill_display_state <= SET_DATA;			
+				fill_display_state <= SET_DATA;	
 			end
 			SET_DATA: begin
+			    
 				LCD_CS <= 0;
 				LCD_RS <= 1;
 				LCD_WR <= 0;

@@ -18,7 +18,12 @@ module lcd (
     output           LCD_RDX,    // RDX (read control)
     output    [7:0]  debug_port_1,
     output           led_1_reg,
-    output           led_2_reg
+    output           led_2_reg,
+    output           start_read_data,
+    output           lcd_clk,  // Додаємо вихід для lcd_clk
+    output    [4:0]  lcd_state,
+    output           init_done,
+    output    [31:0] lcd_data_count
 );
 
 // Output registers
@@ -29,6 +34,8 @@ reg           LCD_CS_reg;
 reg           LCD_RESET_reg;
 reg           LCD_BL_reg;
 reg           LCD_RDX_reg;
+reg           start_read_data_reg;
+reg           lcd_ready_reg;
 
 assign LCD_DATA = LCD_DATA_reg;
 assign LCD_WR = LCD_WR_reg;
@@ -37,11 +44,11 @@ assign LCD_CS = LCD_CS_reg;
 assign LCD_RESET = LCD_RESET_reg;
 assign LCD_BL = LCD_BL_reg;
 assign LCD_RDX = LCD_RDX_reg;
-
+assign start_read_data = start_read_data_reg;
 wire pll_locked;
 wire lcd_clk;
 
-// PLL for generating lcd_clk (8 MHz)
+// PLL for generating lcd_clk 100Mhz
 clk_wiz_0 lcd_clk_pll (
     .clk_in1(clk),
     .resetn(reset_n),
@@ -75,6 +82,7 @@ reg cmd_ndata_start;
 wire cmd_done;
 wire cmd_data_done;
 wire cmd_ndata_done;
+wire next_data;
 
 // Multiplexer signals
 wire [15:0] cmd_LCD_DATA, cmd_data_LCD_DATA, cmd_ndata_LCD_DATA, cmd_read_LCD_DATA;
@@ -85,37 +93,37 @@ wire cmd_LCD_RDX, cmd_data_LCD_RDX, cmd_ndata_LCD_RDX, cmd_read_LCD_RDX;
 
 // Active writer
 writer_t active_writer;
-assign debug_port_1[2:0] = active_writer;
-assign debug_port_1[3] = cmd_ndata_done;
-assign debug_port_1[4] = cmd_ndata_start;
+//assign debug_port_1[2:0] = active_writer;
+//assign debug_port_1[3] = cmd_ndata_done;
+//assign debug_port_1[4] = cmd_ndata_start;
 
 // Pixel counter
 reg [31:0] total_pixels;
 reg [31:0] pixel_count;
-
+reg [31:0] data_count;
 // Refresh timer for 60 Hz
-reg [31:0] refresh_timer;
-reg internal_update;
-localparam REFRESH_TICKS = (SYS_CLK_FREQ_MHZ * 1000000) / 60;
+//reg [31:0] refresh_timer;
+//reg internal_update;
+//localparam REFRESH_TICKS = (SYS_CLK_FREQ_MHZ * 1000000) / 60;
 
-always @(posedge clk or negedge reset_n) begin
-    if (!reset_n) begin
-        refresh_timer <= 0;
-        internal_update <= 0;
-    end else if (init_done) begin
-        if (refresh_timer < REFRESH_TICKS - 1) begin
-            refresh_timer <= refresh_timer + 1;
-            internal_update <= 0;
-        end else begin
-            refresh_timer <= 0;
-            internal_update <= 1;
-        end
-    end else begin
-        refresh_timer <= 0;
-        internal_update <= 0;
-    end
-end
-assign debug_port_1[5] = internal_update;
+//always @(posedge clk or negedge reset_n) begin
+//    if (!reset_n) begin
+//        refresh_timer <= 0;
+//        internal_update <= 0;
+//    end else if (init_done) begin
+//        if (refresh_timer < REFRESH_TICKS - 1) begin
+//            refresh_timer <= refresh_timer + 1;
+//            internal_update <= 0;
+//        end else begin
+//            refresh_timer <= 0;
+//            internal_update <= 1;
+//        end
+//    end else begin
+//        refresh_timer <= 0;
+//        internal_update <= 0;
+//    end
+//end
+//assign debug_port_1[5] = internal_update;
 
 // Writers
 lcd_write_cmd cmd_writer (
@@ -157,9 +165,11 @@ lcd_write_cmd_ndata cmd_ndata_writer (
     .LCD_WR(cmd_ndata_LCD_WR),
     .LCD_RDX(cmd_ndata_LCD_RDX),
     .LCD_DATA(cmd_ndata_LCD_DATA),
-    .done(cmd_ndata_done)
+    .done(cmd_ndata_done),
+    .data_count(data_count)
 );
 
+assign lcd_data_count = data_count;
 reg read_start;
 wire read_done;
 wire [15:0] read_data;
@@ -243,13 +253,14 @@ always @(posedge lcd_clk or negedge reset_n) begin
         cmd_data <= 0;
         write_data <= 0;
         init_done <= 0;
+        
     end else begin
         case (state)
             S_INIT: begin
                 if (pll_locked) begin
                     LCD_RESET_reg <= 0;
                     init_rom_addr <= 0;
-                    delay_counter <= 100 * LCD_FREQ_MHZ;
+                    delay_counter <= 100 * LCD_FREQ_KHZ;
                     state <= S_RESET_LOW;
                     init_done <= 0;
                 end
@@ -259,7 +270,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
                     LCD_RESET_reg <= 1;
-                    delay_counter <= 50 * LCD_FREQ_MHZ;
+                    delay_counter <= 50 * LCD_FREQ_KHZ;
                     state <= S_RESET_HIGH;
                 end
             end
@@ -294,7 +305,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_done) begin
                     cmd_start <= 0;
                     active_writer <= WRITER_NONE;
-                    delay_counter <= 120 * LCD_FREQ_MHZ;
+                    delay_counter <= 120 * LCD_FREQ_KHZ;
                     state <= S_DELAY;
                 end
             end
@@ -319,7 +330,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end
             end
             S_FILL: begin
-                if (update_screen || internal_update) begin
+                if (update_screen /*|| internal_update*/) begin
                     total_pixels <= ((x_end - x_start + 1) * (y_end - y_start + 1));
                     pixel_count <= 0;
                     state <= S_SET_XSTART_H;
@@ -435,8 +446,10 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_PREP_FILL: begin
                 state <= S_FILL_PIXELS;
                 cmd_ndata_start <= 0;
+                start_read_data_reg <= 1;
             end
             S_FILL_PIXELS: begin
+                
                 if (!cmd_ndata_start && pixel_count < total_pixels) begin
                     active_writer <= WRITER_CMD_NDATA;
                     cmd_ndata_start <= 1;
@@ -446,6 +459,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     active_writer <= WRITER_NONE;
                     if (pixel_count >= total_pixels) begin
                         state <= S_BACKLIGHT;
+                        start_read_data_reg <= 0;
                     end
                 end
             end

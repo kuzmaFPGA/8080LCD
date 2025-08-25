@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.tcl"
+  variable script "D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,6 +56,8 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "blk_mem_gen_0_synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 4
+set_param xicom.use_bs_reader 1
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }
@@ -65,17 +67,17 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir D:/Github/8080LCD/8080LCD.cache/wt [current_project]
-set_property parent.project_path D:/Github/8080LCD/8080LCD.xpr [current_project]
+set_property webtalk.parent_dir D:/Xilinx/Projects/8080LCD/8080LCD.cache/wt [current_project]
+set_property parent.project_path D:/Xilinx/Projects/8080LCD/8080LCD.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo d:/Github/8080LCD/8080LCD.cache/ip [current_project]
+set_property ip_output_repo d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
+read_ip -quiet D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -91,7 +93,7 @@ set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 OPTRACE "Configure IP Cache" START { }
 
-set cacheID [config_ip_cache -export -no_bom  -dir D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1 -new_name blk_mem_gen_0 -ip [get_ips blk_mem_gen_0]]
+set cacheID [config_ip_cache -export -no_bom  -dir D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1 -new_name blk_mem_gen_0 -ip [get_ips blk_mem_gen_0]]
 
 OPTRACE "Configure IP Cache" END { }
 if { $cacheID == "" } {
@@ -146,25 +148,25 @@ generate_parallel_reports -reports { "report_utilization -file blk_mem_gen_0_uti
 OPTRACE "synth reports" END { }
 
 if { [catch {
-  write_verilog -force -mode synth_stub D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v
+  write_verilog -force -mode synth_stub D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode synth_stub D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl
+  write_vhdl -force -mode synth_stub D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_verilog -force -mode funcsim D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v
+  write_verilog -force -mode funcsim D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode funcsim D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl
+  write_vhdl -force -mode funcsim D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
@@ -176,37 +178,37 @@ if { [catch {
 close [open .end.used_ip_cache.rst w]
 }; # end if cacheID 
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v -of_objects [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl -of_objects [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v -of_objects [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl -of_objects [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-add_files D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.dcp -of_objects [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.dcp -of_objects [get_files D:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
 
-if {[file isdir D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
+if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
   catch { 
-    file copy -force D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
+    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.v D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
   }
 }
 
-if {[file isdir D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
+if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
   catch { 
-    file copy -force D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
+    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_sim_netlist.vhdl D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
   }
 }
 
-if {[file isdir D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
+if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
   catch { 
-    file copy -force D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
+    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.v D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
   }
 }
 
-if {[file isdir D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
+if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0]} {
   catch { 
-    file copy -force D:/Github/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl D:/Github/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
+    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/blk_mem_gen_0
   }
 }
 file delete __synthesis_is_running__

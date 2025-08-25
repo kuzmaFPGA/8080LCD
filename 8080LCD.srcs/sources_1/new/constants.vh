@@ -2,8 +2,10 @@
 `define CONSTANTS_V
 
 // Частота LCD (у кГц)
-parameter LCD_FREQ_MHZ = 100000;//62500;
+parameter LCD_FREQ_KHZ = 100000;//62500;
 parameter SYS_CLK_FREQ_MHZ = 50; // Частота системного годинника у МГц
+parameter SYS_CLK_FREQ_KHZ = 50000;
+parameter MAIN_CLK_FREQ_KHZ = 10000;
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;

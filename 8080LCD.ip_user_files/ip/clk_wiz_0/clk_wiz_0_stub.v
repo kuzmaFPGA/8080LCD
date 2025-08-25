@@ -4,7 +4,8 @@
 // Tool Version: Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
 // Date        : Mon Jun 16 10:39:32 2025
 // Host        : DESKTOP-H05VBGI running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub D:/Github/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top clk_wiz_0 -prefix
+//               clk_wiz_0_ clk_wiz_0_stub.v
 // Design      : clk_wiz_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcsg325-1
