@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
--- Date        : Mon Jul 28 13:40:05 2025
+-- Date        : Mon Jul 28 13:40:04 2025
 -- Host        : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               D:/Xilinx/Projects/8080LCD/8080LCD.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top blk_mem_gen_0 -prefix
+--               blk_mem_gen_0_ blk_mem_gen_0_stub.vhdl
 -- Design      : blk_mem_gen_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a35tcsg325-1

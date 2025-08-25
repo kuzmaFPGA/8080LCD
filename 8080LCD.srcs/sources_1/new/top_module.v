@@ -19,7 +19,17 @@ module top_level (
     output        ts_cs,         // SPI Chip Select (CS_N)
     input         ts_miso,       // SPI MISO (DOUT)
     output        ts_mosi,       // SPI MOSI (DIN)
-    input         ts_pen         // Сигнал переривання від XPT2046
+    input         ts_pen,         // Сигнал переривання від XPT2046
+    
+        // Інтерфейс SDRAM
+    output SDRAM_CKE, // Сигнал активації годинника SDRAM (Clock Enable)
+    output SDRAM_WEn, // Сигнал дозволу запису (Write Enable)
+    output SDRAM_CASn, // Сигнал активації стовпця (Column Address Strobe)
+    output SDRAM_RASn, // Сигнал активації рядка (Row Address Strobe)
+    output reg [12:0] SDRAM_A, // Адресна шина SDRAM (13 біт для W9825G6KH)
+    output reg [1:0] SDRAM_BA, // Вибір банку пам'яті (Bank Address, 2 біти для 4 банків)
+    output reg [1:0] SDRAM_DQM = 2'b11, // Маска даних (Data Mask), за замовчуванням вимкнено
+    inout [15:0] SDRAM_DQ // Шина даних SDRAM (16 біт, двонаправлена)
 );
 
 wire key_ready;
@@ -47,6 +57,19 @@ wire [15:0] bram_douta;
 reg [13:0] bram_addra;
 wire [15:0] pixel_data;
 
+// Інтерфейс для читання (read agent)
+wire RdReq; // Сигнал запиту на читання
+wire RdGnt; // Сигнал підтвердження читання
+reg [23:0] RdAddr; // Адреса для читання (24 біти: 2 банк + 13 рядок + 9 стовпець)
+reg [15:0] RdData; // Дані, прочитані з SDRAM
+wire RdDataValid; // Сигнал, що вказує на валідність прочитаних даних
+
+// Інтерфейс для запису (write agent)
+wire WrReq; // Сигнал запиту на запис
+wire WrGnt; // Сигнал підтвердження запису
+reg [23:0] WrAddr; // Адреса для запису (24 біти)
+reg [15:0] WrData; // Дані для запису в SDRAM
+
 wire clk_main;
 
 clk_wiz_1 main_clk_pll (
@@ -64,6 +87,32 @@ blk_mem_gen_0 bram (
   .douta(bram_douta)  // output wire [15 : 0] douta
 );
 
+SDRAM_ctrl SDRAM_ctrl(
+    .clk(clk), // Вхідний тактовий сигнал для синхронізації роботи контролера
+
+    // Інтерфейс для читання (read agent)
+    .RdReq, // Сигнал запиту на читання
+    .RdGnt, // Сигнал підтвердження читання
+    .RdAddr, // Адреса для читання (24 біти: 2 банк + 13 рядок + 9 стовпець)
+    .RdData, // Дані, прочитані з SDRAM
+    .RdDataValid, // Сигнал, що вказує на валідність прочитаних даних
+
+    // Інтерфейс для запису (write agent)
+    .WrReq, // Сигнал запиту на запис
+    .WrGnt, // Сигнал підтвердження запису
+    .WrAddr, // Адреса для запису (24 біти)
+    .WrData, // Дані для запису в SDRAM
+
+    // Інтерфейс SDRAM
+    .SDRAM_CKE(SDRAM_CKE), // Сигнал активації годинника SDRAM (Clock Enable)
+    .SDRAM_WEn(SDRAM_WEn), // Сигнал дозволу запису (Write Enable)
+    .SDRAM_CASn(SDRAM_CASn), // Сигнал активації стовпця (Column Address Strobe)
+    .SDRAM_RASn(SDRAM_RASn), // Сигнал активації рядка (Row Address Strobe)
+    .SDRAM_A(SDRAM_A), // Адресна шина SDRAM (13 біт для W9825G6KH)
+    .SDRAM_BA(SDRAM_BA), // Вибір банку пам'яті (Bank Address, 2 біти для 4 банків)
+    .SDRAM_DQM(2'b11), // Маска даних (Data Mask), за замовчуванням вимкнено
+    .SDRAM_DQ(SDRAM_DQ) // Шина даних SDRAM (16 біт, двонаправлена)
+);
 // LCD інстанція
 lcd lcd_inst (
     .clk(clk),
