@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date         : Mon Aug 25 14:01:42 2025
-| Host         : DESKTOP-H05VBGI running 64-bit major release  (build 9200)
+| Date         : Sun Sep  7 22:17:43 2025
+| Host         : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
 | Command      : report_utilization -file top_level_utilization_synth.rpt -pb top_level_utilization_synth.pb
 | Design       : top_level
 | Device       : xc7a35tcsg325-1
@@ -31,11 +31,11 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*             |  586 |     0 |          0 |     20800 |  2.82 |
-|   LUT as Logic          |  586 |     0 |          0 |     20800 |  2.82 |
+| Slice LUTs*             |  584 |     0 |          0 |     20800 |  2.81 |
+|   LUT as Logic          |  584 |     0 |          0 |     20800 |  2.81 |
 |   LUT as Memory         |    0 |     0 |          0 |      9600 |  0.00 |
-| Slice Registers         |  386 |     0 |          0 |     41600 |  0.93 |
-|   Register as Flip Flop |  386 |     0 |          0 |     41600 |  0.93 |
+| Slice Registers         |  378 |     0 |          0 |     41600 |  0.91 |
+|   Register as Flip Flop |  378 |     0 |          0 |     41600 |  0.91 |
 |   Register as Latch     |    0 |     0 |          0 |     41600 |  0.00 |
 | F7 Muxes                |   39 |     0 |          0 |     16300 |  0.24 |
 | F8 Muxes                |    5 |     0 |          0 |      8150 |  0.06 |
@@ -57,10 +57,10 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |            _ |         Set |            - |
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
-| 42    |          Yes |           - |          Set |
-| 312   |          Yes |           - |        Reset |
-| 8     |          Yes |         Set |            - |
-| 24    |          Yes |       Reset |            - |
+| 47    |          Yes |           - |          Set |
+| 299   |          Yes |           - |        Reset |
+| 0     |          Yes |         Set |            - |
+| 32    |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -153,20 +153,19 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDCE     |  312 |        Flop & Latch |
-| LUT6     |  217 |                 LUT |
-| LUT4     |  133 |                 LUT |
-| LUT5     |  129 |                 LUT |
-| LUT2     |  129 |                 LUT |
-| LUT3     |   84 |                 LUT |
-| LUT1     |   68 |                 LUT |
-| CARRY4   |   49 |          CarryLogic |
-| FDPE     |   42 |        Flop & Latch |
+| FDCE     |  299 |        Flop & Latch |
+| LUT6     |  214 |                 LUT |
+| LUT4     |  146 |                 LUT |
+| LUT5     |  126 |                 LUT |
+| LUT2     |  107 |                 LUT |
+| LUT3     |   90 |                 LUT |
+| LUT1     |   73 |                 LUT |
+| CARRY4   |   52 |          CarryLogic |
+| FDPE     |   47 |        Flop & Latch |
 | MUXF7    |   39 |               MuxFx |
 | OBUF     |   34 |                  IO |
+| FDRE     |   32 |        Flop & Latch |
 | OBUFT    |   25 |                  IO |
-| FDRE     |   24 |        Flop & Latch |
-| FDSE     |    8 |        Flop & Latch |
 | IBUF     |    7 |                  IO |
 | MUXF8    |    5 |               MuxFx |
 | DSP48E1  |    3 |    Block Arithmetic |

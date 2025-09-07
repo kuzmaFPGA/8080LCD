@@ -53,8 +53,8 @@ wire get_flag;
 reg  touch_en;
 
 // Сигнали для BRAM
-wire [15:0] bram_douta;
-reg [13:0] bram_addra;
+wire bram_douta;
+reg [17:0] bram_addra;
 wire [15:0] pixel_data;
 
 // Інтерфейс для читання (read agent)
@@ -80,7 +80,11 @@ clk_wiz_1 main_clk_pll (
 
 // FSM стани
 localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3;
-
+localparam TEXT_INDEX = 120;
+localparam TEXT_WIDTH = 32;
+localparam TEXT_HEIGH = 31;
+localparam TEXT_COLOR = RED;
+localparam TEXT_BACK_COLOR = WHITE;
 blk_mem_gen_0 bram (
   .clka(clk),    // input wire clka
   .addra(bram_addra),  // input wire [13 : 0] addra
@@ -180,13 +184,13 @@ end
 // FSM для керування
 always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
-        bram_addra <= 0;
+        bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH;
         state <= S_INIT;
         update_screen <= 0;
         x_start <= 0;
-        x_end <= 127; // 128-1
+        x_end <= TEXT_WIDTH - 1; // 32-1
         y_start <= 0;
-        y_end <= 127; // 128-1
+        y_end <= TEXT_HEIGH -1; // 31-1
         fill_color <= GREEN;
         key_read <= 0;
         delay_counter <= 0;
@@ -212,15 +216,15 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
                     state <= S_DISPLAY;
-                    bram_addra <= 0;
+                    bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH;
                 end
             end
             S_DISPLAY: begin
                 update_screen <= 0;
                 if (start_read_data) begin
-                    bram_addra <= data_count;
-                    if (bram_addra == 16383) begin
-                        bram_addra <= 0;
+                    bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH + data_count;
+                    if (data_count == TEXT_WIDTH * TEXT_HEIGH) begin
+                        bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH;
                         //delay_counter <= 1 * MAIN_CLK_FREQ_KHZ; // 1 с затримки
                         //state <= S_WAIT;
                     end
@@ -229,7 +233,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
         endcase
     end
 end
-assign pixel_data = bram_douta;
+assign pixel_data = bram_douta? TEXT_COLOR: TEXT_BACK_COLOR;
 //assign la_out[7:1] = bram_addra[7:1];
 assign la_out[0:0] = start_read_data;
 assign la_out[5:1] = lcd_state[4:0];
