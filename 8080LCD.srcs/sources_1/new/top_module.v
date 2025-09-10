@@ -44,7 +44,7 @@ reg  start_read_data;
 reg  [15:0] x_start, x_end, y_start, y_end;
 wire [7:0] debug_port_1;
 //reg  init_screen;
-reg  [1:0] state;
+reg  [2:0] state;
 reg  [31:0] delay_counter;
 reg  [4:0]  lcd_state;
 // Сигнали для XPT2046
@@ -79,12 +79,13 @@ clk_wiz_1 main_clk_pll (
 );
 
 // FSM стани
-localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3;
-localparam TEXT_INDEX = 120;
+localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3, S_PAUSE = 4;
+localparam TEXT_INDEX = 200;
 localparam TEXT_WIDTH = 32;
 localparam TEXT_HEIGH = 31;
 localparam TEXT_COLOR = RED;
 localparam TEXT_BACK_COLOR = WHITE;
+reg [7:0] current_text_index = 0;
 blk_mem_gen_0 bram (
   .clka(clk),    // input wire clka
   .addra(bram_addra),  // input wire [13 : 0] addra
@@ -184,7 +185,7 @@ end
 // FSM для керування
 always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
-        bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH;
+        bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
         state <= S_INIT;
         update_screen <= 0;
         x_start <= 0;
@@ -199,7 +200,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_INIT: begin
                 if (init_done) begin
                     state <= S_WAIT;
-                    delay_counter <= 1 * MAIN_CLK_FREQ_KHZ; // 1 с затримки
+                    delay_counter <= 1000 * LCD_FREQ_KHZ; // 1 с затримки
                 end
             end    
             S_WAIT: begin
@@ -216,20 +217,32 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
                     state <= S_DISPLAY;
-                    bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH;
+                    bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
                 end
             end
             S_DISPLAY: begin
                 update_screen <= 0;
                 if (start_read_data) begin
-                    bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH + data_count;
+                    bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH + data_count;
                     if (data_count == TEXT_WIDTH * TEXT_HEIGH) begin
-                        bram_addra <= TEXT_INDEX * TEXT_WIDTH * TEXT_HEIGH;
-                        //delay_counter <= 1 * MAIN_CLK_FREQ_KHZ; // 1 с затримки
-                        //state <= S_WAIT;
+                        bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
+                        delay_counter <= 1000 * LCD_FREQ_KHZ; // 1 с затримки
+                        state <= S_PAUSE;
                     end
                 end
             end
+            S_PAUSE: begin
+                current_text_index <= current_text_index + 1;
+                if (current_text_index <= TEXT_INDEX) begin
+                if (delay_counter > 0) begin
+                    delay_counter <= delay_counter - 1;
+                end else begin
+                    state <= S_TRIGGER_WAIT;
+                    update_screen <= 1;
+                    delay_counter <= 10;
+                end
+                end
+            end            
         endcase
     end
 end
