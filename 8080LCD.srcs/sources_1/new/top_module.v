@@ -21,14 +21,14 @@ module top_level (
     output        ts_mosi,       // SPI MOSI (DIN)
     input         ts_pen,         // Сигнал переривання від XPT2046
     
-        // Інтерфейс SDRAM
+	// Інтерфейс SDRAM
     output SDRAM_CKE, // Сигнал активації годинника SDRAM (Clock Enable)
     output SDRAM_WEn, // Сигнал дозволу запису (Write Enable)
     output SDRAM_CASn, // Сигнал активації стовпця (Column Address Strobe)
     output SDRAM_RASn, // Сигнал активації рядка (Row Address Strobe)
     output reg [12:0] SDRAM_A, // Адресна шина SDRAM (13 біт для W9825G6KH)
     output reg [1:0] SDRAM_BA, // Вибір банку пам'яті (Bank Address, 2 біти для 4 банків)
-    output reg [1:0] SDRAM_DQM = 2'b11, // Маска даних (Data Mask), за замовчуванням вимкнено
+    output reg [1:0] SDRAM_DQM, // Маска даних (Data Mask), за замовчуванням вимкнено
     inout [15:0] SDRAM_DQ // Шина даних SDRAM (16 біт, двонаправлена)
 );
 
@@ -80,34 +80,34 @@ clk_wiz_1 main_clk_pll (
 
 // FSM стани
 localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3, S_PAUSE = 4;
-localparam TEXT_INDEX = 200;
+localparam MAX_TEXT_INDEX = 200;
 localparam TEXT_WIDTH = 32;
 localparam TEXT_HEIGH = 31;
 localparam TEXT_COLOR = RED;
 localparam TEXT_BACK_COLOR = WHITE;
 reg [7:0] current_text_index = 0;
 blk_mem_gen_0 bram (
-  .clka(clk),    // input wire clka
-  .addra(bram_addra),  // input wire [13 : 0] addra
-  .douta(bram_douta)  // output wire [15 : 0] douta
+	.clka(clk),    // input wire clka
+	.addra(bram_addra),  // input wire [13 : 0] addra
+	.douta(bram_douta)  // output wire [15 : 0] douta
 );
 
 SDRAM_ctrl SDRAM_ctrl(
     .clk(clk), // Вхідний тактовий сигнал для синхронізації роботи контролера
-
+	
     // Інтерфейс для читання (read agent)
     .RdReq, // Сигнал запиту на читання
     .RdGnt, // Сигнал підтвердження читання
     .RdAddr, // Адреса для читання (24 біти: 2 банк + 13 рядок + 9 стовпець)
     .RdData, // Дані, прочитані з SDRAM
     .RdDataValid, // Сигнал, що вказує на валідність прочитаних даних
-
+	
     // Інтерфейс для запису (write agent)
     .WrReq, // Сигнал запиту на запис
     .WrGnt, // Сигнал підтвердження запису
     .WrAddr, // Адреса для запису (24 біти)
     .WrData, // Дані для запису в SDRAM
-
+	
     // Інтерфейс SDRAM
     .SDRAM_CKE(SDRAM_CKE), // Сигнал активації годинника SDRAM (Clock Enable)
     .SDRAM_WEn(SDRAM_WEn), // Сигнал дозволу запису (Write Enable)
@@ -115,7 +115,7 @@ SDRAM_ctrl SDRAM_ctrl(
     .SDRAM_RASn(SDRAM_RASn), // Сигнал активації рядка (Row Address Strobe)
     .SDRAM_A(SDRAM_A), // Адресна шина SDRAM (13 біт для W9825G6KH)
     .SDRAM_BA(SDRAM_BA), // Вибір банку пам'яті (Bank Address, 2 біти для 4 банків)
-    .SDRAM_DQM(2'b11), // Маска даних (Data Mask), за замовчуванням вимкнено
+    .SDRAM_DQM(SDRAM_DQM), // Маска даних (Data Mask), за замовчуванням вимкнено
     .SDRAM_DQ(SDRAM_DQ) // Шина даних SDRAM (16 біт, двонаправлена)
 );
 // LCD інстанція
@@ -177,11 +177,11 @@ xpt2046 touch_inst (
 always @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         touch_en <= 1'b0;
-    end else begin
+		end else begin
         touch_en <= 1'b1;
-    end
+	end
 end
-
+reg onesecpulse;
 // FSM для керування
 always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
@@ -195,61 +195,65 @@ always @(posedge lcd_clk or negedge reset_n) begin
         fill_color <= GREEN;
         key_read <= 0;
         delay_counter <= 0;
-    end else begin
+		end else begin
         case (state)
             S_INIT: begin
                 if (init_done) begin
                     state <= S_WAIT;
                     delay_counter <= 1000 * LCD_FREQ_KHZ; // 1 с затримки
-                end
-            end    
+				end
+			end    
             S_WAIT: begin
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
-                end else begin
+					end else begin
                     state <= S_TRIGGER_WAIT;
                     update_screen <= 1;
                     delay_counter <= 10;
-                end
-            end
+				end
+			end
             S_TRIGGER_WAIT: begin
                 if (delay_counter > 0) begin
                     delay_counter <= delay_counter - 1;
-                end else begin
+					end 
+				else begin
                     state <= S_DISPLAY;
+                    update_screen <= 0;
                     bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
-                end
-            end
+				end
+			end
             S_DISPLAY: begin
-                update_screen <= 0;
                 if (start_read_data) begin
                     bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH + data_count;
                     if (data_count == TEXT_WIDTH * TEXT_HEIGH) begin
-                        bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
+                        //bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
                         delay_counter <= 1000 * LCD_FREQ_KHZ; // 1 с затримки
                         state <= S_PAUSE;
-                    end
-                end
-            end
+					end
+				end
+			end
             S_PAUSE: begin
-                current_text_index <= current_text_index + 1;
-                if (current_text_index <= TEXT_INDEX) begin
-                if (delay_counter > 0) begin
-                    delay_counter <= delay_counter - 1;
-                end else begin
-                    state <= S_TRIGGER_WAIT;
-                    update_screen <= 1;
-                    delay_counter <= 10;
-                end
-                end
-            end            
-        endcase
-    end
+                
+                if (current_text_index <= MAX_TEXT_INDEX) begin
+					if (delay_counter > 0) begin
+						delay_counter <= delay_counter - 1;
+						end else begin
+						current_text_index <= current_text_index + 1;
+						onesecpulse <= ~onesecpulse;
+						state <= S_TRIGGER_WAIT;
+						update_screen <= 1;
+						delay_counter <= 10;
+					end
+				end
+			end            
+		endcase
+	end
 end
 assign pixel_data = bram_douta? TEXT_COLOR: TEXT_BACK_COLOR;
 //assign la_out[7:1] = bram_addra[7:1];
 assign la_out[0:0] = start_read_data;
 assign la_out[5:1] = lcd_state[4:0];
 assign la_out[7:6] = state;
+assign led_1 = onesecpulse;
 
 endmodule

@@ -280,6 +280,7 @@ always @(posedge clk or negedge reset_n) begin
 			end			
 			PAUSE : begin
 			     done <= 1;
+			     data_count <= 0;
 			     fill_display_state <= FILL_DONE;
 			end		
 			FILL_DONE: begin

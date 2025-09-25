@@ -56,8 +56,8 @@ clk_wiz_0 lcd_clk_pll (
     .locked(pll_locked)
 );
 
-assign led_1_reg = ~pll_locked;
-assign led_2_reg = ~update_screen;
+//assign led_1_reg = ~pll_locked;
+//assign led_2_reg = ~update_screen;
 
 // Initialization ROM
 reg [15:0] init_rom [0:779];
