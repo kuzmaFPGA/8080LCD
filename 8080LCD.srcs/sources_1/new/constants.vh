@@ -8,7 +8,7 @@ parameter SYS_CLK_FREQ_KHZ = 50000;
 parameter MAIN_CLK_FREQ_KHZ = 10000;
 
 `ifdef XILINX_SIMULATOR
-    localparam DELAY_1S = 10;          // Short delay for simulation (e.g., 10 cycles)
+    localparam DELAY_1S = 10000;          // Short delay for simulation (e.g., 10 cycles)
     localparam DELAY_TRIGGER = 2;      // Even shorter for quick triggering in sim
     localparam DELAY_50_MS = 5;        
     localparam DELAY_100_MS = 10;      

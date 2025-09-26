@@ -53,7 +53,7 @@ module top_level_tb;
 
 
         // Wait for state transitions
-        #40000;
+        #4000000;
 
         // Test SDRAM interface
         // Note: SDRAM_DQ is inout, so we need to handle it carefully
