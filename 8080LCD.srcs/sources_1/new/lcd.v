@@ -260,7 +260,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 if (pll_locked) begin
                     LCD_RESET_reg <= 0;
                     init_rom_addr <= 0;
-                    delay_counter <= 100 * LCD_FREQ_KHZ;
+                    delay_counter <= DELAY_100_MS;
                     state <= S_RESET_LOW;
                     init_done <= 0;
                 end
@@ -270,7 +270,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
                     LCD_RESET_reg <= 1;
-                    delay_counter <= 50 * LCD_FREQ_KHZ;
+                    delay_counter <= DELAY_50_MS;
                     state <= S_RESET_HIGH;
                 end
             end
@@ -305,7 +305,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end else if (cmd_done) begin
                     cmd_start <= 0;
                     active_writer <= WRITER_NONE;
-                    delay_counter <= 120 * LCD_FREQ_KHZ;
+                    delay_counter <= DELAY_120_MS;
                     state <= S_DELAY;
                 end
             end

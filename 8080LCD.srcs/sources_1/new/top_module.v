@@ -29,7 +29,9 @@ module top_level (
     output reg [12:0] SDRAM_A, // Адресна шина SDRAM (13 біт для W9825G6KH)
     output reg [1:0] SDRAM_BA, // Вибір банку пам'яті (Bank Address, 2 біти для 4 банків)
     output reg [1:0] SDRAM_DQM, // Маска даних (Data Mask), за замовчуванням вимкнено
-    inout [15:0] SDRAM_DQ // Шина даних SDRAM (16 біт, двонаправлена)
+    inout [15:0] SDRAM_DQ, // Шина даних SDRAM (16 біт, двонаправлена)
+    output [31:0]data_count,
+    output [2:0]state
 );
 
 wire key_ready;
@@ -200,7 +202,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_INIT: begin
                 if (init_done) begin
                     state <= S_WAIT;
-                    delay_counter <= 1000 * LCD_FREQ_KHZ; // 1 с затримки
+                    delay_counter <= DELAY_1S; // 1 с затримки
 				end
 			end    
             S_WAIT: begin
@@ -209,7 +211,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
 					end else begin
                     state <= S_TRIGGER_WAIT;
                     update_screen <= 1;
-                    delay_counter <= 10;
+                    delay_counter <= DELAY_TRIGGER;
 				end
 			end
             S_TRIGGER_WAIT: begin
@@ -227,7 +229,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH + data_count;
                     if (data_count == TEXT_WIDTH * TEXT_HEIGH) begin
                         //bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
-                        delay_counter <= 1000 * LCD_FREQ_KHZ; // 1 с затримки
+                        delay_counter <= DELAY_1S; // 1 с затримки
                         state <= S_PAUSE;
 					end
 				end
@@ -242,7 +244,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
 						onesecpulse <= ~onesecpulse;
 						state <= S_TRIGGER_WAIT;
 						update_screen <= 1;
-						delay_counter <= 10;
+						delay_counter <= DELAY_TRIGGER;
 					end
 				end
 			end            
