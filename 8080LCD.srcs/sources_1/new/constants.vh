@@ -9,16 +9,20 @@ parameter MAIN_CLK_FREQ_KHZ = 10000;
 
 `ifdef XILINX_SIMULATOR
     localparam DELAY_1S = 10000;          // Short delay for simulation (e.g., 10 cycles)
-    localparam DELAY_TRIGGER = 2;      // Even shorter for quick triggering in sim
-    localparam DELAY_50_MS = 5;        
-    localparam DELAY_100_MS = 10;      
-    localparam DELAY_120_MS = 12;
+    localparam DELAY_TRIGGER = 10;      // Even shorter for quick triggering in sim
+    localparam DELAY_50_MS = 50;        
+    localparam DELAY_100_MS = 100;      
+    localparam DELAY_120_MS = 120;
+    localparam TEXT_WIDTH = 4;
+    localparam TEXT_HEIGH = 4;
 `else
     localparam DELAY_1S = 1000 * LCD_FREQ_KHZ;  // Real 1-second delay based on clock freq
     localparam DELAY_TRIGGER = 10;     // Real short delay (adjust as needed)
     localparam DELAY_50_MS = 50 * LCD_FREQ_KHZ;        
     localparam DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
     localparam DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
+    localparam TEXT_WIDTH = 32;
+    localparam TEXT_HEIGH = 31;
 `endif
 
 // Константи кольорів (RGB565)

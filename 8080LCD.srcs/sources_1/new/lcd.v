@@ -23,6 +23,9 @@ module lcd (
     output           lcd_clk,  // Додаємо вихід для lcd_clk
     output    [4:0]  lcd_state,
     output           init_done,
+    output           cmd_done,
+    output           cmd_data_done,
+    output           cmd_ndata_done,
     output    [31:0] lcd_data_count
 );
 
@@ -159,7 +162,7 @@ lcd_write_cmd_ndata cmd_ndata_writer (
     .start(cmd_ndata_start),
     .cmd(16'h2C00),
     .data(fill_color), // Використовуємо pixel_data з BRAM
-    .n(pixel_count), // Кількість пікселів для одного запису
+    .n(total_pixels), // Кількість пікселів для одного запису
     .LCD_CS(cmd_ndata_LCD_CS),
     .LCD_RS(cmd_ndata_LCD_RS),
     .LCD_WR(cmd_ndata_LCD_WR),

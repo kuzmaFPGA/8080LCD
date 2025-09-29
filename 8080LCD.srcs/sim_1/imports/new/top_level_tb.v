@@ -17,6 +17,8 @@ module top_level_tb;
     wire LCD_RDX;
     wire [2:0]state;
     wire [31:0]data_count;
+    wire [17:0]bram_addra;
+    wire start_read_data;
 
 
     // Instantiate the Unit Under Test (UUT)
@@ -31,7 +33,10 @@ module top_level_tb;
         .LCD_BL(LCD_BL),
         .LCD_RDX(LCD_RDX),
         .state(state),
-        .data_count(data_count)
+        .start_read_data(start_read_data),
+        .data_count(data_count),
+        .bram_addra(bram_addra),
+        .cmd_ndata_done(cmd_ndata_done)
 );
     // Clock generation
     initial begin
@@ -53,7 +58,7 @@ module top_level_tb;
 
 
         // Wait for state transitions
-        #4000000;
+        #150000;
 
         // Test SDRAM interface
         // Note: SDRAM_DQ is inout, so we need to handle it carefully
@@ -66,8 +71,8 @@ module top_level_tb;
 
     // Monitor signals
     initial begin
-        $monitor("Time=%0t reset_n=%b state=%b lcd_state=%b LCD_DATA=%h LCD_WR=%b LCD_CS=%b",
-                 $time, reset_n, uut.state, uut.lcd_state, LCD_DATA, LCD_WR, LCD_CS);
+        $monitor("Time=%0t reset_n=%b state=%d bram_addra=%d LCD_DATA=%h cmd_ndata_done=%b",
+                 $time, reset_n, uut.state, uut.bram_addra, LCD_DATA, cmd_ndata_done);
     end
 
     // Dump waveform

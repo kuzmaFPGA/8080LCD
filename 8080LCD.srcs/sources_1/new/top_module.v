@@ -31,7 +31,10 @@ module top_level (
     output reg [1:0] SDRAM_DQM, // Маска даних (Data Mask), за замовчуванням вимкнено
     inout [15:0] SDRAM_DQ, // Шина даних SDRAM (16 біт, двонаправлена)
     output [31:0]data_count,
-    output [2:0]state
+    output [2:0]state,
+    output [17:0]bram_addra,
+    output cmd_ndata_done,
+    output start_read_data
 );
 
 wire key_ready;
@@ -43,6 +46,9 @@ reg  update_screen;
 reg  init_done;
 reg [31:0] data_count;
 reg  start_read_data;
+reg cmd_done;
+reg cmd_data_done;
+reg cmd_ndata_done;
 reg  [15:0] x_start, x_end, y_start, y_end;
 wire [7:0] debug_port_1;
 //reg  init_screen;
@@ -83,8 +89,7 @@ clk_wiz_1 main_clk_pll (
 // FSM стани
 localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3, S_PAUSE = 4;
 localparam MAX_TEXT_INDEX = 200;
-localparam TEXT_WIDTH = 32;
-localparam TEXT_HEIGH = 31;
+
 localparam TEXT_COLOR = RED;
 localparam TEXT_BACK_COLOR = WHITE;
 reg [7:0] current_text_index = 0;
@@ -141,6 +146,9 @@ lcd lcd_inst (
     .led_1_reg(led_1),
     .led_2_reg(),
     .start_read_data(start_read_data),
+    .cmd_done(cmd_done),
+    .cmd_data_done(cmd_data_done),
+    .cmd_ndata_done(cmd_ndata_done),
     .lcd_clk(lcd_clk),  // Підключаємо lcd_clk
     .lcd_state(lcd_state),
     .init_done(init_done),
@@ -227,7 +235,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_DISPLAY: begin
                 if (start_read_data) begin
                     bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH + data_count;
-                    if (data_count == TEXT_WIDTH * TEXT_HEIGH) begin
+                    if (cmd_ndata_done) begin
                         //bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
                         delay_counter <= DELAY_1S; // 1 с затримки
                         state <= S_PAUSE;
