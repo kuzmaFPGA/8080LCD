@@ -244,7 +244,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
         state <= S_INIT;
         total_pixels <= 0;
-        pixel_count <= 0;
+        pixel_count <= 1;
         LCD_RESET_reg <= 0;
         LCD_BL_reg <= 0;
         init_rom_addr <= 0;
@@ -335,7 +335,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_FILL: begin
                 if (update_screen /*|| internal_update*/) begin
                     total_pixels <= ((x_end - x_start + 1) * (y_end - y_start + 1));
-                    pixel_count <= 0;
+                    pixel_count <= 1;
                     state <= S_SET_XSTART_H;
                 end
             end

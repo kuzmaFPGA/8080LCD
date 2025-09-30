@@ -19,6 +19,7 @@ module top_level_tb;
     wire [31:0]data_count;
     wire [17:0]bram_addra;
     wire start_read_data;
+    wire led_1;
 
 
     // Instantiate the Unit Under Test (UUT)
@@ -36,7 +37,8 @@ module top_level_tb;
         .start_read_data(start_read_data),
         .data_count(data_count),
         .bram_addra(bram_addra),
-        .cmd_ndata_done(cmd_ndata_done)
+        .cmd_ndata_done(cmd_ndata_done),
+        .led_1(led_1)
 );
     // Clock generation
     initial begin
@@ -58,7 +60,7 @@ module top_level_tb;
 
 
         // Wait for state transitions
-        #150000;
+        #1500000;
 
         // Test SDRAM interface
         // Note: SDRAM_DQ is inout, so we need to handle it carefully

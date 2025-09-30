@@ -12,7 +12,7 @@ module top_level (
     output        LCD_RESET,
     output        LCD_BL,
     output        LCD_RDX,
-    output [7:0]  la_out,
+    //output [7:0]  la_out,
     output        led_1,
     // Сигнали для XPT2046
     output        ts_clk,        // SPI такт (DCLK)
@@ -87,7 +87,7 @@ clk_wiz_1 main_clk_pll (
 );
 
 // FSM стани
-localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3, S_PAUSE = 4;
+localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3, S_PAUSE = 4, S_NEXT_SYMBOL = 5;
 localparam MAX_TEXT_INDEX = 200;
 
 localparam TEXT_COLOR = RED;
@@ -243,27 +243,30 @@ always @(posedge lcd_clk or negedge reset_n) begin
 				end
 			end
             S_PAUSE: begin
-                
-                if (current_text_index <= MAX_TEXT_INDEX) begin
 					if (delay_counter > 0) begin
 						delay_counter <= delay_counter - 1;
 						end else begin
-						current_text_index <= current_text_index + 1;
+						state <= S_NEXT_SYMBOL;
 						onesecpulse <= ~onesecpulse;
+					end
+			end       
+			S_NEXT_SYMBOL:begin
+                if (current_text_index <= MAX_TEXT_INDEX) begin
+						current_text_index <= current_text_index + 1;
 						state <= S_TRIGGER_WAIT;
 						update_screen <= 1;
 						delay_counter <= DELAY_TRIGGER;
-					end
 				end
-			end            
+			end      
+			     
 		endcase
 	end
 end
 assign pixel_data = bram_douta? TEXT_COLOR: TEXT_BACK_COLOR;
 //assign la_out[7:1] = bram_addra[7:1];
-assign la_out[0:0] = start_read_data;
-assign la_out[5:1] = lcd_state[4:0];
-assign la_out[7:6] = state;
+//assign la_out[0:0] = start_read_data;
+//assign la_out[5:1] = lcd_state[4:0];
+//assign la_out[7:6] = state;
 assign led_1 = onesecpulse;
 
 endmodule
