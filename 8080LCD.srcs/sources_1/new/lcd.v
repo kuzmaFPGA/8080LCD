@@ -453,7 +453,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             end
             S_FILL_PIXELS: begin
                 
-                if (!cmd_ndata_start && pixel_count < total_pixels) begin
+                if (/*!cmd_ndata_start &&*/ pixel_count < total_pixels) begin
                     active_writer <= WRITER_CMD_NDATA;
                     cmd_ndata_start <= 1;
                     pixel_count <= pixel_count + 1;

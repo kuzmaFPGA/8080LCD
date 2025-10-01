@@ -21,6 +21,13 @@ module top_level (
     output        ts_mosi,       // SPI MOSI (DIN)
     input         ts_pen,         // Сигнал переривання від XPT2046
     
+`ifdef XILINX_SIMULATOR    
+    output [31:0]data_count,
+    output [2:0]state,
+    output [17:0]bram_addra,
+    output cmd_ndata_done,
+    output start_read_data,
+`endif
 	// Інтерфейс SDRAM
     output SDRAM_CKE, // Сигнал активації годинника SDRAM (Clock Enable)
     output SDRAM_WEn, // Сигнал дозволу запису (Write Enable)
@@ -29,12 +36,8 @@ module top_level (
     output reg [12:0] SDRAM_A, // Адресна шина SDRAM (13 біт для W9825G6KH)
     output reg [1:0] SDRAM_BA, // Вибір банку пам'яті (Bank Address, 2 біти для 4 банків)
     output reg [1:0] SDRAM_DQM, // Маска даних (Data Mask), за замовчуванням вимкнено
-    inout [15:0] SDRAM_DQ, // Шина даних SDRAM (16 біт, двонаправлена)
-    output [31:0]data_count,
-    output [2:0]state,
-    output [17:0]bram_addra,
-    output cmd_ndata_done,
-    output start_read_data
+    inout [15:0] SDRAM_DQ // Шина даних SDRAM (16 біт, двонаправлена)
+
 );
 
 wire key_ready;
