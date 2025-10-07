@@ -3,22 +3,22 @@
 # SW Build 6060944 on Thu Mar 06 19:10:01 MST 2025
 # IP Build 6050500 on Thu Mar  6 23:33:39 MST 2025
 # SharedData Build 6060542 on Thu Mar 06 10:31:07 MST 2025
-# Start of session at: Wed Oct  1 11:51:34 2025
-# Process ID         : 7704
-# Current directory  : D:/Github/8080LCD/8080LCD.runs/synth_1
+# Start of session at: Tue Oct  7 21:46:06 2025
+# Process ID         : 7948
+# Current directory  : D:/WORK/Project/8080LCD/8080LCD.runs/synth_1
 # Command line       : vivado.exe -log top_level.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_level.tcl
-# Log file           : D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.vds
-# Journal file       : D:/Github/8080LCD/8080LCD.runs/synth_1\vivado.jou
-# Running On         : DESKTOP-H05VBGI
+# Log file           : D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/top_level.vds
+# Journal file       : D:/WORK/Project/8080LCD/8080LCD.runs/synth_1\vivado.jou
+# Running On         : A8
 # Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 19045
-# Processor Detail   : AMD A8-3850 APU with Radeon(tm) HD Graphics
-# CPU Frequency      : 2900 MHz
-# CPU Physical cores : 4
-# CPU Logical cores  : 4
-# Host memory        : 17156 MB
-# Swap memory        : 2550 MB
-# Total Virtual      : 19706 MB
-# Available Virtual  : 12197 MB
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     
+# CPU Frequency      : 3793 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 29832 MB
+# Swap memory        : 1879 MB
+# Total Virtual      : 31711 MB
+# Available Virtual  : 18048 MB
 #-----------------------------------------------------------
 source top_level.tcl -notrace

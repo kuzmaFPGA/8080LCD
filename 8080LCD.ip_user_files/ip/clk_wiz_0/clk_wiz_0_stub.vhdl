@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
--- Date        : Mon Jun 16 10:39:32 2025
--- Host        : DESKTOP-H05VBGI running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub -rename_top clk_wiz_0 -prefix
---               clk_wiz_0_ clk_wiz_0_stub.vhdl
+-- Date        : Tue Oct  7 21:39:29 2025
+-- Host        : A8 running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode synth_stub
+--               D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_0_synth_1/clk_wiz_0_stub.vhdl
 -- Design      : clk_wiz_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a35tcsg325-1

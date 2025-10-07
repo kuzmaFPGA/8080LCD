@@ -91,7 +91,7 @@ clk_wiz_1 main_clk_pll (
 
 // FSM стани
 localparam S_INIT = 0, S_WAIT = 1, S_TRIGGER_WAIT = 2, S_DISPLAY = 3, S_PAUSE = 4, S_NEXT_SYMBOL = 5;
-localparam MAX_TEXT_INDEX = 200;
+localparam MAX_TEXT_INDEX = 10;
 
 localparam TEXT_COLOR = RED;
 localparam TEXT_BACK_COLOR = WHITE;
@@ -259,6 +259,9 @@ always @(posedge lcd_clk or negedge reset_n) begin
 						state <= S_TRIGGER_WAIT;
 						update_screen <= 1;
 						delay_counter <= DELAY_TRIGGER;
+				end
+				else begin
+				    current_text_index <=0;
 				end
 			end      
 			     

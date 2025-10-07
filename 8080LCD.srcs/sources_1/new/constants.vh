@@ -2,7 +2,7 @@
 `define CONSTANTS_V
 
 // Частота LCD (у кГц)
-parameter LCD_FREQ_KHZ = 100000;//62500;
+parameter LCD_FREQ_KHZ = 50000;//62500;
 parameter SYS_CLK_FREQ_MHZ = 50; // Частота системного годинника у МГц
 parameter SYS_CLK_FREQ_KHZ = 50000;
 parameter MAIN_CLK_FREQ_KHZ = 10000;
@@ -21,8 +21,8 @@ parameter MAIN_CLK_FREQ_KHZ = 10000;
     localparam DELAY_50_MS = 50 * LCD_FREQ_KHZ;        
     localparam DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
     localparam DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
-    localparam TEXT_WIDTH = 32;
-    localparam TEXT_HEIGH = 31;
+    localparam TEXT_WIDTH = 64;
+    localparam TEXT_HEIGH = 128;
 `endif
 
 // Константи кольорів (RGB565)

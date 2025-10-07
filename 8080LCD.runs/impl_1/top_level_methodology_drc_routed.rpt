@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date         : Wed Oct  1 11:57:13 2025
-| Host         : DESKTOP-H05VBGI running 64-bit major release  (build 9200)
+| Date         : Tue Oct  7 21:47:28 2025
+| Host         : A8 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_level_methodology_drc_routed.rpt -pb top_level_methodology_drc_routed.pb -rpx top_level_methodology_drc_routed.rpx
 | Design       : top_level
 | Device       : xc7a35tcsg325-1
@@ -23,16 +23,16 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
-             Checks found: 179
+             Checks found: 143
 +-----------+------------------+-------------------------------------------+--------+
 | Rule      | Severity         | Description                               | Checks |
 +-----------+------------------+-------------------------------------------+--------+
 | TIMING-17 | Critical Warning | Non-clocked sequential cell               | 102    |
 | TIMING-27 | Critical Warning | Invalid primary clock on hierarchical pin | 1      |
-| DPIR-1    | Warning          | Asynchronous driver check                 | 18     |
-| LUTAR-1   | Warning          | LUT drives async reset alert              | 36     |
+| LUTAR-1   | Warning          | LUT drives async reset alert              | 8      |
 | SYNTH-10  | Warning          | Wide multiplier                           | 3      |
-| TIMING-20 | Warning          | Non-clocked latch                         | 18     |
+| TIMING-18 | Warning          | Missing input or output delay             | 24     |
+| TIMING-20 | Warning          | Non-clocked latch                         | 4      |
 | LATCH-1   | Advisory         | Existing latches in the design            | 1      |
 +-----------+------------------+-------------------------------------------+--------+
 
@@ -553,274 +553,44 @@ Invalid primary clock on hierarchical pin
 A primary clock lcd_inst/lcd_clk_pll/inst/clk_in1 is created on an inappropriate internal pin lcd_inst/lcd_clk_pll/inst/clk_in1. It is not recommended to create a primary clock on a hierarchical pin when its driver pin has a fanout connected to multiple clock pins
 Related violations: <none>
 
-DPIR-1#1 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[0] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#2 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[10] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#3 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[11] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#4 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[12] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#5 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[13] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#6 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[14] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#7 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[15] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#8 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[16] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#9 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[17] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#10 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[1] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#11 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[2] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#12 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[3] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#13 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[4] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#14 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[5] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#15 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[6] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#16 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[7] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#17 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[8] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
-DPIR-1#18 Warning
-Asynchronous driver check  
-DSP bram_addra0__0 input pin bram_addra0__0/C[9] is connected to registers with an asynchronous reset. This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
-Related violations: <none>
-
 LUTAR-1#1 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[0]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[0]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#2 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[0]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[0]_C/CLR, bram_addra_reg[0]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#3 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[10]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[10]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#4 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[10]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[10]_C/CLR, bram_addra_reg[10]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#5 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[11]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[11]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#6 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[11]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[11]_C/CLR, bram_addra_reg[11]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#7 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[12]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[12]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#8 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[12]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[12]_C/CLR, bram_addra_reg[12]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#9 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[13]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[13]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#10 Warning
+LUTAR-1#2 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[13]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[13]_C/CLR, bram_addra_reg[13]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#11 Warning
+LUTAR-1#3 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[14]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[14]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#12 Warning
+LUTAR-1#4 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[14]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[14]_C/CLR, bram_addra_reg[14]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#13 Warning
+LUTAR-1#5 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[15]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[15]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#14 Warning
+LUTAR-1#6 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[15]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[15]_C/CLR, bram_addra_reg[15]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#15 Warning
+LUTAR-1#7 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[16]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[16]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
-LUTAR-1#16 Warning
+LUTAR-1#8 Warning
 LUT drives async reset alert  
 LUT cell bram_addra_reg[16]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[16]_C/CLR, bram_addra_reg[16]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#17 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[17]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[17]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#18 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[17]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[17]_C/CLR, bram_addra_reg[17]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#19 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[1]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[1]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#20 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[1]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[1]_C/CLR, bram_addra_reg[1]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#21 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[2]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[2]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#22 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[2]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[2]_C/CLR, bram_addra_reg[2]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#23 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[3]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[3]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#24 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[3]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[3]_C/CLR, bram_addra_reg[3]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#25 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[4]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[4]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#26 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[4]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[4]_C/CLR, bram_addra_reg[4]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#27 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[5]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[5]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#28 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[5]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[5]_C/CLR, bram_addra_reg[5]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#29 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[6]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[6]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#30 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[6]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[6]_C/CLR, bram_addra_reg[6]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#31 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[7]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[7]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#32 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[7]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[7]_C/CLR, bram_addra_reg[7]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#33 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[8]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[8]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#34 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[8]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[8]_C/CLR, bram_addra_reg[8]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#35 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[9]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[9]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
-Related violations: <none>
-
-LUTAR-1#36 Warning
-LUT drives async reset alert  
-LUT cell bram_addra_reg[9]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) bram_addra_reg[9]_C/CLR, bram_addra_reg[9]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
 SYNTH-10#1 Warning
@@ -838,99 +608,149 @@ Wide multiplier
 Detected multiplier at lcd_inst/total_pixels0__1 of size 18x16, it is decomposed from a wide multipler into 4 DSP blocks.
 Related violations: <none>
 
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on reset_n relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An output delay is missing on LCD_BL relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An output delay is missing on LCD_CS relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#4 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[0] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#5 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[10] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#6 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[11] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#7 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[12] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#8 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[13] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#9 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[14] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#10 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[15] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#11 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[1] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#12 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[2] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#13 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[3] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#14 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[4] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#15 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[5] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#16 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[6] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#17 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[7] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#18 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[8] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#19 Warning
+Missing input or output delay  
+An output delay is missing on LCD_DATA[9] relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#20 Warning
+Missing input or output delay  
+An output delay is missing on LCD_RDX relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#21 Warning
+Missing input or output delay  
+An output delay is missing on LCD_RESET relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#22 Warning
+Missing input or output delay  
+An output delay is missing on LCD_RS relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#23 Warning
+Missing input or output delay  
+An output delay is missing on LCD_WR relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
+TIMING-18#24 Warning
+Missing input or output delay  
+An output delay is missing on led_1 relative to the rising and/or falling clock edge(s) of lcd_inst/lcd_clk_pll/inst/clk_in1.
+Related violations: <none>
+
 TIMING-20#1 Warning
-Non-clocked latch  
-The latch bram_addra_reg[0]_LDC cannot be properly analyzed as its control pin bram_addra_reg[0]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#2 Warning
-Non-clocked latch  
-The latch bram_addra_reg[10]_LDC cannot be properly analyzed as its control pin bram_addra_reg[10]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#3 Warning
-Non-clocked latch  
-The latch bram_addra_reg[11]_LDC cannot be properly analyzed as its control pin bram_addra_reg[11]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#4 Warning
-Non-clocked latch  
-The latch bram_addra_reg[12]_LDC cannot be properly analyzed as its control pin bram_addra_reg[12]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#5 Warning
 Non-clocked latch  
 The latch bram_addra_reg[13]_LDC cannot be properly analyzed as its control pin bram_addra_reg[13]_LDC/G is not reached by a timing clock
 Related violations: <none>
 
-TIMING-20#6 Warning
+TIMING-20#2 Warning
 Non-clocked latch  
 The latch bram_addra_reg[14]_LDC cannot be properly analyzed as its control pin bram_addra_reg[14]_LDC/G is not reached by a timing clock
 Related violations: <none>
 
-TIMING-20#7 Warning
+TIMING-20#3 Warning
 Non-clocked latch  
 The latch bram_addra_reg[15]_LDC cannot be properly analyzed as its control pin bram_addra_reg[15]_LDC/G is not reached by a timing clock
 Related violations: <none>
 
-TIMING-20#8 Warning
+TIMING-20#4 Warning
 Non-clocked latch  
 The latch bram_addra_reg[16]_LDC cannot be properly analyzed as its control pin bram_addra_reg[16]_LDC/G is not reached by a timing clock
 Related violations: <none>
 
-TIMING-20#9 Warning
-Non-clocked latch  
-The latch bram_addra_reg[17]_LDC cannot be properly analyzed as its control pin bram_addra_reg[17]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#10 Warning
-Non-clocked latch  
-The latch bram_addra_reg[1]_LDC cannot be properly analyzed as its control pin bram_addra_reg[1]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#11 Warning
-Non-clocked latch  
-The latch bram_addra_reg[2]_LDC cannot be properly analyzed as its control pin bram_addra_reg[2]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#12 Warning
-Non-clocked latch  
-The latch bram_addra_reg[3]_LDC cannot be properly analyzed as its control pin bram_addra_reg[3]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#13 Warning
-Non-clocked latch  
-The latch bram_addra_reg[4]_LDC cannot be properly analyzed as its control pin bram_addra_reg[4]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#14 Warning
-Non-clocked latch  
-The latch bram_addra_reg[5]_LDC cannot be properly analyzed as its control pin bram_addra_reg[5]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#15 Warning
-Non-clocked latch  
-The latch bram_addra_reg[6]_LDC cannot be properly analyzed as its control pin bram_addra_reg[6]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#16 Warning
-Non-clocked latch  
-The latch bram_addra_reg[7]_LDC cannot be properly analyzed as its control pin bram_addra_reg[7]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#17 Warning
-Non-clocked latch  
-The latch bram_addra_reg[8]_LDC cannot be properly analyzed as its control pin bram_addra_reg[8]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#18 Warning
-Non-clocked latch  
-The latch bram_addra_reg[9]_LDC cannot be properly analyzed as its control pin bram_addra_reg[9]_LDC/G is not reached by a timing clock
-Related violations: <none>
-
 LATCH-1#1 Advisory
 Existing latches in the design  
-There are 18 latches found in the design. Inferred latches are often the result of HDL coding mistakes, such as incomplete if or case statements.
+There are 4 latches found in the design. Inferred latches are often the result of HDL coding mistakes, such as incomplete if or case statements.
 Related violations: <none>
 
 

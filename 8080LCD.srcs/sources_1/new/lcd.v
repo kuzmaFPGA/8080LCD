@@ -323,7 +323,7 @@ always @(posedge lcd_clk or negedge reset_n) begin
             S_SET_DIR: begin
                 if (!cmd_data_start) begin
                     cmd_data <= 16'h3600;
-                    write_data <= 16'h00;
+                    write_data <= (1<<5)|(1<<6);//16'h00;
                     active_writer <= WRITER_CMD_DATA;
                     cmd_data_start <= 1;
                 end else if (cmd_data_done) begin
