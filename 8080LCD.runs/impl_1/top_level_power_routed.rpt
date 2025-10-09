@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date             : Tue Oct  7 21:47:28 2025
+| Date             : Thu Oct  9 22:09:12 2025
 | Host             : A8 running 64-bit major release  (build 9200)
 | Command          : report_power -file top_level_power_routed.rpt -pb top_level_power_summary_routed.pb -rpx top_level_power_routed.rpx
 | Design           : top_level
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.187        |
+| Total On-Chip Power (W)  | 0.186        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.115        |
+| Dynamic (W)              | 0.113        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.8          |
 | Max Ambient (C)          | 84.1         |
@@ -53,19 +53,19 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        5 |       --- |             --- |
-| Slice Logic    |    <0.001 |     1289 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      597 |     20800 |            2.87 |
-|   CARRY4       |    <0.001 |       51 |      8150 |            0.63 |
-|   Register     |    <0.001 |      395 |     41600 |            0.95 |
-|   F7/F8 Muxes  |    <0.001 |       44 |     32600 |            0.13 |
-|   Others       |     0.000 |       32 |       --- |             --- |
-| Signals        |    <0.001 |     1037 |       --- |             --- |
+| Slice Logic    |     0.001 |     1370 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      627 |     20800 |            3.01 |
+|   CARRY4       |    <0.001 |       54 |      8150 |            0.66 |
+|   Register     |    <0.001 |      413 |     41600 |            0.99 |
+|   F7/F8 Muxes  |    <0.001 |       46 |     32600 |            0.14 |
+|   Others       |     0.000 |       34 |       --- |             --- |
+| Signals        |    <0.001 |     1063 |       --- |             --- |
 | Block RAM      |     0.001 |        5 |        50 |           10.00 |
 | MMCM           |     0.105 |        1 |         5 |           20.00 |
 | DSPs           |    <0.001 |        3 |        90 |            3.33 |
-| I/O            |     0.005 |       58 |       150 |           38.67 |
+| I/O            |     0.003 |       58 |       150 |           38.67 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.187 |          |           |                 |
+| Total          |     0.186 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -146,11 +146,11 @@ Table of Contents
 +------------------------+-----------+
 | Name                   | Power (W) |
 +------------------------+-----------+
-| top_level              |     0.115 |
-|   bram                 |     0.002 |
-|     U0                 |     0.002 |
-|       inst_blk_mem_gen |     0.002 |
-|   lcd_inst             |     0.107 |
+| top_level              |     0.113 |
+|   bram                 |     0.001 |
+|     U0                 |     0.001 |
+|       inst_blk_mem_gen |     0.001 |
+|   lcd_inst             |     0.108 |
 |     lcd_clk_pll        |     0.105 |
 |       inst             |     0.105 |
 +------------------------+-----------+

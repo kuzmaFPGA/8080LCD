@@ -16,9 +16,6 @@ module lcd (
     output           LCD_RESET,  // LCD reset (active low)
     output           LCD_BL,     // Backlight
     output           LCD_RDX,    // RDX (read control)
-    output    [7:0]  debug_port_1,
-    output           led_1_reg,
-    output           led_2_reg,
     output           start_read_data,
     output           lcd_clk,  // Додаємо вихід для lcd_clk
     output    [4:0]  lcd_state,
@@ -59,9 +56,6 @@ clk_wiz_0 lcd_clk_pll (
     .locked(pll_locked)
 );
 
-//assign led_1_reg = ~pll_locked;
-//assign led_2_reg = ~update_screen;
-
 // Initialization ROM
 reg [15:0] init_rom [0:779];
 initial $readmemh("init.mem", init_rom);
@@ -96,9 +90,6 @@ wire cmd_LCD_RDX, cmd_data_LCD_RDX, cmd_ndata_LCD_RDX, cmd_read_LCD_RDX;
 
 // Active writer
 writer_t active_writer;
-//assign debug_port_1[2:0] = active_writer;
-//assign debug_port_1[3] = cmd_ndata_done;
-//assign debug_port_1[4] = cmd_ndata_start;
 
 // Pixel counter
 reg [31:0] total_pixels;
@@ -126,7 +117,6 @@ reg [31:0] data_count;
 //        internal_update <= 0;
 //    end
 //end
-//assign debug_port_1[5] = internal_update;
 
 // Writers
 lcd_write_cmd cmd_writer (

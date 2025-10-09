@@ -145,9 +145,6 @@ lcd lcd_inst (
     .LCD_RESET(LCD_RESET),
     .LCD_BL(LCD_BL),
     .LCD_RDX(LCD_RDX),
-    .debug_port_1(debug_port_1),
-    .led_1_reg(led_1),
-    .led_2_reg(),
     .start_read_data(start_read_data),
     .cmd_done(cmd_done),
     .cmd_data_done(cmd_data_done),
@@ -200,11 +197,12 @@ always @(posedge lcd_clk or negedge reset_n) begin
     if (!reset_n) begin
         bram_addra <= current_text_index * TEXT_WIDTH * TEXT_HEIGH;
         state <= S_INIT;
+        current_text_index <= 0;
         update_screen <= 0;
         x_start <= 0;
-        x_end <= TEXT_WIDTH - 1; // 32-1
+        x_end <= TEXT_WIDTH - 1;
         y_start <= 0;
-        y_end <= TEXT_HEIGH -1; // 31-1
+        y_end <= TEXT_HEIGH -1;
         fill_color <= GREEN;
         key_read <= 0;
         delay_counter <= 0;
@@ -250,12 +248,13 @@ always @(posedge lcd_clk or negedge reset_n) begin
 						delay_counter <= delay_counter - 1;
 						end else begin
 						state <= S_NEXT_SYMBOL;
-						onesecpulse <= ~onesecpulse;
 					end
 			end       
 			S_NEXT_SYMBOL:begin
-                if (current_text_index <= MAX_TEXT_INDEX) begin
-						current_text_index <= current_text_index + 1;
+			    current_text_index = current_text_index + 1;
+                if (current_text_index < MAX_TEXT_INDEX) begin
+						x_start = current_text_index * TEXT_WIDTH;
+                        x_end = (current_text_index + 1) * TEXT_WIDTH - 1;
 						state <= S_TRIGGER_WAIT;
 						update_screen <= 1;
 						delay_counter <= DELAY_TRIGGER;
@@ -269,10 +268,4 @@ always @(posedge lcd_clk or negedge reset_n) begin
 	end
 end
 assign pixel_data = bram_douta? TEXT_COLOR: TEXT_BACK_COLOR;
-//assign la_out[7:1] = bram_addra[7:1];
-//assign la_out[0:0] = start_read_data;
-//assign la_out[5:1] = lcd_state[4:0];
-//assign la_out[7:6] = state;
-assign led_1 = onesecpulse;
-
 endmodule
