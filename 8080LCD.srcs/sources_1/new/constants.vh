@@ -7,23 +7,17 @@ parameter SYS_CLK_FREQ_MHZ = 50; // Частота системного годи
 parameter SYS_CLK_FREQ_KHZ = 50000;
 parameter MAIN_CLK_FREQ_KHZ = 10000;
 
-`ifdef XILINX_SIMULATOR
-    localparam DELAY_1S = 10000;          // Short delay for simulation (e.g., 10 cycles)
-    localparam DELAY_TRIGGER = 10;      // Even shorter for quick triggering in sim
-    localparam DELAY_50_MS = 50;        
-    localparam DELAY_100_MS = 100;      
-    localparam DELAY_120_MS = 120;
-    localparam TEXT_WIDTH = 4;
-    localparam TEXT_HEIGH = 4;
-`else
-    localparam DELAY_1S = 1000 * LCD_FREQ_KHZ;  // Real 1-second delay based on clock freq
-    localparam DELAY_TRIGGER = 10;     // Real short delay (adjust as needed)
-    localparam DELAY_50_MS = 50 * LCD_FREQ_KHZ;        
-    localparam DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
-    localparam DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
-    localparam TEXT_WIDTH = 64;
-    localparam TEXT_HEIGH = 128;
-`endif
+parameter DELAY_1S = 1000 * LCD_FREQ_KHZ;  // Real 1-second delay based on clock freq
+parameter DELAY_TRIGGER = 10;     // Real short delay (adjust as needed)
+parameter DELAY_50_MS = 50 * LCD_FREQ_KHZ;        
+parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
+parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
+
+parameter TEXT_WIDTH = 64;
+parameter TEXT_HEIGH = 128;
+
+parameter DIGIT_HEIGHT = 64;
+parameter DIGIT_WIDTH = 128;
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;
@@ -95,4 +89,6 @@ typedef enum logic [2:0] {
     WRITER_READ = 5
 } writer_t;
 
+parameter TEXT_COLOR = RED;
+parameter TEXT_BACK_COLOR = WHITE;
 `endif
