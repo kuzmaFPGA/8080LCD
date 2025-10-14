@@ -16,8 +16,8 @@ parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ;
 parameter TEXT_WIDTH = 64;
 parameter TEXT_HEIGH = 128;
 
-parameter DIGIT_HEIGHT = 64;
-parameter DIGIT_WIDTH = 128;
+parameter DIGIT_HEIGHT = 128;
+parameter DIGIT_WIDTH = 64;
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;
@@ -91,4 +91,17 @@ typedef enum logic [2:0] {
 
 parameter TEXT_COLOR = RED;
 parameter TEXT_BACK_COLOR = WHITE;
+parameter DIGIT_Y = 400;
+parameter CHAR_BASE = DIGIT_HEIGHT * DIGIT_WIDTH * 10;
+parameter CHAR_WIDTH =  64;
+parameter CHAR_HEIGHT = 128;
+parameter EDIT_X = 600;
+parameter BUTTON_Y = 130;
+parameter SAVE_X = 100;
+parameter FRAME_THICK = 4;
+parameter ARROW_BASE =  DIGIT_HEIGHT * DIGIT_WIDTH * 10;
+parameter ARROW_WIDTH = 64;
+parameter ARROW_HEIGHT = 128;
+parameter ARROW_X_OFFSET = 0;
+ 
 `endif
