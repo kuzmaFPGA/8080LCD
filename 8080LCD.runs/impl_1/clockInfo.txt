@@ -1,7 +1,7 @@
 -------------------------------------
 | Tool Version : Vivado v.2024.2.2
-| Date         : Tue Oct 14 00:05:23 2025
-| Host         : A8
+| Date         : Tue Oct 14 09:51:54 2025
+| Host         : DESKTOP-H05VBGI
 | Design       : design_1
 | Device       : xc7a35t-csg325-1--
 -------------------------------------
