@@ -71,14 +71,14 @@ reg [9:0] screen_x;
 reg [10:0] screen_y;
 reg touch_valid;
 
-// Touch coordinate mapping
+// Assume mapping (adjust calibration if needed)
 always @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         screen_x <= 0;
         screen_y <= 0;
         touch_valid <= 0;
     end else if (get_flag) begin
-        screen_x <= (4095 - y_value) * DISPLAY_HEIGHT >> 12; // Map to 480x800 display
+        screen_x <= (4095 - y_value) * DISPLAY_HEIGH >> 12; // Map to 480x800 display
         screen_y <= x_value * DISPLAY_WIDTH >> 12;
         touch_valid <= 1;
     end else begin
@@ -94,40 +94,40 @@ always @(*) begin
         if (edit_mode) begin
             // Check arrows if a digit is selected
             if (selected_digit != 3'b111) begin
-                if (screen_x >= (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) &&
-                    screen_x < (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
-                    screen_y >= ARROW_Y_UP && screen_y < DIGIT_Y) begin // Up arrow
+                if (screen_x >= (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) && 
+                    screen_x < (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
+                    screen_y >= (FRAME_Y_TOP - ARROW_Y_OFFSET) && screen_y < FRAME_Y_TOP) begin // Up arrow
                     need_update_request = 1;
-                end else if (screen_x >= (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) &&
-                             screen_x < (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
-                             screen_y >= ARROW_Y_DOWN && screen_y < (ARROW_Y_DOWN + ARROW_HEIGHT)) begin // Down arrow
+                end else if (screen_x >= (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) && 
+                             screen_x < (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
+                             screen_y >= FRAME_Y_BOTTOM && screen_y < (FRAME_Y_BOTTOM + ARROW_Y_OFFSET)) begin // Down arrow
                     need_update_request = 1;
                 end
             end
             // Check digit positions
-            if (screen_x >= DIGIT_X_BASE && screen_x < (DIGIT_X_BASE + DIGIT_WIDTH) &&
-                screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 0
+            if (screen_x >= DIGIT_X_START && screen_x < (DIGIT_X_START + DIGIT_WIDTH) && 
+                screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 0
                 need_update_request = 1;
-            end else if (screen_x >= (DIGIT_X_BASE + DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH) &&
-                         screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 1
+            end else if (screen_x >= (DIGIT_X_START + DIGIT_SPACING) && screen_x < (DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH) && 
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 1
                 need_update_request = 1;
-            end else if (screen_x >= (DIGIT_X_BASE + 2 * DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH) &&
-                         screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 2
+            end else if (screen_x >= (DIGIT_X_START + 2 * DIGIT_SPACING) && screen_x < (DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH) && 
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 2
                 need_update_request = 1;
-            end else if (screen_x >= (DIGIT_X_BASE + 3 * DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH) &&
-                         screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 3
+            end else if (screen_x >= (DIGIT_X_START + 3 * DIGIT_SPACING) && screen_x < (DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH) && 
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 3
                 need_update_request = 1;
-            end else if (screen_x >= (DIGIT_X_BASE + 4 * DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH) &&
-                         screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 4
+            end else if (screen_x >= (DIGIT_X_START + 4 * DIGIT_SPACING) && screen_x < (DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH) && 
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 4
                 need_update_request = 1;
             end
         end else begin
             // Check buttons
-            if (screen_x >= EDIT_BUTTON_X_START && screen_x < EDIT_BUTTON_X_END &&
-                screen_y >= BUTTON_Y && screen_y < BUTTON_Y_END) begin // Edit button
+            if (screen_x >= BUTTON_X_EDIT_START && screen_x < BUTTON_X_EDIT_END && 
+                screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) begin // Edit button
                 need_update_request = 1;
-            end else if (screen_x >= SAVE_BUTTON_X_START && screen_x < SAVE_BUTTON_X_END &&
-                         screen_y >= BUTTON_Y && screen_y < BUTTON_Y_END) begin // Save button
+            end else if (screen_x >= BUTTON_X_SAVE_START && screen_x < BUTTON_X_SAVE_END && 
+                         screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) begin // Save button
                 need_update_request = 1;
             end
         end
@@ -146,7 +146,7 @@ always @(posedge clk or negedge reset_n) begin
         number[3] <= 0;
         number[4] <= 0;
     end else begin
-        // Update need_update based on request
+        // Update need_update based on request or FSM clear
         if (need_update_request) begin
             need_update <= 1;
         end
@@ -155,40 +155,40 @@ always @(posedge clk or negedge reset_n) begin
             if (edit_mode) begin
                 // Check arrows if a digit is selected
                 if (selected_digit != 3'b111) begin
-                    if (screen_x >= (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) &&
-                        screen_x < (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
-                        screen_y >= ARROW_Y_UP && screen_y < DIGIT_Y) begin // Up arrow
+                    if (screen_x >= (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) && 
+                        screen_x < (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
+                        screen_y >= (FRAME_Y_TOP - ARROW_Y_OFFSET) && screen_y < FRAME_Y_TOP) begin // Up arrow
                         number[selected_digit] <= (number[selected_digit] == 9) ? 0 : number[selected_digit] + 1;
-                    end else if (screen_x >= (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) &&
-                                 screen_x < (DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
-                                 screen_y >= ARROW_Y_DOWN && screen_y < (ARROW_Y_DOWN + ARROW_HEIGHT)) begin // Down arrow
+                    end else if (screen_x >= (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET) && 
+                                 screen_x < (DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH) &&
+                                 screen_y >= FRAME_Y_BOTTOM && screen_y < (FRAME_Y_BOTTOM + ARROW_Y_OFFSET)) begin // Down arrow
                         number[selected_digit] <= (number[selected_digit] == 0) ? 9 : number[selected_digit] - 1;
                     end
                 end
                 // Check digit positions
-                if (screen_x >= DIGIT_X_BASE && screen_x < (DIGIT_X_BASE + DIGIT_WIDTH) &&
-                    screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 0
+                if (screen_x >= DIGIT_X_START && screen_x < (DIGIT_X_START + DIGIT_WIDTH) && 
+                    screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 0
                     selected_digit <= 0;
-                end else if (screen_x >= (DIGIT_X_BASE + DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH) &&
-                             screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 1
+                end else if (screen_x >= (DIGIT_X_START + DIGIT_SPACING) && screen_x < (DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH) && 
+                             screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 1
                     selected_digit <= 1;
-                end else if (screen_x >= (DIGIT_X_BASE + 2 * DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH) &&
-                             screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 2
+                end else if (screen_x >= (DIGIT_X_START + 2 * DIGIT_SPACING) && screen_x < (DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH) && 
+                             screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 2
                     selected_digit <= 2;
-                end else if (screen_x >= (DIGIT_X_BASE + 3 * DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH) &&
-                             screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 3
+                end else if (screen_x >= (DIGIT_X_START + 3 * DIGIT_SPACING) && screen_x < (DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH) && 
+                             screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 3
                     selected_digit <= 3;
-                end else if (screen_x >= (DIGIT_X_BASE + 4 * DIGIT_SPACING) && screen_x < (DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH) &&
-                             screen_y >= DIGIT_Y && screen_y < (DIGIT_Y + DIGIT_HEIGHT)) begin // Digit 4
+                end else if (screen_x >= (DIGIT_X_START + 4 * DIGIT_SPACING) && screen_x < (DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH) && 
+                             screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) begin // Digit 4
                     selected_digit <= 4;
                 end
             end else begin
                 // Check buttons
-                if (screen_x >= EDIT_BUTTON_X_START && screen_x < EDIT_BUTTON_X_END &&
-                    screen_y >= BUTTON_Y && screen_y < BUTTON_Y_END) begin // Edit button
+                if (screen_x >= BUTTON_X_EDIT_START && screen_x < BUTTON_X_EDIT_END && 
+                    screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) begin // Edit button
                     edit_mode <= 1;
-                end else if (screen_x >= SAVE_BUTTON_X_START && screen_x < SAVE_BUTTON_X_END &&
-                             screen_y >= BUTTON_Y && screen_y < BUTTON_Y_END) begin // Save button
+                end else if (screen_x >= BUTTON_X_SAVE_START && screen_x < BUTTON_X_SAVE_END && 
+                             screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) begin // Save button
                     edit_mode <= 0;
                     selected_digit <= 3'b111; // Clear selection
                 end
@@ -259,8 +259,7 @@ end
 // Pixel data assignment
 assign pixel_data = solid_fill ? solid_color : (bram_douta ? TEXT_COLOR : TEXT_BACK_COLOR);
 
-// FSM for drawing (only clears need_update via clear_need_update)
-reg clear_need_update;
+// FSM for drawing (only clears need_update)
 always @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         bram_addra <= 0;
@@ -269,13 +268,12 @@ always @(posedge clk or negedge reset_n) begin
         x_start <= 0;
         x_end <= TEXT_WIDTH - 1;
         y_start <= 0;
-        y_end <= TEXT_HEIGHT - 1;
+        y_end <= TEXT_HEIGH - 1;
         delay_counter <= 0;
         draw_step <= 0;
         solid_fill <= 0;
-        clear_need_update <= 0;
+        need_update <= 1; // Initial draw on reset
     end else begin
-        clear_need_update <= 0; // Default: do not clear
         case (state)
             S_INIT: begin
                 if (init_done) begin
@@ -284,7 +282,7 @@ always @(posedge clk or negedge reset_n) begin
             end    
             S_IDLE: begin
                 if (need_update) begin
-                    clear_need_update <= 1; // Signal to clear need_update
+                    need_update <= 0; // Clear need_update (single driver in FSM)
                     draw_step <= 0;
                     state <= S_PREP_DRAW;
                 end
@@ -297,47 +295,47 @@ always @(posedge clk or negedge reset_n) begin
                         solid_fill <= 1;
                         solid_color <= WHITE;
                         x_start <= 0;
-                        x_end <= DISPLAY_HEIGHT - 1;
+                        x_end <= DISPLAY_WIDTH - 1;
                         y_start <= 0;
-                        y_end <= DISPLAY_WIDTH - 1;
+                        y_end <= DISPLAY_HEIGH - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     1: begin // Digit 0
                         bram_base_addra <= number[0] * (DIGIT_WIDTH * DIGIT_HEIGHT);
-                        x_start <= DIGIT_X_BASE;
-                        x_end <= DIGIT_X_BASE + DIGIT_WIDTH - 1;
+                        x_start <= DIGIT_X_START;
+                        x_end <= DIGIT_X_START + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y;
                         y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     2: begin // Digit 1
                         bram_base_addra <= number[1] * (DIGIT_WIDTH * DIGIT_HEIGHT);
-                        x_start <= DIGIT_X_BASE + DIGIT_SPACING;
-                        x_end <= DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH - 1;
+                        x_start <= DIGIT_X_START + DIGIT_SPACING;
+                        x_end <= DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y;
                         y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     3: begin // Digit 2
                         bram_base_addra <= number[2] * (DIGIT_WIDTH * DIGIT_HEIGHT);
-                        x_start <= DIGIT_X_BASE + 2 * DIGIT_SPACING;
-                        x_end <= DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                        x_start <= DIGIT_X_START + 2 * DIGIT_SPACING;
+                        x_end <= DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y;
                         y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     4: begin // Digit 3
                         bram_base_addra <= number[3] * (DIGIT_WIDTH * DIGIT_HEIGHT);
-                        x_start <= DIGIT_X_BASE + 3 * DIGIT_SPACING;
-                        x_end <= DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                        x_start <= DIGIT_X_START + 3 * DIGIT_SPACING;
+                        x_end <= DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y;
                         y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     5: begin // Digit 4
                         bram_base_addra <= number[4] * (DIGIT_WIDTH * DIGIT_HEIGHT);
-                        x_start <= DIGIT_X_BASE + 4 * DIGIT_SPACING;
-                        x_end <= DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                        x_start <= DIGIT_X_START + 4 * DIGIT_SPACING;
+                        x_end <= DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y;
                         y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
@@ -352,24 +350,24 @@ always @(posedge clk or negedge reset_n) begin
                     end
                     7: begin // 'd'
                         bram_base_addra <= CHAR_BASE + 1 * (CHAR_WIDTH * CHAR_HEIGHT);
-                        x_start <= EDIT_X + CHAR_WIDTH;
-                        x_end <= EDIT_X + CHAR_WIDTH + CHAR_WIDTH - 1;
+                        x_start <= EDIT_X + CHAR_SPACING;
+                        x_end <= EDIT_X + CHAR_SPACING + CHAR_WIDTH - 1;
                         y_start <= BUTTON_Y;
                         y_end <= BUTTON_Y + CHAR_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     8: begin // 'i'
                         bram_base_addra <= CHAR_BASE + 2 * (CHAR_WIDTH * CHAR_HEIGHT);
-                        x_start <= EDIT_X + 2 * CHAR_WIDTH;
-                        x_end <= EDIT_X + 2 * CHAR_WIDTH + CHAR_WIDTH - 1;
+                        x_start <= EDIT_X + 2 * CHAR_SPACING;
+                        x_end <= EDIT_X + 2 * CHAR_SPACING + CHAR_WIDTH - 1;
                         y_start <= BUTTON_Y;
                         y_end <= BUTTON_Y + CHAR_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     9: begin // 't'
                         bram_base_addra <= CHAR_BASE + 3 * (CHAR_WIDTH * CHAR_HEIGHT);
-                        x_start <= EDIT_X + 3 * CHAR_WIDTH;
-                        x_end <= EDIT_X + 3 * CHAR_WIDTH + CHAR_WIDTH - 1;
+                        x_start <= EDIT_X + 3 * CHAR_SPACING;
+                        x_end <= EDIT_X + 3 * CHAR_SPACING + CHAR_WIDTH - 1;
                         y_start <= BUTTON_Y;
                         y_end <= BUTTON_Y + CHAR_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
@@ -384,24 +382,24 @@ always @(posedge clk or negedge reset_n) begin
                     end
                     11: begin // 'a'
                         bram_base_addra <= CHAR_BASE + 5 * (CHAR_WIDTH * CHAR_HEIGHT);
-                        x_start <= SAVE_X + CHAR_WIDTH;
-                        x_end <= SAVE_X + CHAR_WIDTH + CHAR_WIDTH - 1;
+                        x_start <= SAVE_X + CHAR_SPACING;
+                        x_end <= SAVE_X + CHAR_SPACING + CHAR_WIDTH - 1;
                         y_start <= BUTTON_Y;
                         y_end <= BUTTON_Y + CHAR_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     12: begin // 'v'
                         bram_base_addra <= CHAR_BASE + 6 * (CHAR_WIDTH * CHAR_HEIGHT);
-                        x_start <= SAVE_X + 2 * CHAR_WIDTH;
-                        x_end <= SAVE_X + 2 * CHAR_WIDTH + CHAR_WIDTH - 1;
+                        x_start <= SAVE_X + 2 * CHAR_SPACING;
+                        x_end <= SAVE_X + 2 * CHAR_SPACING + CHAR_WIDTH - 1;
                         y_start <= BUTTON_Y;
                         y_end <= BUTTON_Y + CHAR_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
                     end
                     13: begin // 'e'
                         bram_base_addra <= CHAR_BASE + 7 * (CHAR_WIDTH * CHAR_HEIGHT);
-                        x_start <= SAVE_X + 3 * CHAR_WIDTH;
-                        x_end <= SAVE_X + 3 * CHAR_WIDTH + CHAR_WIDTH - 1;
+                        x_start <= SAVE_X + 3 * CHAR_SPACING;
+                        x_end <= SAVE_X + 3 * CHAR_SPACING + CHAR_WIDTH - 1;
                         y_start <= BUTTON_Y;
                         y_end <= BUTTON_Y + CHAR_HEIGHT - 1;
                         state <= S_TRIGGER_WAIT;
@@ -412,10 +410,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE;
-                            x_end <= DIGIT_X_BASE + DIGIT_WIDTH - 1;
-                            y_start <= FRAME_Y_TOP;
-                            y_end <= DIGIT_Y - 1;
+                            x_start <= DIGIT_X_START;
+                            x_end <= DIGIT_X_START + DIGIT_WIDTH - 1;
+                            y_start <= FRAME_Y_TOP - FRAME_THICK;
+                            y_end <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -424,8 +422,8 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE;
-                            x_end <= DIGIT_X_BASE + DIGIT_WIDTH - 1;
+                            x_start <= DIGIT_X_START;
+                            x_end <= DIGIT_X_START + DIGIT_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1;
                             state <= S_TRIGGER_WAIT;
@@ -436,10 +434,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE - FRAME_THICK;
-                            x_end <= DIGIT_X_BASE - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START - FRAME_THICK;
+                            x_end <= DIGIT_X_START - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -448,10 +446,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + DIGIT_WIDTH;
-                            x_end <= DIGIT_X_BASE + DIGIT_WIDTH + FRAME_THICK - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + DIGIT_WIDTH;
+                            x_end <= DIGIT_X_START + DIGIT_WIDTH + FRAME_THICK - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -461,10 +459,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH - 1;
-                            y_start <= FRAME_Y_TOP;
-                            y_end <= DIGIT_Y - 1;
+                            x_start <= DIGIT_X_START + DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            y_start <= FRAME_Y_TOP - FRAME_THICK;
+                            y_end <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -473,8 +471,8 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            x_start <= DIGIT_X_START + DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1;
                             state <= S_TRIGGER_WAIT;
@@ -485,10 +483,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + DIGIT_SPACING - FRAME_THICK;
-                            x_end <= DIGIT_X_BASE + DIGIT_SPACING - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + DIGIT_SPACING - FRAME_THICK;
+                            x_end <= DIGIT_X_START + DIGIT_SPACING - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -497,10 +495,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH;
-                            x_end <= DIGIT_X_BASE + DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH;
+                            x_end <= DIGIT_X_START + DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -510,10 +508,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 2 * DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH - 1;
-                            y_start <= FRAME_Y_TOP;
-                            y_end <= DIGIT_Y - 1;
+                            x_start <= DIGIT_X_START + 2 * DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            y_start <= FRAME_Y_TOP - FRAME_THICK;
+                            y_end <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -522,8 +520,8 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 2 * DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            x_start <= DIGIT_X_START + 2 * DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1;
                             state <= S_TRIGGER_WAIT;
@@ -534,10 +532,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 2 * DIGIT_SPACING - FRAME_THICK;
-                            x_end <= DIGIT_X_BASE + 2 * DIGIT_SPACING - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + 2 * DIGIT_SPACING - FRAME_THICK;
+                            x_end <= DIGIT_X_START + 2 * DIGIT_SPACING - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -546,10 +544,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH;
-                            x_end <= DIGIT_X_BASE + 2 * DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH;
+                            x_end <= DIGIT_X_START + 2 * DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -559,10 +557,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 3 * DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH - 1;
-                            y_start <= FRAME_Y_TOP;
-                            y_end <= DIGIT_Y - 1;
+                            x_start <= DIGIT_X_START + 3 * DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            y_start <= FRAME_Y_TOP - FRAME_THICK;
+                            y_end <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -571,8 +569,8 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 3 * DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            x_start <= DIGIT_X_START + 3 * DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1;
                             state <= S_TRIGGER_WAIT;
@@ -583,10 +581,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 3 * DIGIT_SPACING - FRAME_THICK;
-                            x_end <= DIGIT_X_BASE + 3 * DIGIT_SPACING - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + 3 * DIGIT_SPACING - FRAME_THICK;
+                            x_end <= DIGIT_X_START + 3 * DIGIT_SPACING - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -595,10 +593,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH;
-                            x_end <= DIGIT_X_BASE + 3 * DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH;
+                            x_end <= DIGIT_X_START + 3 * DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -608,10 +606,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 4 * DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH - 1;
-                            y_start <= FRAME_Y_TOP;
-                            y_end <= DIGIT_Y - 1;
+                            x_start <= DIGIT_X_START + 4 * DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            y_start <= FRAME_Y_TOP - FRAME_THICK;
+                            y_end <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -620,8 +618,8 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 4 * DIGIT_SPACING;
-                            x_end <= DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH - 1;
+                            x_start <= DIGIT_X_START + 4 * DIGIT_SPACING;
+                            x_end <= DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1;
                             state <= S_TRIGGER_WAIT;
@@ -632,10 +630,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 4 * DIGIT_SPACING - FRAME_THICK;
-                            x_end <= DIGIT_X_BASE + 4 * DIGIT_SPACING - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + 4 * DIGIT_SPACING - FRAME_THICK;
+                            x_end <= DIGIT_X_START + 4 * DIGIT_SPACING - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -644,10 +642,10 @@ always @(posedge clk or negedge reset_n) begin
                         else begin
                             solid_fill <= 1;
                             solid_color <= RED;
-                            x_start <= DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH;
-                            x_end <= DIGIT_X_BASE + 4 * DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
-                            y_start <= DIGIT_Y;
-                            y_end <= DIGIT_Y + DIGIT_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH;
+                            x_end <= DIGIT_X_START + 4 * DIGIT_SPACING + DIGIT_WIDTH + FRAME_THICK - 1;
+                            y_start <= FRAME_Y_TOP;
+                            y_end <= FRAME_Y_BOTTOM - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -655,10 +653,10 @@ always @(posedge clk or negedge reset_n) begin
                         if (selected_digit == 3'b111) draw_step <= draw_step + 1;
                         else begin
                             bram_base_addra <= ARROW_BASE + 0 * (ARROW_WIDTH * ARROW_HEIGHT);
-                            x_start <= DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET;
-                            x_end <= DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH - 1;
-                            y_start <= ARROW_Y_UP;
-                            y_end <= DIGIT_Y - 1;
+                            x_start <= DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET;
+                            x_end <= DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH - 1;
+                            y_start <= FRAME_Y_TOP - ARROW_HEIGHT;
+                            y_end <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -666,10 +664,10 @@ always @(posedge clk or negedge reset_n) begin
                         if (selected_digit == 3'b111) draw_step <= draw_step + 1;
                         else begin
                             bram_base_addra <= ARROW_BASE + 1 * (ARROW_WIDTH * ARROW_HEIGHT);
-                            x_start <= DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET;
-                            x_end <= DIGIT_X_BASE + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH - 1;
-                            y_start <= ARROW_Y_DOWN;
-                            y_end <= ARROW_Y_DOWN + ARROW_HEIGHT - 1;
+                            x_start <= DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET;
+                            x_end <= DIGIT_X_START + selected_digit * DIGIT_SPACING + ARROW_X_OFFSET + ARROW_WIDTH - 1;
+                            y_start <= FRAME_Y_BOTTOM;
+                            y_end <= FRAME_Y_BOTTOM + ARROW_HEIGHT - 1;
                             state <= S_TRIGGER_WAIT;
                         end
                     end
@@ -697,17 +695,6 @@ always @(posedge clk or negedge reset_n) begin
                 state <= S_PREP_DRAW;
             end
         endcase
-    end
-end
-
-// Clear need_update based on FSM signal
-always @(posedge clk or negedge reset_n) begin
-    if (!reset_n) begin
-        need_update <= 1; // Initial draw on reset
-    end else if (clear_need_update) begin
-        need_update <= 0; // Cleared by FSM
-    end else if (need_update_request) begin
-        need_update <= 1; // Set by touch events
     end
 end
 
