@@ -13,13 +13,20 @@ parameter DELAY_50_MS = 50 * LCD_FREQ_KHZ;
 parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
 parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
 
-parameter DISPLAY_WIDTH = 800;
-parameter DISPLAY_HEIGH = 480;
+// ✅ Розміри дисплея: 800x480
+parameter DISPLAY_WIDTH = 800;   // X (ширина)
+parameter DISPLAY_HEIGH = 480;   // Y (висота)
+
+// ✅ ТОЧНІ розміри шрифтів
+parameter DIGIT_WIDTH = 64;      // Цифри
+parameter DIGIT_HEIGHT = 128;
+parameter CHAR_WIDTH = 78;       // ✅ Букви
+parameter CHAR_HEIGHT = 128;
+parameter ARROW_WIDTH = 127;     // ✅ Стрілки
+parameter ARROW_HEIGHT = 128;
+
 parameter TEXT_WIDTH = 64;
 parameter TEXT_HEIGH = 128;
-
-parameter DIGIT_HEIGHT = 128;
-parameter DIGIT_WIDTH = 64;
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;
@@ -45,15 +52,12 @@ parameter LGRAY = 16'hC618;
 parameter LGRAYBLUE = 16'hA651; 
 parameter LBBLUE = 16'h2B12;
 
-// Загальна кількість пікселів для 800x480 дисплея
-parameter TOTAL_PIXELS = 800 * 480;
+parameter TOTAL_PIXELS = DISPLAY_WIDTH * DISPLAY_HEIGH; // 384000
 
-// Координати для області заповнення
 parameter X_START = 0;
-parameter X_END = 480 - 1;
+parameter X_END = DISPLAY_WIDTH - 1;   // 799
 parameter Y_START = 0;
-parameter Y_END = 800 - 1;
-
+parameter Y_END = DISPLAY_HEIGH - 1;   // 479
 // Перерахування для станів основної машини стану
 typedef enum logic [4:0] {
     S_INIT = 0,           // Wait for PLL
@@ -91,32 +95,41 @@ typedef enum logic [2:0] {
     WRITER_READ = 5
 } writer_t;
 
+
 parameter TEXT_COLOR = RED;
 parameter TEXT_BACK_COLOR = WHITE;
-parameter DIGIT_Y = 400;
-parameter CHAR_BASE = DIGIT_HEIGHT * DIGIT_WIDTH * 10;
-parameter CHAR_WIDTH =  64;
-parameter CHAR_HEIGHT = 128;
-parameter EDIT_X = 40;
-parameter BUTTON_Y = 600;
-parameter SAVE_X = 280;
-parameter FRAME_THICK = 4;
-parameter ARROW_BASE =  DIGIT_HEIGHT * DIGIT_WIDTH * 10;
-parameter ARROW_WIDTH = 64;
-parameter ARROW_HEIGHT = 128;
-parameter ARROW_X_OFFSET = 0;
 
-// Additional constants for digit, button, and frame positioning
+// ✅ ПОЗИЦІЯ ЦИФР (центр по Y)
+parameter DIGIT_Y = 176; // (480-128)/2 = 176
+
+// ✅ BRAM адреси
+parameter CHAR_BASE = DIGIT_HEIGHT * DIGIT_WIDTH * 10; // Після 10 цифр
+parameter ARROW_BASE = CHAR_BASE + 8 * CHAR_WIDTH * CHAR_HEIGHT; // Після 8 букв
+
+// ✅ РАМИ для цифр
+parameter FRAME_THICK = 4;
+parameter FRAME_Y_TOP = 152;    // 176 - 24
+parameter FRAME_Y_BOTTOM = 303; // 176 + 128 - 1
+
+// ✅ КНОПКИ EDIT/SAVE (4 букви × 78px = 312px, але використовуємо 128px з відступами)
+parameter EDIT_X = 40;          // 'E' початок
+parameter SAVE_X = 280;         // 'S' початок
+parameter BUTTON_Y = 600;       // Y кнопок
+
+// ✅ Відступ між буквами (адаптовано під 78px)
+parameter CHAR_SPACING = 10;     // Малий відступ для щільності
+
+// ✅ СТРІЛКИ (над/під цифрами)
+parameter ARROW_X_OFFSET = 0;   // Центр по X
+parameter ARROW_Y_OFFSET = 16;  // Відступ від рамки
+
+// ✅ КООРДИНАТИ КНОПОК (128px ширина)
+parameter BUTTON_X_EDIT_START = 40;
+parameter BUTTON_X_EDIT_END = 168;      // 40+128
+parameter BUTTON_X_SAVE_START = 280;
+parameter BUTTON_X_SAVE_END = 408;      // 280+128
+parameter BUTTON_Y_TOP = 600;
+parameter BUTTON_Y_BOTTOM = 664;        // 600+64
 parameter [31:0] DIGIT_X_START [0:4] = '{80, 144, 208, 272, 336}; // Starting x-coordinate for each digit
-parameter FRAME_Y_TOP = 336;  // Top y-coordinate for frames and digits
-parameter FRAME_Y_BOTTOM = 464; // Bottom y-coordinate for frames and digits
-parameter ARROW_Y_OFFSET = 32; // Offset for arrow y-positions (above/below frame)
-parameter BUTTON_X_EDIT_START = 40; // Edit button x-start
-parameter BUTTON_X_EDIT_END = 168;  // Edit button x-end
-parameter BUTTON_X_SAVE_START = 280; // Save button x-start
-parameter BUTTON_X_SAVE_END = 408;  // Save button x-end
-parameter BUTTON_Y_TOP = 600; // Button y-start
-parameter BUTTON_Y_BOTTOM = 664; // Button y-end
-parameter CHAR_SPACING = 32; // Spacing between characters in buttons
 
 `endif
