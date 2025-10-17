@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date                      : Wed Oct 15 21:32:43 2025
-| Host                      : A8 running 64-bit major release  (build 9200)
+| Date                      : Fri Oct 17 11:32:58 2025
+| Host                      : DESKTOP-H05VBGI running 64-bit major release  (build 9200)
 | Command                   : report_io -file top_level_io_placed.rpt
 | Design                    : top_level
 | Device                    : xc7a35t

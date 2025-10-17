@@ -13,6 +13,10 @@ parameter DELAY_50_MS = 50 * LCD_FREQ_KHZ;
 parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
 parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
 
+// ✅ Частота оновлення екрану
+parameter SCREEN_REFRESH_HZ = 60; // 60 Гц
+parameter SCREEN_REFRESH_TICKS = (SYS_CLK_FREQ_MHZ * 1_000_000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
+
 // ✅ Розміри дисплея: 800x480
 parameter DISPLAY_WIDTH = 800;   // X (ширина)
 parameter DISPLAY_HEIGH = 480;   // Y (висота)
