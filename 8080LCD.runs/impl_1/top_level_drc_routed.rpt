@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date         : Sun Oct 19 19:02:35 2025
+| Date         : Sun Oct 19 22:36:48 2025
 | Host         : A8 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_level_drc_routed.rpt -pb top_level_drc_routed.pb -rpx top_level_drc_routed.rpx
 | Design       : top_level
@@ -24,7 +24,7 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 74
+             Checks found: 75
 +-----------+----------+-----------------------------------------------------+--------+
 | Rule      | Severity | Description                                         | Checks |
 +-----------+----------+-----------------------------------------------------+--------+
@@ -34,9 +34,8 @@ Table of Contents
 | DPOP-1    | Warning  | PREG Output pipelining                              | 1      |
 | DPOP-2    | Warning  | MREG Output pipelining                              | 5      |
 | DPOR-1    | Warning  | Asynchronous load check                             | 17     |
-| PDRC-136  | Warning  | SLICE_PairEqSame_C6C5_WARN                          | 1      |
-| PDRC-138  | Warning  | SLICE_PairEqSame_D6D5_WARN                          | 1      |
-| PDRC-146  | Warning  | SLICE_PairEqSame_D6D5_WARN                          | 1      |
+| PDRC-136  | Warning  | SLICE_PairEqSame_C6C5_WARN                          | 2      |
+| PDRC-138  | Warning  | SLICE_PairEqSame_D6D5_WARN                          | 2      |
 | REQP-1839 | Warning  | RAMB36 async control check                          | 20     |
 | REQP-1840 | Warning  | RAMB18 async control check                          | 18     |
 +-----------+----------+-----------------------------------------------------+--------+
@@ -218,17 +217,22 @@ Related violations: <none>
 
 PDRC-136#1 Warning
 SLICE_PairEqSame_C6C5_WARN  
-Luts C6LUT and C5LUT in use in site SLICE_X7Y37 with different equations without A6 pin connected to Global Logic High.
+Luts C6LUT and C5LUT in use in site SLICE_X4Y30 with different equations without A6 pin connected to Global Logic High.
+Related violations: <none>
+
+PDRC-136#2 Warning
+SLICE_PairEqSame_C6C5_WARN  
+Luts C6LUT and C5LUT in use in site SLICE_X5Y31 with different equations without A6 pin connected to Global Logic High.
 Related violations: <none>
 
 PDRC-138#1 Warning
 SLICE_PairEqSame_D6D5_WARN  
-Luts D6LUT and D5LUT in use in site SLICE_X7Y37 with different equations without A6 pin connected to Global Logic High.
+Luts D6LUT and D5LUT in use in site SLICE_X4Y30 with different equations without A6 pin connected to Global Logic High.
 Related violations: <none>
 
-PDRC-146#1 Warning
+PDRC-138#2 Warning
 SLICE_PairEqSame_D6D5_WARN  
-Luts D6LUT and D5LUT in use in site SLICE_X8Y58 with different equations without A6 pin connected to Global Logic High.
+Luts D6LUT and D5LUT in use in site SLICE_X5Y31 with different equations without A6 pin connected to Global Logic High.
 Related violations: <none>
 
 REQP-1839#1 Warning

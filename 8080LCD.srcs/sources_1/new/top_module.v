@@ -76,13 +76,13 @@ always @(posedge clk or negedge reset_n) begin
         screen_x <= 0;
         screen_y <= 0;
         touch_valid <= 0;
-		end else if (get_flag) begin
-        screen_x <= (4095 - y_value) * DISPLAY_WIDTH >> 12;  // X=800
-        screen_y <= x_value * DISPLAY_HEIGH >> 12;           // Y=480
+    end else if (get_flag) begin
+        screen_x <= ((4095 - y_value) * DISPLAY_WIDTH >> 12) ^ ({12{`INVERT_X}} & 4095);  // Інверсія X, якщо `INVERT_X` = 1
+        screen_y <= (x_value * DISPLAY_HEIGH >> 12) ^ ({12{`INVERT_Y}} & 4095);          // Інверсія Y, якщо `INVERT_Y` = 1
         touch_valid <= 1;
-		end else begin
+    end else begin
         touch_valid <= 0;
-	end
+    end
 end
 
 // ✅ Touch handling logic
@@ -313,199 +313,198 @@ always @(posedge clk or negedge reset_n) begin
 					// 6-9: EDIT button (78×128) - ЗавЖДИ
 					
 					6: begin bram_base_addra <= CHAR_BASE + 0 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_EDIT_START; 
-					   x_end <= BUTTON_X_EDIT_START + CHAR_WIDTH ;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_EDIT_START;
+						x_end <= BUTTON_X_EDIT_START + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					7: begin bram_base_addra <= CHAR_BASE + 1 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_EDIT_START + CHAR_SPACING + CHAR_WIDTH; 
-					   x_end <= BUTTON_X_EDIT_START + CHAR_SPACING + CHAR_WIDTH + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_EDIT_START + CHAR_WIDTH + CHAR_SPACING;
+						x_end <= BUTTON_X_EDIT_START + CHAR_WIDTH + CHAR_SPACING + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					8: begin bram_base_addra <= CHAR_BASE + 2 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_EDIT_START + 2 * CHAR_SPACING + 2 * CHAR_WIDTH; 
-					   x_end <= BUTTON_X_EDIT_START + 2 * CHAR_SPACING + 2 * CHAR_WIDTH + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_EDIT_START + 2 * (CHAR_WIDTH + CHAR_SPACING);
+						x_end <= BUTTON_X_EDIT_START + 2 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					9: begin bram_base_addra <= CHAR_BASE + 3 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_EDIT_START + 3 * CHAR_SPACING + 3 * CHAR_WIDTH; 
-					   x_end <= BUTTON_X_EDIT_START + 3 * CHAR_SPACING + 3 * CHAR_WIDTH + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_EDIT_START + 3 * (CHAR_WIDTH + CHAR_SPACING);
+						x_end <= BUTTON_X_EDIT_START + 3 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					// 10-13: SAVE button (78×128) - ЗавЖДИ
 					10: begin bram_base_addra <= CHAR_BASE + 4 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_SAVE_START; 
-					   x_end <= BUTTON_X_SAVE_START + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_SAVE_START;
+						x_end <= BUTTON_X_SAVE_START + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					11: begin bram_base_addra <= CHAR_BASE + 5 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_SAVE_START + CHAR_SPACING + CHAR_WIDTH; 
-					   x_end <= BUTTON_X_SAVE_START + CHAR_SPACING + CHAR_WIDTH + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_SAVE_START + CHAR_WIDTH + CHAR_SPACING;
+						x_end <= BUTTON_X_SAVE_START + CHAR_WIDTH + CHAR_SPACING + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					12: begin bram_base_addra <= CHAR_BASE + 6 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_SAVE_START + 2 * CHAR_SPACING + 2 * CHAR_WIDTH; 
-					   x_end <= BUTTON_X_SAVE_START + 2 * CHAR_SPACING + 2 * CHAR_WIDTH + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT;
-					   state <= S_TRIGGER_WAIT; 
+						x_start <= BUTTON_X_SAVE_START + 2 * (CHAR_WIDTH + CHAR_SPACING);
+						x_end <= BUTTON_X_SAVE_START + 2 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
 					end
 					13: begin bram_base_addra <= CHAR_BASE + 7 * (CHAR_WIDTH * CHAR_HEIGHT);
-					   x_start <= BUTTON_X_SAVE_START + 3 * CHAR_SPACING + 3 * CHAR_WIDTH; 
-					   x_end <= BUTTON_X_SAVE_START + 3 * CHAR_SPACING + 3 * CHAR_WIDTH + CHAR_WIDTH;
-					   y_start <= BUTTON_Y_TOP; 
-					   y_end <= BUTTON_Y_TOP + CHAR_HEIGHT; 
-					   state <= S_TRIGGER_WAIT; 
-					end
-					
+						x_start <= BUTTON_X_SAVE_START + 3 * (CHAR_WIDTH + CHAR_SPACING);
+						x_end <= BUTTON_X_SAVE_START + 3 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+						y_start <= BUTTON_Y_TOP;
+						y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+						state <= S_TRIGGER_WAIT;
+					end					
 					// ✅ 14-33: FRAMES (5 digits × 4 lines) - ТІЛЬКИ в Edit mode!
 					14: begin
-						if (!edit_mode) draw_step <= 14; // Пропустити рамки
+						if (!edit_mode) draw_step <= 36; // Пропустити рамки
 						else begin // Рама 0 верх
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					15: begin if (!edit_mode) draw_step <= 14;
+					15: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 0 низ
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					16: begin if (!edit_mode) draw_step <= 14;
+					16: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 0 ліва
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[0] - FRAME_THICK; x_end <= DIGIT_X_START[0] - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					17: begin if (!edit_mode) draw_step <= 14;
+					17: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 0 права
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[0] + DIGIT_WIDTH; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH + FRAME_THICK - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					18: begin if (!edit_mode) draw_step <= 14;
+					18: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 1 верх
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					19: begin if (!edit_mode) draw_step <= 14;
+					19: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 1 низ
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					20: begin if (!edit_mode) draw_step <= 14;
+					20: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 1 ліва
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[1] - FRAME_THICK; x_end <= DIGIT_X_START[1] - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					21: begin if (!edit_mode) draw_step <= 14;
+					21: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 1 права
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[1] + DIGIT_WIDTH; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH + FRAME_THICK - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					22: begin if (!edit_mode) draw_step <= 14;
+					22: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 2 верх
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					23: begin if (!edit_mode) draw_step <= 14;
+					23: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 2 низ
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					24: begin if (!edit_mode) draw_step <= 14;
+					24: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 2 ліва
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[2] - FRAME_THICK; x_end <= DIGIT_X_START[2] - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					25: begin if (!edit_mode) draw_step <= 14;
+					25: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 2 права
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[2] + DIGIT_WIDTH; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH + FRAME_THICK - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					26: begin if (!edit_mode) draw_step <= 14;
+					26: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 3 верх
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					27: begin if (!edit_mode) draw_step <= 14;
+					27: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 3 низ
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					28: begin if (!edit_mode) draw_step <= 14;
+					28: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 3 ліва
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[3] - FRAME_THICK; x_end <= DIGIT_X_START[3] - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					29: begin if (!edit_mode) draw_step <= 14;
+					29: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 3 права
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[3] + DIGIT_WIDTH; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH + FRAME_THICK - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					30: begin if (!edit_mode) draw_step <= 14;
+					30: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 4 верх
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					31: begin if (!edit_mode) draw_step <= 14;
+					31: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 4 низ
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1;
 							y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					32: begin if (!edit_mode) draw_step <= 14;
+					32: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 4 ліва
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[4] - FRAME_THICK; x_end <= DIGIT_X_START[4] - 1;
 							y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT;
 						end
 					end
-					33: begin if (!edit_mode) draw_step <= 14;
+					33: begin if (!edit_mode) draw_step <= 36;
 						else begin // Рама 4 права
 							solid_fill <= 1; solid_color <= FRAME_COLOR;
 							x_start <= DIGIT_X_START[4] + DIGIT_WIDTH; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH + FRAME_THICK - 1;
@@ -539,7 +538,11 @@ always @(posedge clk or negedge reset_n) begin
 					default: state <= S_IDLE;
 				endcase
 				
-				if (draw_step >= 36) state <= S_IDLE;
+                if (edit_mode) begin
+                    if (draw_step >= 36) state <= S_IDLE; // Edit: 36 кроків
+					end else begin
+                    if (draw_step >= 14) state <= S_IDLE; // Normal: 14 кроків
+				end			
 			end
             S_TRIGGER_WAIT: begin
                 update_screen <= 1;

@@ -14,17 +14,20 @@ parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;
 parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
 
 // ✅ Частота оновлення екрану
-parameter SCREEN_REFRESH_HZ = 60; // 60 Гц
+parameter SCREEN_REFRESH_HZ = 10; // 60 Гц
 parameter SCREEN_REFRESH_TICKS = (SYS_CLK_FREQ_MHZ * 1_000_000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
 
 // ✅ Розміри дисплея: 800x480
 parameter DISPLAY_WIDTH = 800;   // X (ширина)
 parameter DISPLAY_HEIGH = 480;   // Y (висота)
 
+`define INVERT_X 1'b0  // 1 для інверсії осі X, 0 - без інверсії
+`define INVERT_Y 1'b0  // 1 для інверсії осі Y, 0 - без інверсії
+
 // ✅ ТОЧНІ розміри шрифтів
 parameter DIGIT_WIDTH = 64;      // Цифри
 parameter DIGIT_HEIGHT = 128;
-parameter CHAR_WIDTH = 39;       // ✅ Букви
+parameter CHAR_WIDTH = 40;       // ✅ Букви
 parameter CHAR_HEIGHT = 64;
 parameter ARROW_WIDTH = 63;     // ✅ Стрілки
 parameter ARROW_HEIGHT = 64;
