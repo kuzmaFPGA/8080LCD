@@ -24,13 +24,10 @@ parameter DISPLAY_HEIGH = 480;   // Y (висота)
 // ✅ ТОЧНІ розміри шрифтів
 parameter DIGIT_WIDTH = 64;      // Цифри
 parameter DIGIT_HEIGHT = 128;
-parameter CHAR_WIDTH = 78;       // ✅ Букви
-parameter CHAR_HEIGHT = 128;
-parameter ARROW_WIDTH = 127;     // ✅ Стрілки
-parameter ARROW_HEIGHT = 128;
-
-parameter TEXT_WIDTH = 64;
-parameter TEXT_HEIGH = 128;
+parameter CHAR_WIDTH = 39;       // ✅ Букви
+parameter CHAR_HEIGHT = 64;
+parameter ARROW_WIDTH = 63;     // ✅ Стрілки
+parameter ARROW_HEIGHT = 64;
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;
@@ -100,40 +97,41 @@ typedef enum logic [2:0] {
 } writer_t;
 
 
-parameter TEXT_COLOR = RED;
-parameter TEXT_BACK_COLOR = WHITE;
-
-// ✅ ПОЗИЦІЯ ЦИФР (центр по Y)
-parameter DIGIT_Y = 176; // (480-128)/2 = 176
+parameter TEXT_COLOR = YELLOW;
+parameter TEXT_BACK_COLOR = BLUE;
 
 // ✅ BRAM адреси
-parameter CHAR_BASE = DIGIT_HEIGHT * DIGIT_WIDTH * 10; // Після 10 цифр
-parameter ARROW_BASE = CHAR_BASE + 8 * CHAR_WIDTH * CHAR_HEIGHT; // Після 8 букв
-
-// ✅ РАМИ для цифр
-parameter FRAME_THICK = 4;
-parameter FRAME_Y_TOP = 152;    // 176 - 24
-parameter FRAME_Y_BOTTOM = 303; // 176 + 128 - 1
-
-// ✅ КНОПКИ EDIT/SAVE (4 букви × 78px = 312px, але використовуємо 128px з відступами)
-parameter EDIT_X = 40;          // 'E' початок
-parameter SAVE_X = 280;         // 'S' початок
-parameter BUTTON_Y = 600;       // Y кнопок
+parameter CHAR_BASE = DIGIT_HEIGHT * DIGIT_WIDTH * 10 + 1; // Після 10 цифр
+parameter ARROW_BASE = CHAR_BASE + 8 * CHAR_WIDTH * CHAR_HEIGHT + 1; // Після 8 букв
 
 // ✅ Відступ між буквами (адаптовано під 78px)
-parameter CHAR_SPACING = 10;     // Малий відступ для щільності
+parameter CHAR_SPACING = 0;     // Малий відступ для щільності
 
 // ✅ СТРІЛКИ (над/під цифрами)
 parameter ARROW_X_OFFSET = 0;   // Центр по X
 parameter ARROW_Y_OFFSET = 16;  // Відступ від рамки
 
-// ✅ КООРДИНАТИ КНОПОК (128px ширина)
-parameter BUTTON_X_EDIT_START = 40;
-parameter BUTTON_X_EDIT_END = 168;      // 40+128
-parameter BUTTON_X_SAVE_START = 280;
-parameter BUTTON_X_SAVE_END = 408;      // 280+128
-parameter BUTTON_Y_TOP = 600;
-parameter BUTTON_Y_BOTTOM = 664;        // 600+64
-parameter [31:0] DIGIT_X_START [0:4] = '{80, 144, 208, 272, 336}; // Starting x-coordinate for each digit
+// ✅ КООРДИНАТИ КНОПОК 
+parameter BUTTON_X_EDIT_START = 10;
+parameter BUTTON_X_EDIT_END = BUTTON_X_EDIT_START + 4 * CHAR_WIDTH + 3 * CHAR_SPACING;
+parameter BUTTON_X_SAVE_START = 400;
+parameter BUTTON_X_SAVE_END = BUTTON_X_SAVE_START + 4 * CHAR_WIDTH + 3 * CHAR_SPACING;
+parameter BUTTON_Y_TOP = DISPLAY_HEIGH - CHAR_HEIGHT - 10;
+parameter BUTTON_Y_BOTTOM = BUTTON_Y_TOP + CHAR_HEIGHT;
 
+// ✅ ПОЗИЦІЯ ЦИФР 
+parameter DIGIT_Y = ARROW_HEIGHT + ARROW_Y_OFFSET + 20;
+parameter DIGIT_X_START_COORD = 80;
+parameter DIGIT_SPACING = 12;
+parameter [31:0] DIGIT_X_START [0:4] = '{DIGIT_X_START_COORD,  
+                                         DIGIT_X_START_COORD + 1 * (DIGIT_SPACING + DIGIT_WIDTH),  
+                                         DIGIT_X_START_COORD + 2 * (DIGIT_SPACING + DIGIT_WIDTH), 
+                                         DIGIT_X_START_COORD + 3 * (DIGIT_SPACING + DIGIT_WIDTH), 
+                                         DIGIT_X_START_COORD + 4 * (DIGIT_SPACING + DIGIT_WIDTH)}; // Starting x-coordinate for each digit
+
+// ✅ РАМИ для цифр
+parameter FRAME_THICK = 1;
+parameter FRAME_Y_TOP = DIGIT_Y;
+parameter FRAME_Y_BOTTOM = DIGIT_Y + DIGIT_HEIGHT -1 ;
+parameter FRAME_COLOR = RED;
 `endif

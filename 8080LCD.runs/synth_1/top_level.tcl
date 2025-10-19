@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/Github/8080LCD/8080LCD.runs/synth_1/top_level.tcl"
+  variable script "D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/top_level.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,6 +56,8 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 4
+set_param xicom.use_bs_reader 1
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
 OPTRACE "Creating in-memory project" START { }
@@ -65,52 +67,52 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir D:/Github/8080LCD/8080LCD.cache/wt [current_project]
-set_property parent.project_path D:/Github/8080LCD/8080LCD.xpr [current_project]
+set_property webtalk.parent_dir D:/WORK/Project/8080LCD/8080LCD.cache/wt [current_project]
+set_property parent.project_path D:/WORK/Project/8080LCD/8080LCD.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo d:/Github/8080LCD/8080LCD.cache/ip [current_project]
+set_property ip_output_repo d:/WORK/Project/8080LCD/8080LCD.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-add_files D:/Github/8080LCD/init.coe
-add_files D:/Github/8080LCD/image_data.coe
-add_files D:/Github/8080LCD/FontTimesNewRoman31.coe
-add_files D:/Github/8080LCD/FontTimesNewRoman28.coe
-add_files D:/Github/STM32-LCD_Font_Generator/FontTimesNewRoman128.coe
-add_files D:/Github/8080LCD/combine.coe
-read_mem D:/Github/8080LCD/8080LCD.srcs/sources_1/new/init.mem
+add_files D:/WORK/Project/8080LCD/init.coe
+add_files D:/WORK/Project/8080LCD/image_data.coe
+add_files D:/WORK/Project/8080LCD/FontTimesNewRoman31.coe
+add_files D:/WORK/Project/8080LCD/FontTimesNewRoman28.coe
+add_files D:/WORK/Project/STM32-LCD_Font_Generator/FontTimesNewRoman128.coe
+add_files D:/WORK/Project/8080LCD/combine.coe
+read_mem D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/init.mem
 read_verilog -library xil_defaultlib -sv {
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/top_module.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/lcd.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v
 }
-set_property file_type SystemVerilog [get_files D:/Github/8080LCD/8080LCD.srcs/sources_1/new/constants.vh]
+set_property file_type SystemVerilog [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/constants.vh]
 read_verilog -library xil_defaultlib {
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/spi_flash.v
-  D:/Github/8080LCD/8080LCD.srcs/sources_1/new/sdram.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadInterpreter.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/LFSR25000.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadDecoder.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/PulseCounter.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Keyboard/KeyPadScanner.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/quad_spi_master.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/spi_flash.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/sdram.v
 }
-read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
+read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
 
-read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
+read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
 
-read_ip -quiet D:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_board.xdc]
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xdc]
-set_property used_in_implementation false [get_files -all d:/Github/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_ooc.xdc]
+read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_board.xdc]
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xdc]
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -121,14 +123,14 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
-set_property used_in_implementation false [get_files D:/Github/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
+read_xdc D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
+set_property used_in_implementation false [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental D:/Github/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp
+read_checkpoint -auto_incremental -incremental D:/WORK/Project/8080LCD/8080LCD.srcs/utils_1/imports/synth_1/mrb3973_test.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
