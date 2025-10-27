@@ -129,7 +129,7 @@ always @(posedge clk_main or negedge reset_n) begin
         delay_counter <= 0;
         draw_step <= 0;
         solid_fill <= 0;
-        need_update <= 0;
+        //need_update <= 0;
         screen_filled <= 0;
     end else begin
         case (state)
@@ -387,7 +387,7 @@ always @(posedge clk_main or negedge reset_n) begin
                     end
                     36: begin
                         draw_step <= 0;
-                        need_update <= 0;
+                        //need_update <= 0;
                         state <= S_IDLE;
                     end
                 endcase
