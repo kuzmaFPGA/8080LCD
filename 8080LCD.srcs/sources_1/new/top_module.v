@@ -10,6 +10,12 @@ module top_level (
     output        LCD_RESET,
     output        LCD_BL,
     output        LCD_RDX,
+    // Сигнали для XPT2046
+    output        ts_clk,
+    output        ts_cs,
+    input         ts_miso,
+    output        ts_mosi,
+    input         ts_pen,
     output        led_1,
     output  [7:0] la_out
 );
@@ -61,6 +67,122 @@ assign la_out[6] = need_update;
 
 reg screen_filled;
 
+// ✅ Touch processing
+wire [11:0] x_value, y_value;
+wire get_flag;
+reg touch_en;
+reg [9:0] screen_x;
+reg [9:0] screen_y;
+reg touch_valid;
+reg need_update_request;
+
+// ✅ Touch mapping для 800x480
+always @(posedge clk_main or negedge reset_n) begin
+    if (!reset_n) begin
+        screen_x <= 0;
+        screen_y <= 0;
+        touch_valid <= 0;
+    end else if (get_flag) begin
+        if (ROTATE_90) begin
+            screen_x <= (INVERT_X == 1) ? ((4095 - y_value) * DISPLAY_HEIGH >> 12) : ((y_value) * DISPLAY_HEIGH >> 12);
+            screen_y <= (INVERT_X == 1) ? ((4095 - x_value) * DISPLAY_WIDTH >> 12) : ((x_value) * DISPLAY_WIDTH >> 12);
+            touch_valid <= 1;
+        end else begin
+            screen_x <= (INVERT_X == 1) ? ((4095 - x_value) * DISPLAY_WIDTH >> 12) : ((x_value) * DISPLAY_WIDTH >> 12);
+            screen_y <= (INVERT_X == 1) ? ((4095 - y_value) * DISPLAY_HEIGH >> 12) : ((y_value) * DISPLAY_HEIGH >> 12);
+            touch_valid <= 1;
+        end
+    end else begin
+        touch_valid <= 0;
+    end
+end
+
+// ✅ Touch handling logic
+always @(*) begin
+    need_update_request = 0;
+    if (touch_valid) begin
+        if (edit_mode) begin
+            if (selected_digit != 3'b111) begin
+                if (screen_x >= (DIGIT_X_START[selected_digit] - 31) && screen_x < (DIGIT_X_START[selected_digit] - 31 + ARROW_WIDTH) &&
+                    screen_y >= (FRAME_Y_TOP - ARROW_HEIGHT) && screen_y < FRAME_Y_TOP) need_update_request = 1;
+                else if (screen_x >= (DIGIT_X_START[selected_digit] - 31) && screen_x < (DIGIT_X_START[selected_digit] - 31 + ARROW_WIDTH) &&
+                         screen_y >= FRAME_Y_BOTTOM && screen_y < (FRAME_Y_BOTTOM + ARROW_HEIGHT)) need_update_request = 1;
+            end
+            for (int i = 0; i < 5; i++) begin
+                if (screen_x >= DIGIT_X_START[i] && screen_x < (DIGIT_X_START[i] + DIGIT_WIDTH) &&
+                    screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) need_update_request = 1;
+            end
+        end else begin
+            if (screen_x >= BUTTON_X_EDIT_START && screen_x < BUTTON_X_EDIT_END &&
+                screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) need_update_request = 1;
+            else if (screen_x >= BUTTON_X_SAVE_START && screen_x < BUTTON_X_SAVE_END &&
+                     screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) need_update_request = 1;
+        end
+    end
+end
+
+// ✅ Main state update
+always @(posedge clk_main or negedge reset_n) begin
+    if (!reset_n) begin
+        edit_mode <= 0;
+        selected_digit <= 3'b111;
+        //need_update <= 0;
+        number[0] <= 0; number[1] <= 1; number[2] <= 2; number[3] <= 3; number[4] <= 4;
+    end else begin
+        //if (need_update_request) need_update <= 1;
+        if (touch_valid) begin
+            if (edit_mode) begin
+                if (selected_digit != 3'b111) begin
+                    if (screen_x >= (DIGIT_X_START[selected_digit] - 31) && screen_x < (DIGIT_X_START[selected_digit] - 31 + ARROW_WIDTH) &&
+                        screen_y >= (FRAME_Y_TOP - ARROW_HEIGHT) && screen_y < FRAME_Y_TOP)
+                        number[selected_digit] <= (number[selected_digit] == 9) ? 0 : number[selected_digit] + 1;
+                    else if (screen_x >= (DIGIT_X_START[selected_digit] - 31) && screen_x < (DIGIT_X_START[selected_digit] - 31 + ARROW_WIDTH) &&
+                             screen_y >= FRAME_Y_BOTTOM && screen_y < (FRAME_Y_BOTTOM + ARROW_HEIGHT))
+                        number[selected_digit] <= (number[selected_digit] == 0) ? 9 : number[selected_digit] - 1;
+                end
+                if (screen_x >= DIGIT_X_START[0] && screen_x < (DIGIT_X_START[0] + DIGIT_WIDTH) &&
+                    screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) selected_digit <= 0;
+                else if (screen_x >= DIGIT_X_START[1] && screen_x < (DIGIT_X_START[1] + DIGIT_WIDTH) &&
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) selected_digit <= 1;
+                else if (screen_x >= DIGIT_X_START[2] && screen_x < (DIGIT_X_START[2] + DIGIT_WIDTH) &&
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) selected_digit <= 2;
+                else if (screen_x >= DIGIT_X_START[3] && screen_x < (DIGIT_X_START[3] + DIGIT_WIDTH) &&
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) selected_digit <= 3;
+                else if (screen_x >= DIGIT_X_START[4] && screen_x < (DIGIT_X_START[4] + DIGIT_WIDTH) &&
+                         screen_y >= FRAME_Y_TOP && screen_y < FRAME_Y_BOTTOM) selected_digit <= 4;
+            end else begin
+                if (screen_x >= BUTTON_X_EDIT_START && screen_x < BUTTON_X_EDIT_END &&
+                    screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) edit_mode <= 1;
+                else if (screen_x >= BUTTON_X_SAVE_START && screen_x < BUTTON_X_SAVE_END &&
+                         screen_y >= BUTTON_Y_TOP && screen_y < BUTTON_Y_BOTTOM) begin
+                    edit_mode <= 0;
+                    selected_digit <= 3'b111;
+                end
+            end
+        end
+    end
+end
+
+// ✅ NEW: Блок для оновлення екрану 60 Гц
+reg [31:0] refresh_counter;
+always @(posedge clk_main or negedge reset_n) begin
+    if (!reset_n) begin
+        refresh_counter <= 0;
+        need_update <= 0; // Початкове значення 0 до завершення ініціалізації
+    end else begin
+        if (init_done) begin // Активуємо оновлення лише після init_done
+            if (refresh_counter >= SCREEN_REFRESH_TICKS - 1) begin
+                refresh_counter <= 0;
+                need_update <= 1; // Тригер оновлення кожні 16.67 мс
+                led_1_reg <= ~led_1_reg;
+            end else begin
+                refresh_counter <= refresh_counter + 1;
+                if (draw_step == 36) need_update <= 0; // Скидання need_update після завершення циклу
+            end
+        end
+    end
+end
+
 // ✅ BRAM
 blk_mem_gen_0 bram (
     .clka(clk_main),
@@ -95,24 +217,26 @@ lcd lcd_inst (
     .lcd_data_count(data_count)
 );
 
-// ✅ NEW: Блок для оновлення екрану 60 Гц
-reg [31:0] refresh_counter;
-always @(posedge clk_main or negedge reset_n) begin
-    if (!reset_n) begin
-        refresh_counter <= 0;
-        need_update <= 0; // Початкове значення 0 до завершення ініціалізації
-    end else begin
-        if (init_done) begin // Активуємо оновлення лише після init_done
-            if (refresh_counter >= SCREEN_REFRESH_TICKS - 1) begin
-                refresh_counter <= 0;
-                need_update <= 1; // Тригер оновлення кожні 16.67 мс
-                led_1_reg <= ~led_1_reg;
-            end else begin
-                refresh_counter <= refresh_counter + 1;
-                if (draw_step == 36) need_update <= 0; // Скидання need_update після завершення циклу
-            end
-        end
-    end
+// ✅ XPT2046 instance
+xpt2046 touch_inst (
+    .Clk50m(clk),
+    .Rst_n(reset_n),
+    .EN(touch_en),
+    .X_Value(x_value),
+    .Y_Value(y_value),
+    .Get_Flag(get_flag),
+    .PenIrq_n(ts_pen),
+    .DCLK(ts_clk),
+    .DIN(ts_mosi),
+    .DOUT(ts_miso),
+    .CS_N(ts_cs),
+    .BUSY(1'b0)
+);
+
+// ✅ Touch enable
+always @(posedge clk or negedge reset_n) begin
+    if (!reset_n) touch_en <= 1'b0;
+    else touch_en <= 1'b1;
 end
 
 // ✅ Pixel data
@@ -145,11 +269,19 @@ always @(posedge clk_main or negedge reset_n) begin
                 update_screen <= 0;
                 case (draw_step)
                     0: begin
+                    if (!screen_filled) begin
                         screen_filled <= 1;
                         solid_fill <= 1; solid_color <= TEXT_BACK_COLOR;
                         x_start <= 0; x_end <= DISPLAY_WIDTH - 1;
                         y_start <= 0; y_end <= DISPLAY_HEIGH - 1;
                         state <= S_TRIGGER_WAIT;
+                    end
+                    else begin
+                        solid_fill <= 1; solid_color <= TEXT_BACK_COLOR;
+                        x_start <= 0; x_end <= 1;
+                        y_start <= 0; y_end <= 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
                     end
                     1: begin bram_base_addra <= number[0] * (DIGIT_WIDTH * DIGIT_HEIGHT);
                         x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1;

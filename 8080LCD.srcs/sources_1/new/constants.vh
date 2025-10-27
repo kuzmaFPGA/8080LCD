@@ -30,7 +30,7 @@ parameter DIGIT_WIDTH = 64;      // Цифри
 parameter DIGIT_HEIGHT = 128;
 parameter CHAR_WIDTH = 40;       // ✅ Букви
 parameter CHAR_HEIGHT = 64;
-parameter ARROW_WIDTH = 63;     // ✅ Стрілки
+parameter ARROW_WIDTH = 64;     // ✅ Стрілки
 parameter ARROW_HEIGHT = 64;
 
 // Константи кольорів (RGB565)
