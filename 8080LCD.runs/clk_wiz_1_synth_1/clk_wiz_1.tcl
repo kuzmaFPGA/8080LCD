@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1.tcl"
+  variable script "D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1.tcl"
   variable category "vivado_synth"
 }
 
@@ -58,6 +58,8 @@ if {$::dispatch::connected} {
 OPTRACE "clk_wiz_1_synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 4
 set_param xicom.use_bs_reader 1
+set_msg_config -id {HDL 9-1061} -limit 100000
+set_msg_config -id {HDL 9-1654} -limit 100000
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }
@@ -67,19 +69,19 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir D:/Xilinx/Projects/8080LCD/8080LCD.cache/wt [current_project]
-set_property parent.project_path D:/Xilinx/Projects/8080LCD/8080LCD.xpr [current_project]
+set_property webtalk.parent_dir D:/WORK/Project/8080LCD/8080LCD.cache/wt [current_project]
+set_property parent.project_path D:/WORK/Project/8080LCD/8080LCD.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo d:/Xilinx/Projects/8080LCD/8080LCD.cache/ip [current_project]
+set_property ip_output_repo d:/WORK/Project/8080LCD/8080LCD.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
-set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_board.xdc]
-set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xdc]
-set_property used_in_implementation false [get_files -all d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_ooc.xdc]
+read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_board.xdc]
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xdc]
+set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -95,7 +97,7 @@ set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 OPTRACE "Configure IP Cache" START { }
 
-set cacheID [config_ip_cache -export -no_bom  -dir D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1 -new_name clk_wiz_1 -ip [get_ips clk_wiz_1]]
+set cacheID [config_ip_cache -export -no_bom  -dir D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1 -new_name clk_wiz_1 -ip [get_ips clk_wiz_1]]
 
 OPTRACE "Configure IP Cache" END { }
 if { $cacheID == "" } {
@@ -150,25 +152,25 @@ generate_parallel_reports -reports { "report_utilization -file clk_wiz_1_utiliza
 OPTRACE "synth reports" END { }
 
 if { [catch {
-  write_verilog -force -mode synth_stub D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.v
+  write_verilog -force -mode synth_stub D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode synth_stub D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.vhdl
+  write_vhdl -force -mode synth_stub D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_verilog -force -mode funcsim D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v
+  write_verilog -force -mode funcsim D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode funcsim D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.vhdl
+  write_vhdl -force -mode funcsim D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
@@ -180,37 +182,37 @@ if { [catch {
 close [open .end.used_ip_cache.rst w]
 }; # end if cacheID 
 
-add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.v -of_objects [get_files d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
+add_files D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.v -of_objects [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
 
-add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.vhdl -of_objects [get_files d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
+add_files D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.vhdl -of_objects [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
 
-add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v -of_objects [get_files d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
+add_files D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v -of_objects [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
 
-add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.vhdl -of_objects [get_files d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
+add_files D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.vhdl -of_objects [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
 
-add_files D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1.dcp -of_objects [get_files d:/Xilinx/Projects/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
+add_files D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1.dcp -of_objects [get_files D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci]
 
-if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
+if {[file isdir D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
   catch { 
-    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
+    file copy -force D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
   }
 }
 
-if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
+if {[file isdir D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
   catch { 
-    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.vhdl D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
+    file copy -force D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.vhdl D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
   }
 }
 
-if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
+if {[file isdir D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
   catch { 
-    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.v D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
+    file copy -force D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.v D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
   }
 }
 
-if {[file isdir D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
+if {[file isdir D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1]} {
   catch { 
-    file copy -force D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.vhdl D:/Xilinx/Projects/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
+    file copy -force D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_stub.vhdl D:/WORK/Project/8080LCD/8080LCD.ip_user_files/ip/clk_wiz_1
   }
 }
 file delete __synthesis_is_running__

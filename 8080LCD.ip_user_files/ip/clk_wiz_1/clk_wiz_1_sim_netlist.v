@@ -2,10 +2,10 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-// Date        : Wed Jul 23 09:35:03 2025
-// Host        : LAPTOP-7GKHMVFU running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1/clk_wiz_1_sim_netlist.v
+// Date        : Sun Oct 26 17:47:07 2025
+// Host        : A8 running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim -rename_top clk_wiz_1 -prefix
+//               clk_wiz_1_ clk_wiz_1_sim_netlist.v
 // Design      : clk_wiz_1
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -26,13 +26,13 @@ module clk_wiz_1
   wire clk_out1;
   wire resetn;
 
-  clk_wiz_1_clk_wiz inst
+  clk_wiz_1_clk_wiz_1_clk_wiz inst
        (.clk_in1(clk_in1),
         .clk_out1(clk_out1),
         .resetn(resetn));
 endmodule
 
-module clk_wiz_1_clk_wiz
+module clk_wiz_1_clk_wiz_1_clk_wiz
    (clk_out1,
     resetn,
     clk_in1);
@@ -86,12 +86,12 @@ module clk_wiz_1_clk_wiz
   (* BOX_TYPE = "PRIMITIVE" *) 
   MMCME2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
-    .CLKFBOUT_MULT_F(20.000000),
+    .CLKFBOUT_MULT_F(20.250000),
     .CLKFBOUT_PHASE(0.000000),
     .CLKFBOUT_USE_FINE_PS("FALSE"),
     .CLKIN1_PERIOD(20.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(100.000000),
+    .CLKOUT0_DIVIDE_F(84.375000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),

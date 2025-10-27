@@ -2,10 +2,10 @@
 `define CONSTANTS_V
 
 // Частота LCD (у кГц)
-parameter LCD_FREQ_KHZ = 50000;//62500;
+parameter LCD_FREQ_KHZ = 12000;
 parameter SYS_CLK_FREQ_MHZ = 50; // Частота системного годинника у МГц
 parameter SYS_CLK_FREQ_KHZ = 50000;
-parameter MAIN_CLK_FREQ_KHZ = 10000;
+parameter MAIN_CLK_FREQ_KHZ = 12000;
 
 parameter DELAY_1S = 1000 * LCD_FREQ_KHZ;  // Real 1-second delay based on clock freq
 parameter DELAY_TRIGGER = 10;     // Real short delay (adjust as needed)
@@ -14,15 +14,16 @@ parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;
 parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
 
 // ✅ Частота оновлення екрану
-parameter SCREEN_REFRESH_HZ = 10; // 60 Гц
-parameter SCREEN_REFRESH_TICKS = (SYS_CLK_FREQ_MHZ * 1_000_000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
+parameter SCREEN_REFRESH_HZ = 1; // 60 Гц
+parameter SCREEN_REFRESH_TICKS = (LCD_FREQ_KHZ * 1000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
 
 // ✅ Розміри дисплея: 800x480
 parameter DISPLAY_WIDTH = 800;   // X (ширина)
 parameter DISPLAY_HEIGH = 480;   // Y (висота)
 
-`define INVERT_X 1'b0  // 1 для інверсії осі X, 0 - без інверсії
-`define INVERT_Y 1'b0  // 1 для інверсії осі Y, 0 - без інверсії
+parameter INVERT_X = 1;  // 1 для інверсії осі X, 0 - без інверсії
+parameter INVERT_Y = 0;  // 1 для інверсії осі Y, 0 - без інверсії
+parameter ROTATE_90 = 1;
 
 // ✅ ТОЧНІ розміри шрифтів
 parameter DIGIT_WIDTH = 64;      // Цифри

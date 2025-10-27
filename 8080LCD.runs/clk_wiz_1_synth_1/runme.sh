@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='D:/Xilinx/Projects/8080LCD/8080LCD.runs/clk_wiz_1_synth_1'
+HD_PWD='D:/WORK/Project/8080LCD/8080LCD.runs/clk_wiz_1_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
