@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date         : Tue Oct 28 23:38:43 2025
+| Date         : Wed Oct 29 22:42:28 2025
 | Host         : A8 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_level_drc_routed.rpt -pb top_level_drc_routed.pb -rpx top_level_drc_routed.rpx
 | Design       : top_level
@@ -24,7 +24,7 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 73
+             Checks found: 74
 +-----------+----------+-----------------------------------------------------+--------+
 | Rule      | Severity | Description                                         | Checks |
 +-----------+----------+-----------------------------------------------------+--------+
@@ -34,8 +34,9 @@ Table of Contents
 | DPOP-1    | Warning  | PREG Output pipelining                              | 1      |
 | DPOP-2    | Warning  | MREG Output pipelining                              | 5      |
 | DPOR-1    | Warning  | Asynchronous load check                             | 17     |
-| PDRC-136  | Warning  | SLICE_PairEqSame_C6C5_WARN                          | 1      |
 | PDRC-138  | Warning  | SLICE_PairEqSame_D6D5_WARN                          | 1      |
+| PDRC-144  | Warning  | SLICE_PairEqSame_C6C5_WARN                          | 1      |
+| PDRC-146  | Warning  | SLICE_PairEqSame_D6D5_WARN                          | 1      |
 | REQP-1839 | Warning  | RAMB36 async control check                          | 20     |
 | REQP-1840 | Warning  | RAMB18 async control check                          | 18     |
 +-----------+----------+-----------------------------------------------------+--------+
@@ -215,14 +216,19 @@ Asynchronous load check
 DSP lcd_inst/total_pixels0__0 output is connected to registers with an asynchronous reset (lcd_inst/total_pixels_reg[9]__1). This is preventing the possibility of merging these registers in to the DSP Block since the DSP block registers only possess synchronous reset capability.  It is suggested to recode or change these registers to remove the reset or use a synchronous reset to get the best optimization for performance, power and area.
 Related violations: <none>
 
-PDRC-136#1 Warning
-SLICE_PairEqSame_C6C5_WARN  
-Luts C6LUT and C5LUT in use in site SLICE_X4Y55 with different equations without A6 pin connected to Global Logic High.
-Related violations: <none>
-
 PDRC-138#1 Warning
 SLICE_PairEqSame_D6D5_WARN  
-Luts D6LUT and D5LUT in use in site SLICE_X7Y62 with different equations without A6 pin connected to Global Logic High.
+Luts D6LUT and D5LUT in use in site SLICE_X9Y67 with different equations without A6 pin connected to Global Logic High.
+Related violations: <none>
+
+PDRC-144#1 Warning
+SLICE_PairEqSame_C6C5_WARN  
+Luts C6LUT and C5LUT in use in site SLICE_X8Y53 with different equations without A6 pin connected to Global Logic High.
+Related violations: <none>
+
+PDRC-146#1 Warning
+SLICE_PairEqSame_D6D5_WARN  
+Luts D6LUT and D5LUT in use in site SLICE_X8Y53 with different equations without A6 pin connected to Global Logic High.
 Related violations: <none>
 
 REQP-1839#1 Warning

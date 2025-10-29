@@ -337,52 +337,100 @@ always @(posedge clk_main or negedge reset_n) begin
                         y_start <= DIGIT_Y; y_end <= DIGIT_Y + DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
 
                     // === Кнопки (9-16) ===
-                    9:  begin bram_base_addra <= CHAR_BASE + 0 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_EDIT_START; x_end <= BUTTON_X_EDIT_START + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    10: begin bram_base_addra <= CHAR_BASE + 1 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_EDIT_START + CHAR_WIDTH + CHAR_SPACING; x_end <= x_start + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    11: begin bram_base_addra <= CHAR_BASE + 2 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_EDIT_START + 2*(CHAR_WIDTH + CHAR_SPACING); x_end <= x_start + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    12: begin bram_base_addra <= CHAR_BASE + 3 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_EDIT_START + 3*(CHAR_WIDTH + CHAR_SPACING); x_end <= x_start + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    13: begin bram_base_addra <= CHAR_BASE + 4 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_SAVE_START; x_end <= BUTTON_X_SAVE_START + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    14: begin bram_base_addra <= CHAR_BASE + 5 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_SAVE_START + CHAR_WIDTH + CHAR_SPACING; x_end <= x_start + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    15: begin bram_base_addra <= CHAR_BASE + 6 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_SAVE_START + 2*(CHAR_WIDTH + CHAR_SPACING); x_end <= x_start + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
-                    16: begin bram_base_addra <= CHAR_BASE + 7 * (CHAR_WIDTH * CHAR_HEIGHT); x_start <= BUTTON_X_SAVE_START + 3*(CHAR_WIDTH + CHAR_SPACING); x_end <= x_start + CHAR_WIDTH - 1; y_start <= BUTTON_Y_TOP; y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    9: begin bram_base_addra <= CHAR_BASE + 0 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_EDIT_START;
+                        x_end <= BUTTON_X_EDIT_START + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    10: begin bram_base_addra <= CHAR_BASE + 1 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_EDIT_START + CHAR_WIDTH + CHAR_SPACING;
+                        x_end <= BUTTON_X_EDIT_START + CHAR_WIDTH + CHAR_SPACING + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    11: begin bram_base_addra <= CHAR_BASE + 2 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_EDIT_START + 2 * (CHAR_WIDTH + CHAR_SPACING);
+                        x_end <= BUTTON_X_EDIT_START + 2 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    12: begin bram_base_addra <= CHAR_BASE + 3 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_EDIT_START + 3 * (CHAR_WIDTH + CHAR_SPACING);
+                        x_end <= BUTTON_X_EDIT_START + 3 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    13: begin bram_base_addra <= CHAR_BASE + 4 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_SAVE_START;
+                        x_end <= BUTTON_X_SAVE_START + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    14: begin bram_base_addra <= CHAR_BASE + 5 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_SAVE_START + CHAR_WIDTH + CHAR_SPACING;
+                        x_end <= BUTTON_X_SAVE_START + CHAR_WIDTH + CHAR_SPACING + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    15: begin bram_base_addra <= CHAR_BASE + 6 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_SAVE_START + 2 * (CHAR_WIDTH + CHAR_SPACING);
+                        x_end <= BUTTON_X_SAVE_START + 2 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
+                    16: begin bram_base_addra <= CHAR_BASE + 7 * (CHAR_WIDTH * CHAR_HEIGHT);
+                        x_start <= BUTTON_X_SAVE_START + 3 * (CHAR_WIDTH + CHAR_SPACING);
+                        x_end <= BUTTON_X_SAVE_START + 3 * (CHAR_WIDTH + CHAR_SPACING) + CHAR_WIDTH - 1;
+                        y_start <= BUTTON_Y_TOP;
+                        y_end <= BUTTON_Y_TOP + CHAR_HEIGHT - 1;
+                        state <= S_TRIGGER_WAIT;
+                    end
 
                     // === Рамки (17-48) - 8 цифр × 4 сторони = 32 кроки ===
-                    17: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    18: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    19: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0] - FRAME_THICK; x_end <= DIGIT_X_START[0] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    20: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0] + DIGIT_WIDTH; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    21: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    22: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    23: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1] - FRAME_THICK; x_end <= DIGIT_X_START[1] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    24: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1] + DIGIT_WIDTH; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    25: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    26: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    27: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2] - FRAME_THICK; x_end <= DIGIT_X_START[2] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    28: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2] + DIGIT_WIDTH; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    29: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    30: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    31: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3] - FRAME_THICK; x_end <= DIGIT_X_START[3] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    32: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3] + DIGIT_WIDTH; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    33: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    34: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    35: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4] - FRAME_THICK; x_end <= DIGIT_X_START[4] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    36: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4] + DIGIT_WIDTH; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    37: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5]; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    38: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5]; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    39: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5] - FRAME_THICK; x_end <= DIGIT_X_START[5] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    40: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5] + DIGIT_WIDTH; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    41: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6]; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    42: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6]; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    43: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6] - FRAME_THICK; x_end <= DIGIT_X_START[6] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    44: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6] + DIGIT_WIDTH; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    45: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7]; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
-                    46: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7]; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
-                    47: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7] - FRAME_THICK; x_end <= DIGIT_X_START[7] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
-                    48: begin if (!edit_mode) draw_step <= 49; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7] + DIGIT_WIDTH; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    17: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    18: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    19: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0] - FRAME_THICK; x_end <= DIGIT_X_START[0] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    20: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[0] + DIGIT_WIDTH; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    21: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    22: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    23: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1] - FRAME_THICK; x_end <= DIGIT_X_START[1] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    24: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[1] + DIGIT_WIDTH; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    25: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    26: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    27: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2] - FRAME_THICK; x_end <= DIGIT_X_START[2] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    28: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[2] + DIGIT_WIDTH; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    29: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    30: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    31: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3] - FRAME_THICK; x_end <= DIGIT_X_START[3] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    32: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[3] + DIGIT_WIDTH; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    33: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    34: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    35: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4] - FRAME_THICK; x_end <= DIGIT_X_START[4] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    36: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[4] + DIGIT_WIDTH; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    37: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5]; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    38: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5]; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    39: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5] - FRAME_THICK; x_end <= DIGIT_X_START[5] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    40: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[5] + DIGIT_WIDTH; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    41: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6]; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    42: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6]; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    43: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6] - FRAME_THICK; x_end <= DIGIT_X_START[6] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    44: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[6] + DIGIT_WIDTH; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    45: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7]; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_TOP - FRAME_THICK; y_end <= FRAME_Y_TOP - 1; state <= S_TRIGGER_WAIT; end end
+                    46: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7]; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH - 1; y_start <= FRAME_Y_BOTTOM; y_end <= FRAME_Y_BOTTOM + FRAME_THICK - 1; state <= S_TRIGGER_WAIT; end end
+                    47: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7] - FRAME_THICK; x_end <= DIGIT_X_START[7] - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
+                    48: begin if (!edit_mode) draw_step <= 62; else begin solid_fill <= 1; solid_color <= FRAME_COLOR; x_start <= DIGIT_X_START[7] + DIGIT_WIDTH; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH + FRAME_THICK - 1; y_start <= FRAME_Y_TOP; y_end <= FRAME_Y_BOTTOM - 1; state <= S_TRIGGER_WAIT; end end
 
                     // === Стрілки (49-50) ===
                     49: begin
-                        if (!edit_mode || selected_digit == 4'b1111) draw_step <= 51;
+                        if (!edit_mode || selected_digit == 4'b1111) draw_step <= 62;
                         else begin
                             bram_base_addra <= ARROW_BASE + 0 * (ARROW_WIDTH * ARROW_HEIGHT);
                             x_start <= DIGIT_X_START[selected_digit] ;
@@ -393,7 +441,7 @@ always @(posedge clk_main or negedge reset_n) begin
                         end
                     end
                     50: begin
-                        if (!edit_mode || selected_digit == 4'b1111) draw_step <= 51;
+                        if (!edit_mode || selected_digit == 4'b1111) draw_step <= 62;
                         else begin
                             bram_base_addra <= ARROW_BASE + 1 * (ARROW_WIDTH * ARROW_HEIGHT);
                             x_start <= DIGIT_X_START[selected_digit] ;
@@ -406,70 +454,76 @@ always @(posedge clk_main or negedge reset_n) begin
 
                     // === Стирання старих стрілок (51-52) ===
                     51: begin
-                        if (update_arrows_area) begin
+                        if (!update_arrows_area) draw_step <= 62; 
+                        else begin
                             solid_fill <= 1; solid_color <= TEXT_BACK_COLOR;
                             x_start <= DIGIT_X_START[digit_to_update] ;
                             x_end   <= DIGIT_X_START[digit_to_update]  + ARROW_WIDTH - 1;
                             y_start <= FRAME_Y_TOP - ARROW_HEIGHT;
                             y_end   <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 52;
+                        end
                     end
                     52: begin
-                        if (update_arrows_area) begin
+                        if (!update_arrows_area) draw_step <= 62; 
+                        else begin
                             solid_fill <= 1; solid_color <= TEXT_BACK_COLOR;
                             x_start <= DIGIT_X_START[digit_to_update] ;
                             x_end   <= DIGIT_X_START[digit_to_update]  + ARROW_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end   <= FRAME_Y_BOTTOM + ARROW_HEIGHT - 1;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 53;
+                        end
                     end
 
                     // === Нові стрілки (53-54) ===
                     53: begin
-                        if (update_arrows_area) begin
+                        if (!update_arrows_area) draw_step <= 62; 
+                        else begin
                             bram_base_addra <= ARROW_BASE + 0 * (ARROW_WIDTH * ARROW_HEIGHT);
                             x_start <= DIGIT_X_START[selected_digit] ;
                             x_end   <= DIGIT_X_START[selected_digit]  + ARROW_WIDTH - 1;
                             y_start <= FRAME_Y_TOP - ARROW_HEIGHT;
                             y_end   <= FRAME_Y_TOP - 1;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 54;
+                        end
                     end
                     54: begin
-                        if (update_arrows_area) begin
+                        if (!update_arrows_area) draw_step <= 62; 
+                        else begin
                             bram_base_addra <= ARROW_BASE + 1 * (ARROW_WIDTH * ARROW_HEIGHT);
                             x_start <= DIGIT_X_START[selected_digit] ;
                             x_end   <= DIGIT_X_START[selected_digit]  + ARROW_WIDTH - 1;
                             y_start <= FRAME_Y_BOTTOM;
                             y_end   <= FRAME_Y_BOTTOM + ARROW_HEIGHT - 1;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 55;
+                        end
                     end
 
                     // === Стирання маркера (55) ===
                     55: begin
-                        if (marker_erase) begin
+                    if (!marker_erase) draw_step <= 62; 
+                        else begin
                             solid_fill <= 1; solid_color <= MARKER_BACK;
                             x_start <= (marker_x < MARKER_SIZE/2) ? 0 : marker_x - MARKER_SIZE/2;
                             x_end   <= (marker_x + MARKER_SIZE/2 >= DISPLAY_WIDTH) ? DISPLAY_WIDTH-1 : marker_x + MARKER_SIZE/2;
                             y_start <= (marker_y < MARKER_SIZE/2) ? 0 : marker_y - MARKER_SIZE/2;
                             y_end   <= (marker_y + MARKER_SIZE/2 >= DISPLAY_HEIGH) ? DISPLAY_HEIGH-1 : marker_y + MARKER_SIZE/2;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 56;
+                        end
                     end
 
                     // === Малювання маркера (56) ===
                     56: begin
-                        if (update_marker) begin
+                    if (!marker_erase) draw_step <= 62; 
+                        else begin           
                             solid_fill <= 1; solid_color <= MARKER_COLOR;
                             x_start <= (marker_x < MARKER_SIZE/2) ? 0 : marker_x - MARKER_SIZE/2;
                             x_end   <= (marker_x + MARKER_SIZE/2 >= DISPLAY_WIDTH) ? DISPLAY_WIDTH-1 : marker_x + MARKER_SIZE/2;
                             y_start <= (marker_y < MARKER_SIZE/2) ? 0 : marker_y - MARKER_SIZE/2;
                             y_end   <= (marker_y + MARKER_SIZE/2 >= DISPLAY_HEIGH) ? DISPLAY_HEIGH-1 : marker_y + MARKER_SIZE/2;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 62;
+                        end
                     end
 
                     62: begin
@@ -478,6 +532,11 @@ always @(posedge clk_main or negedge reset_n) begin
                     end
                     //default: draw_step <= draw_step + 1;
                 endcase
+                if (edit_mode) begin
+                    if (draw_step >= 56) state <= S_IDLE; 
+					end else begin
+                    if (draw_step >= 17) state <= S_IDLE; 
+				end		
             end
 
             S_TRIGGER_WAIT: begin
@@ -486,7 +545,7 @@ always @(posedge clk_main or negedge reset_n) begin
             end
 
             S_DISPLAY: begin
-                if (start_read_data && !solid_fill) begin
+                if (start_read_data) begin
                     bram_addra <= bram_base_addra + data_count;
                 end
                 if (cmd_ndata_done) state <= S_DONE_DRAW;
@@ -497,8 +556,6 @@ always @(posedge clk_main or negedge reset_n) begin
                 draw_step <= draw_step + 1;
                 state <= S_PREP_DRAW;
             end
-
-            default: state <= S_IDLE;
         endcase
     end
 end

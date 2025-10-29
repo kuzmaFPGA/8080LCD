@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date         : Tue Oct 28 23:38:46 2025
+| Date         : Wed Oct 29 22:42:31 2025
 | Host         : A8 running 64-bit major release  (build 9200)
 | Command      : report_clock_utilization -file top_level_clock_utilization_routed.rpt
 | Design       : top_level
@@ -51,7 +51,7 @@ Table of Contents
 | Global Id | Source Id | Driver Type/Pin | Constraint | Site          | Clock Region | Load Clock Region | Clock Loads | Non-Clock Loads | Clock Period | Clock                | Driver Pin                              | Net                                              |
 +-----------+-----------+-----------------+------------+---------------+--------------+-------------------+-------------+-----------------+--------------+----------------------+-----------------------------------------+--------------------------------------------------+
 | g0        | src0      | BUFG/O          | None       | BUFGCTRL_X0Y0 | n/a          |                 1 |         234 |               0 |       20.000 | clk_out1_clk_wiz_0_1 | lcd_inst/lcd_clk_pll/inst/clkout1_buf/O | lcd_inst/lcd_clk_pll/inst/clk_out1               |
-| g1        | src1      | BUFG/O          | None       | BUFGCTRL_X0Y1 | n/a          |                 2 |         202 |               0 |       83.333 | clk_out1_clk_wiz_1   | main_clk_pll/inst/clkout1_buf/O         | main_clk_pll/inst/clk_out1                       |
+| g1        | src1      | BUFG/O          | None       | BUFGCTRL_X0Y1 | n/a          |                 2 |         200 |               0 |       83.333 | clk_out1_clk_wiz_1   | main_clk_pll/inst/clkout1_buf/O         | main_clk_pll/inst/clk_out1                       |
 | g2        | src2      | BUFG/O          | None       | BUFGCTRL_X0Y2 | n/a          |                 2 |         187 |               0 |              |                      | clk_IBUF_BUFG_inst/O                    | clk_IBUF_BUFG                                    |
 | g3        | src3      | BUFG/O          | None       | BUFGCTRL_X0Y3 | n/a          |                 1 |           1 |               0 |       20.000 | clkfbout_clk_wiz_0_1 | lcd_inst/lcd_clk_pll/inst/clkf_buf/O    | lcd_inst/lcd_clk_pll/inst/clkfbout_buf_clk_wiz_0 |
 | g4        | src4      | BUFG/O          | None       | BUFGCTRL_X0Y4 | n/a          |                 1 |           1 |               0 |       20.000 | clkfbout_clk_wiz_1   | main_clk_pll/inst/clkf_buf/O            | main_clk_pll/inst/clkfbout_buf_clk_wiz_1         |
@@ -86,7 +86,7 @@ Table of Contents
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 | X0Y0              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |  1200 |    0 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
 | X1Y0              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |  1500 |    0 |   450 |    0 |    40 |    0 |    20 |    0 |    20 |
-| X0Y1              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  610 |  1200 |  241 |   400 |    0 |    20 |    6 |    10 |    4 |    20 |
+| X0Y1              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  608 |  1200 |  264 |   400 |    0 |    20 |    6 |    10 |    4 |    20 |
 | X1Y1              |    0 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |  1500 |    0 |   450 |    0 |    40 |    0 |    20 |    0 |    20 |
 | X0Y2              |    0 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |  1800 |    0 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
 | X1Y2              |    0 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     4 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |   950 |    0 |   300 |    0 |    10 |    0 |     5 |    0 |    20 |
@@ -136,7 +136,7 @@ All Modules
 +-----------+-----------------+-------------------+--------------------+-------------+----------------+-------------+----------+----------------+----------+----------------------------+
 | Global Id | Driver Type/Pin | Driver Region (D) | Clock              | Period (ns) | Waveform (ns)  | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                        |
 +-----------+-----------------+-------------------+--------------------+-------------+----------------+-------------+----------+----------------+----------+----------------------------+
-| g1        | BUFG/O          | n/a               | clk_out1_clk_wiz_1 |      83.333 | {0.000 41.667} |         201 |        0 |              1 |        0 | main_clk_pll/inst/clk_out1 |
+| g1        | BUFG/O          | n/a               | clk_out1_clk_wiz_1 |      83.333 | {0.000 41.667} |         199 |        0 |              1 |        0 | main_clk_pll/inst/clk_out1 |
 +-----------+-----------------+-------------------+--------------------+-------------+----------------+-------------+----------+----------------+----------+----------------------------+
 * Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
 ** IO Loads column represents load cell count of IO types
@@ -148,7 +148,7 @@ All Modules
 |    | X0   | X1 | HORIZONTAL PROG DELAY |
 +----+------+----+-----------------------+
 | Y2 |    0 |  0 |                     - |
-| Y1 |  201 |  0 |                     0 |
+| Y1 |  199 |  0 |                     0 |
 | Y0 |    1 |  0 |                     0 |
 +----+------+----+-----------------------+
 
@@ -257,7 +257,7 @@ All Modules
 | Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | Memory LUTs | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+-------------+------+-----+----+------+-----+---------+------------------------------------+
 | g0        | n/a   | BUFG/O          | None       |         234 |               0 | 232 |           0 |    0 |   2 |  0 |    0 |   0 |       0 | lcd_inst/lcd_clk_pll/inst/clk_out1 |
-| g1        | n/a   | BUFG/O          | None       |         201 |               0 | 192 |           0 |    6 |   2 |  0 |    0 |   0 |       0 | main_clk_pll/inst/clk_out1         |
+| g1        | n/a   | BUFG/O          | None       |         199 |               0 | 190 |           0 |    6 |   2 |  0 |    0 |   0 |       0 | main_clk_pll/inst/clk_out1         |
 | g2        | n/a   | BUFG/O          | None       |         186 |               0 | 186 |           0 |    0 |   0 |  0 |    0 |   0 |       0 | clk_IBUF_BUFG                      |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+-------------+------+-----+----+------+-----+---------+------------------------------------+
 * Clock Loads column represents cell count of net connects that connect to a clock pin. Internal cell leaf pins are not considered
