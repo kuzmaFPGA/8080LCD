@@ -124,8 +124,8 @@ OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/top_level.dcp
   read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-  read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
   read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
+  read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 OPTRACE "read constraints: implementation" END { }

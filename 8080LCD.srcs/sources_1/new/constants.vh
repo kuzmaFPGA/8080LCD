@@ -125,13 +125,16 @@ parameter BUTTON_Y_BOTTOM = BUTTON_Y_TOP + CHAR_HEIGHT;
 
 // ✅ ПОЗИЦІЯ ЦИФР 
 parameter DIGIT_Y = ARROW_HEIGHT + ARROW_Y_OFFSET + 20;
-parameter DIGIT_X_START_COORD = 80;
+parameter DIGIT_X_START_COORD = 20;
 parameter DIGIT_SPACING = 12;
-parameter [31:0] DIGIT_X_START [0:4] = '{DIGIT_X_START_COORD,  
+parameter [31:0] DIGIT_X_START [0:7] = '{DIGIT_X_START_COORD + 0 * (DIGIT_SPACING + DIGIT_WIDTH),  
                                          DIGIT_X_START_COORD + 1 * (DIGIT_SPACING + DIGIT_WIDTH),  
                                          DIGIT_X_START_COORD + 2 * (DIGIT_SPACING + DIGIT_WIDTH), 
                                          DIGIT_X_START_COORD + 3 * (DIGIT_SPACING + DIGIT_WIDTH), 
-                                         DIGIT_X_START_COORD + 4 * (DIGIT_SPACING + DIGIT_WIDTH)}; // Starting x-coordinate for each digit
+                                         DIGIT_X_START_COORD + 4 * (DIGIT_SPACING + DIGIT_WIDTH),
+                                         DIGIT_X_START_COORD + 5 * (DIGIT_SPACING + DIGIT_WIDTH),
+                                         DIGIT_X_START_COORD + 6 * (DIGIT_SPACING + DIGIT_WIDTH),
+                                         DIGIT_X_START_COORD + 7 * (DIGIT_SPACING + DIGIT_WIDTH)}; // Starting x-coordinate for each digit
 
 // ✅ РАМИ для цифр
 parameter FRAME_THICK = 1;
