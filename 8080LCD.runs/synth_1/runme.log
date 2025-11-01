@@ -8,7 +8,7 @@
   **** SW Build 6060944 on Thu Mar 06 19:10:01 MST 2025
   **** IP Build 6050500 on Thu Mar  6 23:33:39 MST 2025
   **** SharedData Build 6060542 on Thu Mar 06 10:31:07 MST 2025
-  **** Start of session at: Wed Oct 29 22:40:48 2025
+  **** Start of session at: Sat Nov  1 12:19:22 2025
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
@@ -25,19 +25,19 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 19168
+INFO: [Synth 8-7075] Helper process launched with PID 7476
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1001.148 ; gain = 470.098
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1002.125 ; gain = 471.555
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'lcd_clk', assumed default net type 'wire' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:126]
+INFO: [Synth 8-11241] undeclared symbol 'lcd_clk', assumed default net type 'wire' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:138]
 WARNING: [Synth 8-11121] redeclaration of ANSI port 'lcd_clk' is not allowed [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:49]
 WARNING: [Synth 8-11121] redeclaration of ANSI port 'init_done' is not allowed [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:63]
 WARNING: [Synth 8-11121] redeclaration of ANSI port 'cmd_done' is not allowed [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:79]
 WARNING: [Synth 8-11121] redeclaration of ANSI port 'cmd_data_done' is not allowed [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:80]
 WARNING: [Synth 8-11121] redeclaration of ANSI port 'cmd_ndata_done' is not allowed [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:81]
 INFO: [Synth 8-6157] synthesizing module 'top_level' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:3]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_1' [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/realtime/clk_wiz_1_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_1' (0#1) [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/realtime/clk_wiz_1_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_1' [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/realtime/clk_wiz_1_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_1' (0#1) [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/realtime/clk_wiz_1_stub.v:6]
 INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/synth/blk_mem_gen_0.vhd:67]
 	Parameter C_FAMILY bound to: artix7 - type: string 
 	Parameter C_XDEVICEFAMILY bound to: artix7 - type: string 
@@ -118,8 +118,8 @@ INFO: [Synth 8-3491] module 'blk_mem_gen_v8_4_10' declared at 'd:/WORK/Project/8
 INFO: [Synth 8-256] done synthesizing module 'blk_mem_gen_0' (0#1) [d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/synth/blk_mem_gen_0.vhd:67]
 INFO: [Synth 8-6157] synthesizing module 'lcd' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:3]
 INFO: [Synth 8-3876] $readmem data file 'init.mem' is read successfully [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:61]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/realtime/clk_wiz_0_stub.v:6]
 INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:1]
 INFO: [Synth 8-6155] done synthesizing module 'lcd_write_cmd' (0#1) [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:1]
 INFO: [Synth 8-6157] synthesizing module 'lcd_write_cmd_data' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd_write.v:65]
@@ -133,17 +133,14 @@ INFO: [Synth 8-6155] done synthesizing module 'lcd' (0#1) [D:/WORK/Project/8080L
 INFO: [Synth 8-6157] synthesizing module 'xpt2046' [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:1]
 INFO: [Synth 8-155] case statement is not full and has no default [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:128]
 INFO: [Synth 8-6155] done synthesizing module 'xpt2046' (0#1) [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:1]
-INFO: [Synth 8-155] case statement is not full and has no default [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:310]
-INFO: [Synth 8-155] case statement is not full and has no default [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:280]
 INFO: [Synth 8-6155] done synthesizing module 'top_level' (0#1) [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:3]
 WARNING: [Synth 8-7137] Register start_read_data_reg_reg in module lcd has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:47]
 WARNING: [Synth 8-3848] Net lcd_state in module/entity lcd does not have driver. [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:21]
 WARNING: [Synth 8-3848] Net read_start in module/entity lcd does not have driver. [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/lcd.v:166]
 WARNING: [Synth 8-7137] Register CONV_DONE_reg in module xpt2046 has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/xpt2046_controller.v:196]
-WARNING: [Synth 8-6014] Unused sequential element update_marker_reg was removed.  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:184]
 WARNING: [Synth 8-7137] Register led_1_reg_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:23]
-WARNING: [Synth 8-7137] Register solid_color_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:265]
-WARNING: [Synth 8-7137] Register bram_base_addra_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:314]
+WARNING: [Synth 8-7137] Register solid_color_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:340]
+WARNING: [Synth 8-7137] Register bram_base_addra_reg in module top_level has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/top_module.v:389]
 WARNING: [Synth 8-7129] Port BUSY in module xpt2046 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port lcd_state[4] in module lcd is either unconnected or has no load
 WARNING: [Synth 8-7129] Port lcd_state[3] in module lcd is either unconnected or has no load
@@ -246,28 +243,28 @@ WARNING: [Synth 8-7129] Port WEB[0] in module blk_mem_gen_prim_wrapper_init__par
 WARNING: [Synth 8-7129] Port ADDRB[15] in module blk_mem_gen_prim_wrapper_init__parameterized0 is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished RTL Elaboration : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1373.512 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.031 . Memory (MB): peak = 1374.496 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 7 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc] for cell 'main_clk_pll'
-Finished Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc] for cell 'main_clk_pll'
-Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
-Finished Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
+Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc] for cell 'main_clk_pll'
+Finished Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc] for cell 'main_clk_pll'
+Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
+Finished Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'lcd_inst/lcd_clk_pll'
 Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc]
 WARNING: [Vivado 12-584] No ports matched 'led_2'. [D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc:6]
 WARNING: [Vivado 12-584] No ports matched 'led_2'. [D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc:7]
@@ -378,33 +375,33 @@ Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/dont_touch.xdc]
 Finished Parsing XDC File [D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1373.512 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1374.496 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1373.512 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1374.496 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished Constraint Validation : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcsg325-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc, line 3).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-13024-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc, line 4).
+Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/.Xil/Vivado-17492-A8/clk_wiz_1/clk_wiz_1/clk_wiz_1_in_context.xdc, line 4).
 Applied set_property KEEP_HIERARCHY = SOFT for bram. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for main_clk_pll. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for lcd_inst/lcd_clk_pll. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'wr_substate_reg' in module 'lcd_write_cmd'
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'lcd_write_cmd_data'
@@ -487,7 +484,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'fill_display_state_reg' us
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'lcd_read_data'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -500,23 +497,24 @@ Detailed RTL Component Info :
 	   2 Input   20 Bit       Adders := 1     
 	   2 Input   18 Bit       Adders := 1     
 	   4 Input   17 Bit       Adders := 2     
-	   2 Input   11 Bit       Adders := 5     
+	   2 Input   16 Bit       Adders := 3     
+	   2 Input   11 Bit       Adders := 2     
 	   2 Input   10 Bit       Adders := 4     
 	   2 Input    7 Bit       Adders := 1     
 	   2 Input    6 Bit       Adders := 2     
 	   2 Input    5 Bit       Adders := 1     
-	   2 Input    4 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 1     
 +---Registers : 
 	               32 Bit    Registers := 5     
 	               20 Bit    Registers := 1     
 	               18 Bit    Registers := 3     
-	               16 Bit    Registers := 9     
-	               12 Bit    Registers := 9     
+	               16 Bit    Registers := 10    
+	               12 Bit    Registers := 11    
 	               10 Bit    Registers := 6     
 	                7 Bit    Registers := 1     
 	                6 Bit    Registers := 2     
-	                5 Bit    Registers := 3     
-	                4 Bit    Registers := 14    
+	                5 Bit    Registers := 4     
+	                4 Bit    Registers := 12    
 	                3 Bit    Registers := 2     
 	                1 Bit    Registers := 45    
 +---Multipliers : 
@@ -532,33 +530,35 @@ Detailed RTL Component Info :
 	   6 Input   16 Bit        Muxes := 2     
 	  21 Input   16 Bit        Muxes := 2     
 	   2 Input   16 Bit        Muxes := 10    
+	  13 Input   16 Bit        Muxes := 3     
 	   3 Input   16 Bit        Muxes := 1     
 	   2 Input   12 Bit        Muxes := 3     
 	   2 Input   11 Bit        Muxes := 2     
 	  21 Input   10 Bit        Muxes := 1     
-	   8 Input   10 Bit        Muxes := 2     
 	   2 Input    7 Bit        Muxes := 2     
 	   8 Input    7 Bit        Muxes := 1     
-	  59 Input    7 Bit        Muxes := 1     
+	  13 Input    7 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 2     
-	   2 Input    5 Bit        Muxes := 7     
+	   2 Input    5 Bit        Muxes := 4     
 	   8 Input    5 Bit        Muxes := 1     
-	  59 Input    5 Bit        Muxes := 1     
-	   2 Input    4 Bit        Muxes := 4     
+	  13 Input    5 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 6     
+	  13 Input    4 Bit        Muxes := 1     
 	   6 Input    3 Bit        Muxes := 2     
 	   7 Input    3 Bit        Muxes := 2     
 	   4 Input    3 Bit        Muxes := 1     
 	   8 Input    3 Bit        Muxes := 1     
-	   2 Input    3 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 4     
 	   4 Input    2 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 95    
+	   2 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 87    
 	   6 Input    1 Bit        Muxes := 17    
 	   7 Input    1 Bit        Muxes := 12    
 	   4 Input    1 Bit        Muxes := 9     
 	   8 Input    1 Bit        Muxes := 20    
 	  21 Input    1 Bit        Muxes := 10    
 	  47 Input    1 Bit        Muxes := 3     
+	  13 Input    1 Bit        Muxes := 7     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -695,7 +695,7 @@ WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[30]__1) is unused a
 WARNING: [Synth 8-3332] Sequential element (total_pixels_reg[29]__1) is unused and will be removed from module lcd.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 1373.512 ; gain = 842.461
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:44 . Memory (MB): peak = 1374.496 ; gain = 843.926
 ---------------------------------------------------------------------------------
  Sort Area is  total_pixels0_0 : 0 0 : 2701 5047 : Used 1 time 0
  Sort Area is  total_pixels0_0 : 0 1 : 2346 5047 : Used 1 time 0
@@ -708,22 +708,20 @@ Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 ROM: Preliminary Mapping Report
-+------------+-------------+---------------+----------------+
-|Module Name | RTL Object  | Depth x Width | Implemented As | 
-+------------+-------------+---------------+----------------+
-|lcd         | state       | 32x5          | LUT            | 
-|lcd         | init_rom    | 1024x16       | LUT            | 
-|lcd         | init_rom    | 1024x16       | LUT            | 
-|xpt2046     | DCLK        | 64x1          | LUT            | 
-|xpt2046     | DIN         | 64x1          | LUT            | 
-|top_level   | solid_color | 64x3          | LUT            | 
-|lcd         | state       | 32x5          | LUT            | 
-|lcd         | p_0_out     | 1024x16       | LUT            | 
-|lcd         | p_0_out     | 1024x16       | LUT            | 
-|xpt2046     | DCLK        | 64x1          | LUT            | 
-|xpt2046     | DIN         | 64x1          | LUT            | 
-|top_level   | solid_color | 64x3          | LUT            | 
-+------------+-------------+---------------+----------------+
++------------+------------+---------------+----------------+
+|Module Name | RTL Object | Depth x Width | Implemented As | 
++------------+------------+---------------+----------------+
+|lcd         | state      | 32x5          | LUT            | 
+|lcd         | init_rom   | 1024x16       | LUT            | 
+|lcd         | init_rom   | 1024x16       | LUT            | 
+|xpt2046     | DCLK       | 64x1          | LUT            | 
+|xpt2046     | DIN        | 64x1          | LUT            | 
+|lcd         | state      | 32x5          | LUT            | 
+|lcd         | p_0_out    | 1024x16       | LUT            | 
+|lcd         | p_0_out    | 1024x16       | LUT            | 
+|xpt2046     | DCLK       | 64x1          | LUT            | 
+|xpt2046     | DIN        | 64x1          | LUT            | 
++------------+------------+---------------+----------------+
 
 
 DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
@@ -746,19 +744,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:29 ; elapsed = 00:00:30 . Memory (MB): peak = 1413.480 ; gain = 882.430
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:44 ; elapsed = 00:00:50 . Memory (MB): peak = 1411.469 ; gain = 880.898
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 1458.480 ; gain = 927.430
+Finished Timing Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:51 . Memory (MB): peak = 1455.164 ; gain = 924.594
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 1459.594 ; gain = 928.543
+Finished Technology Mapping : Time (s): cpu = 00:00:46 ; elapsed = 00:00:52 . Memory (MB): peak = 1457.270 ; gain = 926.699
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -776,37 +774,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished IO Insertion : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -837,48 +835,48 @@ Report Cell Usage:
 |      |Cell     |Count |
 +------+---------+------+
 |1     |clk_wiz  |     2|
-|3     |CARRY4   |    93|
+|3     |CARRY4   |    99|
 |4     |DSP48E1  |     5|
-|7     |LUT1     |    65|
-|8     |LUT2     |   232|
-|9     |LUT3     |   201|
-|10    |LUT4     |   225|
-|11    |LUT5     |   174|
-|12    |LUT6     |   387|
-|13    |MUXF7    |    46|
+|7     |LUT1     |    98|
+|8     |LUT2     |   214|
+|9     |LUT3     |   162|
+|10    |LUT4     |   226|
+|11    |LUT5     |   148|
+|12    |LUT6     |   376|
+|13    |MUXF7    |    40|
 |14    |MUXF8    |     2|
 |15    |RAMB18E1 |     1|
 |16    |RAMB36E1 |     6|
-|22    |FDCE     |   497|
-|23    |FDPE     |    49|
-|24    |FDRE     |    55|
+|22    |FDCE     |   556|
+|23    |FDPE     |    26|
+|24    |FDRE     |    49|
 |25    |IBUF     |     3|
 |26    |OBUF     |    18|
 |27    |OBUFT    |    16|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 352 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:33 . Memory (MB): peak = 1648.988 ; gain = 1117.938
-Synthesis Optimization Complete : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 1648.988 ; gain = 1117.938
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:28 ; elapsed = 00:00:52 . Memory (MB): peak = 1646.492 ; gain = 1115.922
+Synthesis Optimization Complete : Time (s): cpu = 00:00:49 ; elapsed = 00:00:55 . Memory (MB): peak = 1646.492 ; gain = 1115.922
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1648.988 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1646.492 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 153 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1661.859 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1646.492 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: e17ae3d4
+Synth Design complete | Checksum: 59e7bc0d
 INFO: [Common 17-83] Releasing license: Synthesis
-62 Infos, 347 Warnings, 0 Critical Warnings and 0 Errors encountered.
+60 Infos, 346 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:38 . Memory (MB): peak = 1661.859 ; gain = 1325.125
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1661.859 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:52 ; elapsed = 00:00:59 . Memory (MB): peak = 1646.492 ; gain = 1310.836
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1646.492 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/top_level.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file top_level_utilization_synth.rpt -pb top_level_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Oct 29 22:41:29 2025...
+INFO: [Common 17-206] Exiting Vivado at Sat Nov  1 12:20:24 2025...
