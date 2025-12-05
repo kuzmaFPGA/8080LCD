@@ -1,24 +1,24 @@
 +======================+======================+==============================================+
 | Launch Setup Clock   | Launch Hold Clock    | Pin                                          |
 +======================+======================+==============================================+
-| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[13]/D |
-| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[4]/D  |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[9]/D  |
+| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[13]/D |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[15]/D |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[10]/D |
-| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | need_update_reg/D                            |
+| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/cmd_ndata_writer/LCD_DATA_reg[4]/D  |
 | clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | state_reg[0]/D                               |
-| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | state_reg[1]/D                               |
-| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[5]/D                 |
-| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[0]/D                 |
 | clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | state_reg[2]/D                               |
+| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | state_reg[1]/D                               |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[6]/D                 |
-| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[15]/D                         |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[1]/D                 |
-| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[16]/D                         |
-| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[2]/D                 |
+| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | solid_fill_reg/D                             |
+| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[5]/D                 |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[7]/D                 |
 | clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[17]/D                         |
+| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[15]/D                         |
+| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[16]/D                         |
 | clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[10]/D                         |
+| clk_out1_clk_wiz_0_1 | clk_out1_clk_wiz_0_1 | bram_addra_reg[7]/D                          |
+| clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[2]/D                 |
 | clk_out1_clk_wiz_1   | clk_out1_clk_wiz_1   | lcd_inst/write_data_reg[4]/D                 |
 +----------------------+----------------------+----------------------------------------------+

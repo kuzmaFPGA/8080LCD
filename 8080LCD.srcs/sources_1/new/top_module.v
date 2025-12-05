@@ -58,12 +58,12 @@ localparam MARKER_COLOR  = 16'hF800;
 localparam MARKER_BACK   = TEXT_BACK_COLOR;
 
 // === Основні регістри ===
-reg [3:0] number [0:7];
+reg [3:0] number [0:15];  // 16 цифр: 0-7: x_value/y_value, 8-15: screen_x/screen_y
 reg need_update;
 reg solid_fill;
 reg [15:0] solid_color;
 reg [17:0] bram_base_addra;
-reg [6:0] draw_step;
+reg [6:0] draw_step;  // до 36
 assign la_out[6:0] = draw_step[6:0];
 assign la_out[7] = need_update;
 
@@ -87,6 +87,7 @@ reg [31:0] refresh_counter;
 // === BCD Conversion ===
 reg [4:0] bcd_state;
 reg [11:0] bcd_x, bcd_y;
+reg [9:0]  bcd_screen_x, bcd_screen_y;  // для screen_x, screen_y
 reg [15:0] bcd_temp;
 reg [3:0] bcd_digit;
 reg bcd_start;
@@ -105,7 +106,21 @@ localparam
     BCD_Y_100_SUB   = 11,
     BCD_Y_10        = 12,
     BCD_Y_10_SUB    = 13,
-    BCD_Y_1         = 14;
+    BCD_Y_1         = 14,
+    BCD_SX_1000     = 15,
+    BCD_SX_1000_SUB = 16,
+    BCD_SX_100      = 17,
+    BCD_SX_100_SUB  = 18,
+    BCD_SX_10       = 19,
+    BCD_SX_10_SUB   = 20,
+    BCD_SX_1        = 21,
+    BCD_SY_1000     = 22,
+    BCD_SY_1000_SUB = 23,
+    BCD_SY_100      = 24,
+    BCD_SY_100_SUB  = 25,
+    BCD_SY_10       = 26,
+    BCD_SY_10_SUB   = 27,
+    BCD_SY_1        = 28;
 
 // === BRAM ===
 blk_mem_gen_0 bram (
@@ -163,18 +178,62 @@ always @(posedge clk or negedge reset_n) begin
     else          touch_en <= !ts_pen;
 end
 
-// === Touch mapping ===
+// === Динамічні параметри ===
+localparam [11:0] TOUCH_X_MIN = `TOUCH_X_MIN;
+localparam [11:0] TOUCH_X_MAX = `TOUCH_X_MAX;
+localparam [11:0] TOUCH_Y_MIN = `TOUCH_Y_MIN;
+localparam [11:0] TOUCH_Y_MAX = `TOUCH_Y_MAX;
+
+localparam [15:0] DISP_W = `DISPLAY_WIDTH;
+localparam [15:0] DISP_H = `DISPLAY_HEIGH;
+
+localparam [12:0] SCALE_X = `ROTATE_90 ? `SCALE_X_ROT : `SCALE_X_NORM;
+localparam [12:0] SCALE_Y = `ROTATE_90 ? `SCALE_Y_ROT : `SCALE_Y_NORM;
+
+localparam [11:0] MAX_X_OUT = `ROTATE_90 ? 479 : 799;
+localparam [11:0] MAX_Y_OUT = `ROTATE_90 ? 799 : 479;
+
+
+// === Масштабування з ROTATE_90 (виправлено) ===
+reg [31:0] calc_x, calc_y;
+reg [9:0] temp_x;
+reg [9:0] temp_y;
 always @(posedge clk_main or negedge reset_n) begin
     if (!reset_n) begin
         screen_x <= 0;
         screen_y <= 0;
     end else if (get_flag) begin
-        if (ROTATE_90) begin
-            screen_x <= (INVERT_X == 1) ? ((4095 - y_value) * DISPLAY_HEIGH >> 12) : ((y_value) * DISPLAY_HEIGH >> 12);
-            screen_y <= (INVERT_X == 1) ? ((4095 - x_value) * DISPLAY_WIDTH >> 12) : ((x_value) * DISPLAY_WIDTH >> 12);
+        if (`ROTATE_90) begin
+            // === Поворот 90° ===
+            // y_value → screen_x (0-479)
+            calc_y = (32'd0 + y_value - TOUCH_Y_MIN) * SCALE_Y;
+            begin
+                 temp_x <= calc_y[21:12];
+                screen_x <= (temp_x > 479) ? 479 : temp_x;
+            end
+
+            // x_value → screen_y (0-799)
+            calc_x = (32'd0 + x_value - TOUCH_X_MIN) * SCALE_X;
+            begin
+                 temp_y  <= calc_x[21:12];
+                screen_y <= (temp_y > 799) ? 799 : temp_y;
+            end
+
         end else begin
-            screen_x <= (INVERT_X == 1) ? ((4095 - x_value) * DISPLAY_WIDTH >> 12) : ((x_value) * DISPLAY_WIDTH >> 12);
-            screen_y <= (INVERT_X == 1) ? ((4095 - y_value) * DISPLAY_HEIGH >> 12) : ((y_value) * DISPLAY_HEIGH >> 12);
+            // === Без повороту ===
+            // x_value → screen_x (0-799)
+            calc_x = (32'd0 + x_value - TOUCH_X_MIN) * SCALE_X;
+            begin
+                temp_x <= calc_x[21:12];
+                screen_x <= (temp_x > 799) ? 799 : temp_x;
+            end
+
+            // y_value → screen_y (0-479)
+            calc_y = (32'd0 + y_value - TOUCH_Y_MIN) * SCALE_Y;
+            begin
+                temp_y <= calc_y[21:12];
+                screen_y <= (temp_y > 479) ? 479 : temp_y;
+            end
         end
     end
 end
@@ -182,8 +241,7 @@ end
 // === BCD Conversion + Маркер ===
 always @(posedge clk_main or negedge reset_n) begin
     if (!reset_n) begin
-        number[0] <= 0; number[1] <= 0; number[2] <= 0; number[3] <= 0;
-        number[4] <= 0; number[5] <= 0; number[6] <= 0; number[7] <= 0;
+        for (integer i = 0; i < 16; i = i + 1) number[i] <= 0;
 
         marker_active <= 0;
         marker_x <= 0;
@@ -192,8 +250,8 @@ always @(posedge clk_main or negedge reset_n) begin
         marker_erase <= 0;
 
         bcd_state <= BCD_IDLE;
-        bcd_x <= 0;
-        bcd_y <= 0;
+        bcd_x <= 0; bcd_y <= 0;
+        bcd_screen_x <= 0; bcd_screen_y <= 0;
         bcd_temp <= 0;
         bcd_digit <= 0;
         bcd_start <= 0;
@@ -203,9 +261,11 @@ always @(posedge clk_main or negedge reset_n) begin
         bcd_start <= 0;
 
         if (get_flag) begin
-            // Запускаємо BCD
+            // Запускаємо BCD для x_value, y_value, screen_x, screen_y
             bcd_x <= x_value;
             bcd_y <= y_value;
+            bcd_screen_x <= screen_x;
+            bcd_screen_y <= screen_y;
             bcd_state <= BCD_X_1000;
             bcd_start <= 1;
 
@@ -227,90 +287,74 @@ always @(posedge clk_main or negedge reset_n) begin
         // === BCD State Machine ===
         if (bcd_start || bcd_state != BCD_IDLE) begin
             case (bcd_state)
-                BCD_X_1000: begin
-                    bcd_temp <= bcd_x;
-                    bcd_digit <= 0;
-                    bcd_state <= BCD_X_1000_SUB;
-                end
+                // === x_value ===
+                BCD_X_1000: begin bcd_temp <= bcd_x; bcd_digit <= 0; bcd_state <= BCD_X_1000_SUB; end
                 BCD_X_1000_SUB: begin
-                    if (bcd_temp >= 1000) begin
-                        bcd_temp <= bcd_temp - 1000;
-                        bcd_digit <= bcd_digit + 1;
-                    end else begin
-                        number[0] <= bcd_digit;
-                        bcd_temp <= bcd_temp;
-                        bcd_state <= BCD_X_100;
-                    end
+                    if (bcd_temp >= 1000) begin bcd_temp <= bcd_temp - 1000; bcd_digit <= bcd_digit + 1; end
+                    else begin number[0] <= bcd_digit; bcd_state <= BCD_X_100; end
                 end
-                BCD_X_100: begin
-                    bcd_digit <= 0;
-                    bcd_state <= BCD_X_100_SUB;
-                end
+                BCD_X_100: begin bcd_digit <= 0; bcd_state <= BCD_X_100_SUB; end
                 BCD_X_100_SUB: begin
-                    if (bcd_temp >= 100) begin
-                        bcd_temp <= bcd_temp - 100;
-                        bcd_digit <= bcd_digit + 1;
-                    end else begin
-                        number[1] <= bcd_digit;
-                        bcd_state <= BCD_X_10;
-                    end
+                    if (bcd_temp >= 100) begin bcd_temp <= bcd_temp - 100; bcd_digit <= bcd_digit + 1; end
+                    else begin number[1] <= bcd_digit; bcd_state <= BCD_X_10; end
                 end
-                BCD_X_10: begin
-                    bcd_digit <= 0;
-                    bcd_state <= BCD_X_10_SUB;
-                end
+                BCD_X_10: begin bcd_digit <= 0; bcd_state <= BCD_X_10_SUB; end
                 BCD_X_10_SUB: begin
-                    if (bcd_temp >= 10) begin
-                        bcd_temp <= bcd_temp - 10;
-                        bcd_digit <= bcd_digit + 1;
-                    end else begin
-                        number[2] <= bcd_digit;
-                        number[3] <= bcd_temp;
-                        bcd_state <= BCD_Y_1000;
-                    end
+                    if (bcd_temp >= 10) begin bcd_temp <= bcd_temp - 10; bcd_digit <= bcd_digit + 1; end
+                    else begin number[2] <= bcd_digit; number[3] <= bcd_temp[3:0]; bcd_state <= BCD_Y_1000; end
                 end
 
-                BCD_Y_1000: begin
-                    bcd_temp <= bcd_y;
-                    bcd_digit <= 0;
-                    bcd_state <= BCD_Y_1000_SUB;
-                end
+                // === y_value ===
+                BCD_Y_1000: begin bcd_temp <= bcd_y; bcd_digit <= 0; bcd_state <= BCD_Y_1000_SUB; end
                 BCD_Y_1000_SUB: begin
-                    if (bcd_temp >= 1000) begin
-                        bcd_temp <= bcd_temp - 1000;
-                        bcd_digit <= bcd_digit + 1;
-                    end else begin
-                        number[4] <= bcd_digit;
-                        bcd_state <= BCD_Y_100;
-                    end
+                    if (bcd_temp >= 1000) begin bcd_temp <= bcd_temp - 1000; bcd_digit <= bcd_digit + 1; end
+                    else begin number[4] <= bcd_digit; bcd_state <= BCD_Y_100; end
                 end
-                BCD_Y_100: begin
-                    bcd_digit <= 0;
-                    bcd_state <= BCD_Y_100_SUB;
-                end
+                BCD_Y_100: begin bcd_digit <= 0; bcd_state <= BCD_Y_100_SUB; end
                 BCD_Y_100_SUB: begin
-                    if (bcd_temp >= 100) begin
-                        bcd_temp <= bcd_temp - 100;
-                        bcd_digit <= bcd_digit + 1;
-                    end else begin
-                        number[5] <= bcd_digit;
-                        bcd_state <= BCD_Y_10;
-                    end
+                    if (bcd_temp >= 100) begin bcd_temp <= bcd_temp - 100; bcd_digit <= bcd_digit + 1; end
+                    else begin number[5] <= bcd_digit; bcd_state <= BCD_Y_10; end
                 end
-                BCD_Y_10: begin
-                    bcd_digit <= 0;
-                    bcd_state <= BCD_Y_10_SUB;
-                end
+                BCD_Y_10: begin bcd_digit <= 0; bcd_state <= BCD_Y_10_SUB; end
                 BCD_Y_10_SUB: begin
-                    if (bcd_temp >= 10) begin
-                        bcd_temp <= bcd_temp - 10;
-                        bcd_digit <= bcd_digit + 1;
-                    end else begin
-                        number[6] <= bcd_digit;
-                        number[7] <= bcd_temp;
-                        bcd_state <= BCD_IDLE;
-                    end
+                    if (bcd_temp >= 10) begin bcd_temp <= bcd_temp - 10; bcd_digit <= bcd_digit + 1; end
+                    else begin number[6] <= bcd_digit; number[7] <= bcd_temp[3:0]; bcd_state <= BCD_SX_1000; end
                 end
+
+                // === screen_x ===
+                BCD_SX_1000: begin bcd_temp <= {6'b0, bcd_screen_x}; bcd_digit <= 0; bcd_state <= BCD_SX_1000_SUB; end
+                BCD_SX_1000_SUB: begin
+                    if (bcd_temp >= 1000) begin bcd_temp <= bcd_temp - 1000; bcd_digit <= bcd_digit + 1; end
+                    else begin number[8] <= bcd_digit; bcd_state <= BCD_SX_100; end
+                end
+                BCD_SX_100: begin bcd_digit <= 0; bcd_state <= BCD_SX_100_SUB; end
+                BCD_SX_100_SUB: begin
+                    if (bcd_temp >= 100) begin bcd_temp <= bcd_temp - 100; bcd_digit <= bcd_digit + 1; end
+                    else begin number[9] <= bcd_digit; bcd_state <= BCD_SX_10; end
+                end
+                BCD_SX_10: begin bcd_digit <= 0; bcd_state <= BCD_SX_10_SUB; end
+                BCD_SX_10_SUB: begin
+                    if (bcd_temp >= 10) begin bcd_temp <= bcd_temp - 10; bcd_digit <= bcd_digit + 1; end
+                    else begin number[10] <= bcd_digit; number[11] <= bcd_temp[3:0]; bcd_state <= BCD_SY_1000; end
+                end
+
+                // === screen_y ===
+                BCD_SY_1000: begin bcd_temp <= {6'b0, bcd_screen_y}; bcd_digit <= 0; bcd_state <= BCD_SY_1000_SUB; end
+                BCD_SY_1000_SUB: begin
+                    if (bcd_temp >= 1000) begin bcd_temp <= bcd_temp - 1000; bcd_digit <= bcd_digit + 1; end
+                    else begin number[12] <= bcd_digit; bcd_state <= BCD_SY_100; end
+                end
+                BCD_SY_100: begin bcd_digit <= 0; bcd_state <= BCD_SY_100_SUB; end
+                BCD_SY_100_SUB: begin
+                    if (bcd_temp >= 100) begin bcd_temp <= bcd_temp - 100; bcd_digit <= bcd_digit + 1; end
+                    else begin number[13] <= bcd_digit; bcd_state <= BCD_SY_10; end
+                end
+                BCD_SY_10: begin bcd_digit <= 0; bcd_state <= BCD_SY_10_SUB; end
+                BCD_SY_10_SUB: begin
+                    if (bcd_temp >= 10) begin bcd_temp <= bcd_temp - 10; bcd_digit <= bcd_digit + 1; end
+                    else begin number[14] <= bcd_digit; number[15] <= bcd_temp[3:0]; bcd_state <= BCD_IDLE; end
+                end
+
                 default: bcd_state <= BCD_IDLE;
             endcase
         end
@@ -330,7 +374,7 @@ always @(posedge clk_main or negedge reset_n) begin
                 led_1_reg <= ~led_1_reg;
             end else begin
                 refresh_counter <= refresh_counter + 1;
-                if (draw_step == 20) need_update <= 0;
+                if (draw_step == 36) need_update <= 0;  // 16 цифр + маркер
             end
         end
     end
@@ -345,8 +389,8 @@ always @(posedge clk_main or negedge reset_n) begin
         bram_addra <= 0;
         state <= S_INIT;
         update_screen <= 0;
-        x_start <= 0; x_end <= DISPLAY_WIDTH - 1;
-        y_start <= 0; y_end <= DISPLAY_HEIGH - 1;
+        x_start <= 0; x_end <= `DISPLAY_WIDTH - 1;
+        y_start <= 0; y_end <= `DISPLAY_HEIGH - 1;
         draw_step <= 0;
         solid_fill <= 0;
         init_fill_done <= 0;
@@ -357,8 +401,8 @@ always @(posedge clk_main or negedge reset_n) begin
                 if (init_done && !init_fill_done) begin
                     solid_fill <= 1;
                     solid_color <= TEXT_BACK_COLOR;
-                    x_start <= 0; x_end <= DISPLAY_WIDTH - 1;
-                    y_start <= 0; y_end <= DISPLAY_HEIGH - 1;
+                    x_start <= 0; x_end <= `DISPLAY_WIDTH - 1;
+                    y_start <= 0; y_end <= `DISPLAY_HEIGH - 1;
                     state <= S_INIT_FILL;
                 end else if (init_done) begin
                     init_fill_done <= 1;
@@ -385,7 +429,7 @@ always @(posedge clk_main or negedge reset_n) begin
                 case (draw_step)
                     0: draw_step <= 1;
 
-                    // === 8 цифр ===
+// === 8 цифр ===
                     1: begin bram_base_addra <= number[0] * (DIGIT_WIDTH * DIGIT_HEIGHT);
                         x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y; y_end <= DIGIT_Y + DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
@@ -410,32 +454,60 @@ always @(posedge clk_main or negedge reset_n) begin
                     8: begin bram_base_addra <= number[7] * (DIGIT_WIDTH * DIGIT_HEIGHT);
                         x_start <= DIGIT_X_START[7]; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH - 1;
                         y_start <= DIGIT_Y; y_end <= DIGIT_Y + DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                        
+                        
+                    // === 8 цифр ===
+                    9: begin bram_base_addra <= number[8] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[0]; x_end <= DIGIT_X_START[0] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    10: begin bram_base_addra <= number[9] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[1]; x_end <= DIGIT_X_START[1] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    11: begin bram_base_addra <= number[10] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[2]; x_end <= DIGIT_X_START[2] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    12: begin bram_base_addra <= number[11] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[3]; x_end <= DIGIT_X_START[3] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    13: begin bram_base_addra <= number[12] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[4]; x_end <= DIGIT_X_START[4] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    14: begin bram_base_addra <= number[13] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[5]; x_end <= DIGIT_X_START[5] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    15: begin bram_base_addra <= number[14] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[6]; x_end <= DIGIT_X_START[6] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                    16: begin bram_base_addra <= number[15] * (DIGIT_WIDTH * DIGIT_HEIGHT);
+                        x_start <= DIGIT_X_START[7]; x_end <= DIGIT_X_START[7] + DIGIT_WIDTH - 1;
+                        y_start <= DIGIT_Y + DIGIT_HEIGHT; y_end <= DIGIT_Y + 2 * DIGIT_HEIGHT - 1; state <= S_TRIGGER_WAIT; end
+                            
 
                     // === Стирання маркера ===
-                    9: begin
+                    17: begin
                         if (marker_erase) begin
                             solid_fill <= 1; solid_color <= MARKER_BACK;
-                            x_start <= (marker_x < MARKER_SIZE/2) ? 0 : marker_x - MARKER_SIZE/2;
-                            x_end   <= (marker_x + MARKER_SIZE/2 >= DISPLAY_WIDTH) ? DISPLAY_WIDTH-1 : marker_x + MARKER_SIZE/2;
-                            y_start <= (marker_y < MARKER_SIZE/2) ? 0 : marker_y - MARKER_SIZE/2;
-                            y_end   <= (marker_y + MARKER_SIZE/2 >= DISPLAY_HEIGH) ? DISPLAY_HEIGH-1 : marker_y + MARKER_SIZE/2;
+x_start <= (marker_x < MARKER_SIZE/2) ? 0 : marker_x - MARKER_SIZE/2;
+x_end   <= (marker_x + MARKER_SIZE/2 >= DISP_W) ? DISP_W-1 : marker_x + MARKER_SIZE/2;
+y_start <= (marker_y < MARKER_SIZE/2) ? 0 : marker_y - MARKER_SIZE/2;
+y_end   <= (marker_y + MARKER_SIZE/2 >= DISP_H) ? DISP_H-1 : marker_y + MARKER_SIZE/2;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 10;
+                        end else draw_step <= 18;
                     end
 
                     // === Малювання маркера ===
-                    10: begin
+                    18: begin
                         if (update_marker) begin
                             solid_fill <= 1; solid_color <= MARKER_COLOR;
-                            x_start <= (marker_x < MARKER_SIZE/2) ? 0 : marker_x - MARKER_SIZE/2;
-                            x_end   <= (marker_x + MARKER_SIZE/2 >= DISPLAY_WIDTH) ? DISPLAY_WIDTH-1 : marker_x + MARKER_SIZE/2;
-                            y_start <= (marker_y < MARKER_SIZE/2) ? 0 : marker_y - MARKER_SIZE/2;
-                            y_end   <= (marker_y + MARKER_SIZE/2 >= DISPLAY_HEIGH) ? DISPLAY_HEIGH-1 : marker_y + MARKER_SIZE/2;
+x_start <= (marker_x < MARKER_SIZE/2) ? 0 : marker_x - MARKER_SIZE/2;
+x_end   <= (marker_x + MARKER_SIZE/2 >= DISP_W) ? DISP_W-1 : marker_x + MARKER_SIZE/2;
+y_start <= (marker_y < MARKER_SIZE/2) ? 0 : marker_y - MARKER_SIZE/2;
+y_end   <= (marker_y + MARKER_SIZE/2 >= DISP_H) ? DISP_H-1 : marker_y + MARKER_SIZE/2;
                             state <= S_TRIGGER_WAIT;
-                        end else draw_step <= 20;
+                        end else draw_step <= 36;
                     end
 
-                    20: begin
+                    36: begin
                         draw_step <= 0;
                         state <= S_IDLE;
                     end

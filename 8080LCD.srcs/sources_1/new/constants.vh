@@ -14,16 +14,29 @@ parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;
 parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
 
 // ✅ Частота оновлення екрану
-parameter SCREEN_REFRESH_HZ = 1; // 60 Гц
+parameter SCREEN_REFRESH_HZ = 10; // 60 Гц
 parameter SCREEN_REFRESH_TICKS = (LCD_FREQ_KHZ * 1000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
 
-// ✅ Розміри дисплея: 800x480
-parameter DISPLAY_WIDTH = 800;   // X (ширина)
-parameter DISPLAY_HEIGH = 480;   // Y (висота)
 
-parameter INVERT_X = 1;  // 1 для інверсії осі X, 0 - без інверсії
-parameter INVERT_Y = 0;  // 1 для інверсії осі Y, 0 - без інверсії
-parameter ROTATE_90 = 1;
+`define DISPLAY_WIDTH_BASE  800
+`define DISPLAY_HEIGH_BASE  480
+`define ROTATE_90           1   // 1 = поворот, 0 = без
+
+// Динамічні розміри
+`define DISPLAY_WIDTH  `DISPLAY_WIDTH_BASE
+`define DISPLAY_HEIGH  `DISPLAY_HEIGH_BASE
+
+// Калібрування тач
+`define TOUCH_X_MIN  372
+`define TOUCH_X_MAX  3700
+`define TOUCH_Y_MIN  147
+`define TOUCH_Y_MAX  3900
+
+// Масштабування (4096 = 2^12)
+`define SCALE_X_NORM  985   // 800 * 4096 / 3328
+`define SCALE_Y_NORM  524   // 480 * 4096 / 3753
+`define SCALE_X_ROT   524   // 480 * 4096 / 3328
+`define SCALE_Y_ROT   985   // 800 * 4096 / 3753
 
 // ✅ ТОЧНІ розміри шрифтів
 parameter DIGIT_WIDTH = 64;      // Цифри
@@ -57,12 +70,12 @@ parameter LGRAY = 16'hC618;
 parameter LGRAYBLUE = 16'hA651; 
 parameter LBBLUE = 16'h2B12;
 
-parameter TOTAL_PIXELS = DISPLAY_WIDTH * DISPLAY_HEIGH; // 384000
+parameter TOTAL_PIXELS = `DISPLAY_WIDTH * `DISPLAY_HEIGH; // 384000
 
 parameter X_START = 0;
-parameter X_END = DISPLAY_WIDTH - 1;   // 799
+parameter X_END = `DISPLAY_WIDTH - 1;   // 799
 parameter Y_START = 0;
-parameter Y_END = DISPLAY_HEIGH - 1;   // 479
+parameter Y_END = `DISPLAY_HEIGH - 1;   // 479
 // Перерахування для станів основної машини стану
 typedef enum logic [4:0] {
     S_INIT = 0,           // Wait for PLL
@@ -120,7 +133,7 @@ parameter BUTTON_X_EDIT_START = 10;
 parameter BUTTON_X_EDIT_END = BUTTON_X_EDIT_START + 4 * CHAR_WIDTH + 3 * CHAR_SPACING;
 parameter BUTTON_X_SAVE_START = 400;
 parameter BUTTON_X_SAVE_END = BUTTON_X_SAVE_START + 4 * CHAR_WIDTH + 3 * CHAR_SPACING;
-parameter BUTTON_Y_TOP = DISPLAY_HEIGH - CHAR_HEIGHT - 10;
+parameter BUTTON_Y_TOP = `DISPLAY_HEIGH - CHAR_HEIGHT - 10;
 parameter BUTTON_Y_BOTTOM = BUTTON_Y_TOP + CHAR_HEIGHT;
 
 // ✅ ПОЗИЦІЯ ЦИФР 
@@ -131,10 +144,10 @@ parameter [31:0] DIGIT_X_START [0:7] = '{DIGIT_X_START_COORD + 0 * (DIGIT_SPACIN
                                          DIGIT_X_START_COORD + 1 * (DIGIT_SPACING + DIGIT_WIDTH),  
                                          DIGIT_X_START_COORD + 2 * (DIGIT_SPACING + DIGIT_WIDTH), 
                                          DIGIT_X_START_COORD + 3 * (DIGIT_SPACING + DIGIT_WIDTH), 
-                                         DIGIT_X_START_COORD + 4 * (DIGIT_SPACING + DIGIT_WIDTH),
                                          DIGIT_X_START_COORD + 5 * (DIGIT_SPACING + DIGIT_WIDTH),
                                          DIGIT_X_START_COORD + 6 * (DIGIT_SPACING + DIGIT_WIDTH),
-                                         DIGIT_X_START_COORD + 7 * (DIGIT_SPACING + DIGIT_WIDTH)}; // Starting x-coordinate for each digit
+                                         DIGIT_X_START_COORD + 7 * (DIGIT_SPACING + DIGIT_WIDTH),
+                                         DIGIT_X_START_COORD + 8 * (DIGIT_SPACING + DIGIT_WIDTH)}; // Starting x-coordinate for each digit
 
 // ✅ РАМИ для цифр
 parameter FRAME_THICK = 1;
