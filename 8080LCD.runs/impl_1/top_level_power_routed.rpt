@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date             : Sun Nov 16 16:35:30 2025
+| Date             : Mon Mar 23 23:12:54 2026
 | Host             : A8 running 64-bit major release  (build 9200)
 | Command          : report_power -file top_level_power_routed.rpt -pb top_level_power_summary_routed.pb -rpx top_level_power_routed.rpx
 | Design           : top_level
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.269        |
+| Total On-Chip Power (W)  | 0.267        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.197        |
+| Dynamic (W)              | 0.194        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.8          |
 | Max Ambient (C)          | 83.7         |
@@ -52,20 +52,20 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.002 |        8 |       --- |             --- |
-| Slice Logic    |     0.001 |     2093 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      899 |     20800 |            4.32 |
-|   CARRY4       |    <0.001 |       92 |      8150 |            1.13 |
-|   Register     |    <0.001 |      705 |     41600 |            1.69 |
-|   F7/F8 Muxes  |    <0.001 |       55 |     32600 |            0.17 |
-|   Others       |     0.000 |       37 |       --- |             --- |
-| Signals        |    <0.001 |     1610 |       --- |             --- |
+| Clocks         |     0.001 |        8 |       --- |             --- |
+| Slice Logic    |    <0.001 |     1301 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      589 |     20800 |            2.83 |
+|   CARRY4       |    <0.001 |       49 |      8150 |            0.60 |
+|   Register     |    <0.001 |      410 |     41600 |            0.99 |
+|   F7/F8 Muxes  |    <0.001 |       46 |     32600 |            0.14 |
+|   Others       |     0.000 |       36 |       --- |             --- |
+| Signals        |    <0.001 |     1028 |       --- |             --- |
 | Block RAM      |    <0.001 |      6.5 |        50 |           13.00 |
 | MMCM           |     0.188 |        2 |         5 |           40.00 |
-| DSPs           |     0.001 |        5 |        90 |            5.56 |
-| I/O            |     0.004 |       38 |       150 |           25.33 |
+| DSPs           |     0.001 |        3 |        90 |            3.33 |
+| I/O            |     0.003 |       42 |       150 |           28.00 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.269 |          |           |                 |
+| Total          |     0.267 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.016 |       0.006 |      0.010 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.014 |       0.004 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.117 |       0.104 |      0.013 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -128,16 +128,16 @@ Table of Contents
 2.2 Clock Constraints
 ---------------------
 
-+---------------------------+----------------------------------------------+-----------------+
-| Clock                     | Domain                                       | Constraint (ns) |
-+---------------------------+----------------------------------------------+-----------------+
-| clk_out1_clk_wiz_0_1      | lcd_inst/lcd_clk_pll/inst/clk_out1_clk_wiz_0 |            20.0 |
-| clk_out1_clk_wiz_1        | main_clk_pll/inst/clk_out1                   |            83.3 |
-| clk_out1_clk_wiz_1        | main_clk_pll/inst/clk_out1_clk_wiz_1         |            83.3 |
-| clkfbout_clk_wiz_0_1      | lcd_inst/lcd_clk_pll/inst/clkfbout_clk_wiz_0 |            20.0 |
-| clkfbout_clk_wiz_1        | main_clk_pll/inst/clkfbout_clk_wiz_1         |            20.0 |
-| main_clk_pll/inst/clk_in1 | clk_IBUF_BUFG                                |            20.0 |
-+---------------------------+----------------------------------------------+-----------------+
++----------------------+----------------------------------------------+-----------------+
+| Clock                | Domain                                       | Constraint (ns) |
++----------------------+----------------------------------------------+-----------------+
+| clk                  | clk                                          |            20.0 |
+| clk_out1_clk_wiz_0_1 | lcd_inst/lcd_clk_pll/inst/clk_out1_clk_wiz_0 |            20.0 |
+| clk_out1_clk_wiz_1   | main_clk_pll/inst/clk_out1                   |            83.3 |
+| clk_out1_clk_wiz_1   | main_clk_pll/inst/clk_out1_clk_wiz_1         |            83.3 |
+| clkfbout_clk_wiz_0_1 | lcd_inst/lcd_clk_pll/inst/clkfbout_clk_wiz_0 |            20.0 |
+| clkfbout_clk_wiz_1   | main_clk_pll/inst/clkfbout_clk_wiz_1         |            20.0 |
++----------------------+----------------------------------------------+-----------------+
 
 
 3. Detailed Reports
@@ -149,8 +149,8 @@ Table of Contents
 +-----------------+-----------+
 | Name            | Power (W) |
 +-----------------+-----------+
-| top_level       |     0.197 |
-|   lcd_inst      |     0.069 |
+| top_level       |     0.194 |
+|   lcd_inst      |     0.068 |
 |     lcd_clk_pll |     0.065 |
 |       inst      |     0.065 |
 |   main_clk_pll  |     0.123 |

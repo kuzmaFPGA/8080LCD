@@ -14,7 +14,7 @@ parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;
 parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
 
 // ✅ Частота оновлення екрану
-parameter SCREEN_REFRESH_HZ = 10; // 60 Гц
+parameter SCREEN_REFRESH_HZ = 60; // 60 Гц
 parameter SCREEN_REFRESH_TICKS = (LCD_FREQ_KHZ * 1000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
 
 

@@ -93,7 +93,8 @@ set_property PACKAGE_PIN A9 [get_ports {la_out[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {la_out[6]}]
 set_property PACKAGE_PIN B10 [get_ports {la_out[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {la_out[7]}]
-
+set_property PACKAGE_PIN B9 [get_ports {la_out[8]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {la_out[8]}]
 
 set_property PULLTYPE PULLUP [get_ports {col_data_out[3]}]
 set_property PULLTYPE PULLUP [get_ports {col_data_out[2]}]
