@@ -1,1 +1,61 @@
-/8080LCD.sim/sim_1
+# Vivado project files to ignore
+
+# Build результати
+*.jou
+*.log
+*.str
+*.pb
+*.wdb
+*.wcfg
+
+# Кеші та тимчасові директорії
+.cache/
+.hw/
+.ip_user_files/
+.sim/
+.runs/
+.gen/
+.Xil/
+*.tmp
+*.bak
+
+# Синтез / імплементація
+*.dcp
+*.ltx
+*.bit
+*.bin
+
+# Симуляція
+*.vcd
+*.wlf
+*.asdb
+*.vpd
+
+# IP generated files
+*.xci
+*.xcix
+*.bd
+*.bda
+*.veo
+*.vho
+
+# Reports
+*.rpt
+*.rpx
+
+# SDK / Vitis (якщо використовуєш)
+.sdk/
+.vitis/
+*.sdk/
+
+# OS / редактори
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Backup / autosave
+*~
+*.orig
