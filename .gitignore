@@ -9,13 +9,13 @@
 *.wcfg
 
 # Кеші та тимчасові директорії
-.cache/
-.hw/
-.ip_user_files/
-.sim/
-.runs/
-.gen/
-.Xil/
+8080LCD.cache/
+8080LCD.hw/
+8080LCD.ip_user_files/
+8080LCD.sim/
+8080LCD.runs/
+8080LCD.gen/
+8080LCD.Xil/
 *.tmp
 *.bak
 
@@ -45,7 +45,7 @@
 
 # SDK / Vitis (якщо використовуєш)
 .sdk/
-.vitis/
+8080LCD.vitis/
 *.sdk/
 
 # OS / редактори
@@ -53,8 +53,8 @@
 Thumbs.db
 *.swp
 *.swo
-.vscode/
-.idea/
+8080LCD.vscode/
+8080LCD.idea/
 
 # Backup / autosave
 *~
