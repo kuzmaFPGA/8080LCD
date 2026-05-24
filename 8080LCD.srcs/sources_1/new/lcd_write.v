@@ -52,7 +52,7 @@ always @(posedge clk or negedge reset_n) begin
 			    wr_substate <= LCD_CS_SET;
 			end
 			LCD_CS_SET: begin
-				LCD_CS <= 0;
+				LCD_CS <= 1; // деактивуємо CS після запису
 				done <= 1;
 				wr_substate <= LCD_RS_CLR;
 			end
@@ -129,7 +129,7 @@ always @(posedge clk or negedge reset_n) begin
 						wr_substate <= LCD_CS_SET;
 					end
 					LCD_CS_SET: begin
-						LCD_CS <= 0;
+						LCD_CS <= 1; // деактивуємо CS між cmd та data
 						wr_substate <= LCD_RS_SET;
 						state <= DATA_WRITE;
 					end
@@ -161,7 +161,7 @@ always @(posedge clk or negedge reset_n) begin
 						wr_substate <= LCD_CS_SET;
 					end
 					LCD_CS_SET: begin
-						LCD_CS <= 0;
+						LCD_CS <= 1; // деактивуємо CS після запису даних
 						wr_substate <= LCD_RS_CLR;
 						state <= DONE;
 					end
@@ -508,4 +508,4 @@ always @(posedge clk or negedge reset_n) begin
 		endcase
 	end
 end
-endmodule	
+endmodule

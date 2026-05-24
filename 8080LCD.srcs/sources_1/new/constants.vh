@@ -2,36 +2,40 @@
 `define CONSTANTS_V
 
 // Частота LCD (у кГц)
-parameter LCD_FREQ_KHZ = 12000;
+parameter LCD_FREQ_KHZ = 50000;//62500;
 parameter SYS_CLK_FREQ_MHZ = 50; // Частота системного годинника у МГц
 parameter SYS_CLK_FREQ_KHZ = 50000;
-parameter MAIN_CLK_FREQ_KHZ = 12000;
+parameter MAIN_CLK_FREQ_KHZ = 50000;  // тепер єдиний sys_clk = 50 МГц
 
-parameter DELAY_1S = 1000 * LCD_FREQ_KHZ;  // Real 1-second delay based on clock freq
-parameter DELAY_TRIGGER = 10;     // Real short delay (adjust as needed)
-parameter DELAY_50_MS = 50 * LCD_FREQ_KHZ;        
-parameter DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
-parameter DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
+// Максимальні частоти для якісного сигналу (DAC @ 165 МГц).
+//   SINE     - 20 МГц: 4096-точковий LUT, добра роздільна здатність синуса.
+//                       Для дуже чистого синуса використовуй 10 МГц.
+//   SQUARE   - 60 МГц: близько Nyquist (82.5 МГц), 2-рівневий сигнал.
+//   TRIANGLE - 30 МГц: обмежено 14-бітним кроком нахилу.
+//   PWM      - 20 кГц: щоб мати ~16500/F тактів на період і зберегти
+//                       точність XX.XX% (0.01%) у duty cycle.
+parameter MAX_FREQ_SINE_HZ     = 27'd20_000_000;
+parameter MAX_FREQ_SQUARE_HZ   = 27'd60_000_000;
+parameter MAX_FREQ_TRIANGLE_HZ = 27'd30_000_000;
+parameter MAX_FREQ_PWM_HZ      = 27'd20_000;
 
-// ✅ Частота оновлення екрану
-parameter SCREEN_REFRESH_HZ = 1; // 60 Гц
-parameter SCREEN_REFRESH_TICKS = (LCD_FREQ_KHZ * 1000) / SCREEN_REFRESH_HZ; // 833,500 для 60 Гц
-
-// ✅ Розміри дисплея: 800x480
-parameter DISPLAY_WIDTH = 800;   // X (ширина)
-parameter DISPLAY_HEIGH = 480;   // Y (висота)
-
-parameter INVERT_X = 1;  // 1 для інверсії осі X, 0 - без інверсії
-parameter INVERT_Y = 0;  // 1 для інверсії осі Y, 0 - без інверсії
-parameter ROTATE_90 = 1;
-
-// ✅ ТОЧНІ розміри шрифтів
-parameter DIGIT_WIDTH = 64;      // Цифри
-parameter DIGIT_HEIGHT = 128;
-parameter CHAR_WIDTH = 40;       // ✅ Букви
-parameter CHAR_HEIGHT = 64;
-parameter ARROW_WIDTH = 64;     // ✅ Стрілки
-parameter ARROW_HEIGHT = 64;
+`ifdef XILINX_SIMULATOR
+    localparam DELAY_1S = 10000;          // Short delay for simulation (e.g., 10 cycles)
+    localparam DELAY_TRIGGER = 10;      // Even shorter for quick triggering in sim
+    localparam DELAY_50_MS = 50;        
+    localparam DELAY_100_MS = 100;      
+    localparam DELAY_120_MS = 120;
+    localparam TEXT_WIDTH = 4;
+    localparam TEXT_HEIGH = 4;
+`else
+    localparam DELAY_1S = 1000 * LCD_FREQ_KHZ;  // Real 1-second delay based on clock freq
+    localparam DELAY_TRIGGER = 10;     // Real short delay (adjust as needed)
+    localparam DELAY_50_MS = 50 * LCD_FREQ_KHZ;        
+    localparam DELAY_100_MS = 100 * LCD_FREQ_KHZ;      
+    localparam DELAY_120_MS = 120 * LCD_FREQ_KHZ; 
+    localparam TEXT_WIDTH = 64;
+    localparam TEXT_HEIGH = 128;
+`endif
 
 // Константи кольорів (RGB565)
 parameter WHITE = 16'hFFFF;
@@ -57,12 +61,15 @@ parameter LGRAY = 16'hC618;
 parameter LGRAYBLUE = 16'hA651; 
 parameter LBBLUE = 16'h2B12;
 
-parameter TOTAL_PIXELS = DISPLAY_WIDTH * DISPLAY_HEIGH; // 384000
+// Загальна кількість пікселів для 800x480 дисплея
+parameter TOTAL_PIXELS = 800 * 480;
 
+// Координати для області заповнення
 parameter X_START = 0;
-parameter X_END = DISPLAY_WIDTH - 1;   // 799
+parameter X_end = 480 - 1;
 parameter Y_START = 0;
-parameter Y_END = DISPLAY_HEIGH - 1;   // 479
+parameter Y_end = 800 - 1;
+
 // Перерахування для станів основної машини стану
 typedef enum logic [4:0] {
     S_INIT = 0,           // Wait for PLL
@@ -100,45 +107,4 @@ typedef enum logic [2:0] {
     WRITER_READ = 5
 } writer_t;
 
-
-parameter TEXT_COLOR = YELLOW;
-parameter TEXT_BACK_COLOR = BLUE;
-
-// ✅ BRAM адреси
-parameter CHAR_BASE = DIGIT_HEIGHT * DIGIT_WIDTH * 10 + 1; // Після 10 цифр
-parameter ARROW_BASE = CHAR_BASE + 8 * CHAR_WIDTH * CHAR_HEIGHT + 1; // Після 8 букв
-
-// ✅ Відступ між буквами (адаптовано під 78px)
-parameter CHAR_SPACING = 0;     // Малий відступ для щільності
-
-// ✅ СТРІЛКИ (над/під цифрами)
-parameter ARROW_X_OFFSET = 0;   // Центр по X
-parameter ARROW_Y_OFFSET = 16;  // Відступ від рамки
-
-// ✅ КООРДИНАТИ КНОПОК 
-parameter BUTTON_X_EDIT_START = 10;
-parameter BUTTON_X_EDIT_END = BUTTON_X_EDIT_START + 4 * CHAR_WIDTH + 3 * CHAR_SPACING;
-parameter BUTTON_X_SAVE_START = 400;
-parameter BUTTON_X_SAVE_END = BUTTON_X_SAVE_START + 4 * CHAR_WIDTH + 3 * CHAR_SPACING;
-parameter BUTTON_Y_TOP = DISPLAY_HEIGH - CHAR_HEIGHT - 10;
-parameter BUTTON_Y_BOTTOM = BUTTON_Y_TOP + CHAR_HEIGHT;
-
-// ✅ ПОЗИЦІЯ ЦИФР 
-parameter DIGIT_Y = ARROW_HEIGHT + ARROW_Y_OFFSET + 20;
-parameter DIGIT_X_START_COORD = 20;
-parameter DIGIT_SPACING = 12;
-parameter [31:0] DIGIT_X_START [0:7] = '{DIGIT_X_START_COORD + 0 * (DIGIT_SPACING + DIGIT_WIDTH),  
-                                         DIGIT_X_START_COORD + 1 * (DIGIT_SPACING + DIGIT_WIDTH),  
-                                         DIGIT_X_START_COORD + 2 * (DIGIT_SPACING + DIGIT_WIDTH), 
-                                         DIGIT_X_START_COORD + 3 * (DIGIT_SPACING + DIGIT_WIDTH), 
-                                         DIGIT_X_START_COORD + 4 * (DIGIT_SPACING + DIGIT_WIDTH),
-                                         DIGIT_X_START_COORD + 5 * (DIGIT_SPACING + DIGIT_WIDTH),
-                                         DIGIT_X_START_COORD + 6 * (DIGIT_SPACING + DIGIT_WIDTH),
-                                         DIGIT_X_START_COORD + 7 * (DIGIT_SPACING + DIGIT_WIDTH)}; // Starting x-coordinate for each digit
-
-// ✅ РАМИ для цифр
-parameter FRAME_THICK = 1;
-parameter FRAME_Y_TOP = DIGIT_Y;
-parameter FRAME_Y_BOTTOM = DIGIT_Y + DIGIT_HEIGHT -1 ;
-parameter FRAME_COLOR = RED;
 `endif

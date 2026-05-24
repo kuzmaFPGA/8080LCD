@@ -17,7 +17,7 @@ module lcd (
     output           LCD_BL,     // Backlight
     output           LCD_RDX,    // RDX (read control)
     output           start_read_data,
-    output           lcd_clk,  // Додаємо вихід для lcd_clk
+    input            lcd_clk,  // тактовий вхід (з clk_wiz_1 в top_module)
     output    [4:0]  lcd_state,
     output           init_done,
     output           cmd_done,
@@ -45,22 +45,13 @@ assign LCD_RESET = LCD_RESET_reg;
 assign LCD_BL = LCD_BL_reg;
 assign LCD_RDX = LCD_RDX_reg;
 assign start_read_data = start_read_data_reg;
-wire pll_locked;
-wire lcd_clk;
-
-// PLL for generating lcd_clk 100Mhz
-clk_wiz_0 lcd_clk_pll (
-    .clk_in1(clk),
-    .resetn(reset_n),
-    .clk_out1(lcd_clk),
-    .locked(pll_locked)
-);
+reg init_done_reg;
+assign init_done = init_done_reg;
 
 // Initialization ROM
 reg [15:0] init_rom [0:779];
 initial $readmemh("init.mem", init_rom);
 reg [9:0] init_rom_addr;
-reg init_done;
 
 // Data and type for writing
 reg [15:0] cmd_data;
@@ -245,18 +236,16 @@ always @(posedge lcd_clk or negedge reset_n) begin
         active_writer <= WRITER_NONE;
         cmd_data <= 0;
         write_data <= 0;
-        init_done <= 0;
+        init_done_reg <= 0;
         
     end else begin
         case (state)
             S_INIT: begin
-                if (pll_locked) begin
-                    LCD_RESET_reg <= 0;
-                    init_rom_addr <= 0;
-                    delay_counter <= DELAY_100_MS;
-                    state <= S_RESET_LOW;
-                    init_done <= 0;
-                end
+                LCD_RESET_reg <= 0;
+                init_rom_addr <= 0;
+                delay_counter <= DELAY_100_MS;
+                state <= S_RESET_LOW;
+                init_done_reg <= 0;
             end
             S_RESET_LOW: begin
                 if (delay_counter > 0) begin
@@ -307,7 +296,6 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     delay_counter <= delay_counter - 1;
                 end else begin
                     state <= S_SET_DIR;
-                    init_done <= 1;
                 end
             end
             S_SET_DIR: begin
@@ -323,7 +311,9 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 end
             end
             S_FILL: begin
-                if (update_screen /*|| internal_update*/) begin
+                // Сигналізуємо top_module що LCD готовий приймати команди
+                init_done_reg <= 1;
+                if (update_screen) begin
                     total_pixels <= ((x_end - x_start + 1) * (y_end - y_start + 1));
                     pixel_count <= 1;
                     state <= S_SET_XSTART_H;
@@ -442,18 +432,15 @@ always @(posedge lcd_clk or negedge reset_n) begin
                 start_read_data_reg <= 1;
             end
             S_FILL_PIXELS: begin
-                
-                if (/*!cmd_ndata_start &&*/ pixel_count < total_pixels) begin
-                    active_writer <= WRITER_CMD_NDATA;
+                // Запускаємо cmd_ndata_writer один раз - він сам пише всі total_pixels
+                if (!cmd_ndata_start && !cmd_ndata_done) begin
+                    active_writer   <= WRITER_CMD_NDATA;
                     cmd_ndata_start <= 1;
-                    pixel_count <= pixel_count + 1;
                 end else if (cmd_ndata_done) begin
-                    cmd_ndata_start <= 0;
-                    active_writer <= WRITER_NONE;
-                    if (pixel_count >= total_pixels) begin
-                        state <= S_BACKLIGHT;
-                        start_read_data_reg <= 0;
-                    end
+                    cmd_ndata_start     <= 0;
+                    active_writer       <= WRITER_NONE;
+                    start_read_data_reg <= 0;
+                    state               <= S_BACKLIGHT;
                 end
             end
             S_BACKLIGHT: begin

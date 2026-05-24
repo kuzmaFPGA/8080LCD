@@ -107,7 +107,6 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 4
-  set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 16  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7a35tcsg325-1
@@ -124,8 +123,9 @@ OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet D:/WORK/Project/8080LCD/8080LCD.runs/synth_1/top_level.dcp
   read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-  read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
   read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+  read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_2/clk_wiz_2.xci
+  read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc D:/WORK/Project/8080LCD/8080LCD.srcs/constrs_1/new/lcd.xdc
 OPTRACE "read constraints: implementation" END { }
