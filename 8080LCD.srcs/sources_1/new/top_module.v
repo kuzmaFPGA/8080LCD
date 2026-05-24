@@ -76,10 +76,10 @@ localparam DOT_W        = 16'd16;        // ширина прямокутник�
 localparam DOT_SIZE     = 16'd16;        // висота точки
 
 // Колір курсора
-localparam CURSOR_COLOR = 16'h07E0;      // зелений
+localparam CURSOR_COLOR = GREEN;
 localparam CURSOR_H     = 16'd8;
-localparam BG_COLOR     = WHITE;
-localparam FG_COLOR     = RED;
+localparam BG_COLOR     = BLUE;
+localparam FG_COLOR     = YELLOW;
 
 // Типи сигналу
 localparam WAVE_SINE     = 2'd0,
@@ -153,8 +153,9 @@ reg  [17:0] bram_base_addra;
 reg         solid_fill;
 reg  [15:0] solid_color;
 
-assign pixel_data = solid_fill ? solid_color
-                                : (bram_douta ? FG_COLOR : BG_COLOR);
+assign pixel_data = solid_fill   ? solid_color :
+                    drawing_icon ? (icon_pixel ? 16'hFFFF : mode_bg_color) :
+                                   (bram_douta ? FG_COLOR  : BG_COLOR);
 
 // ────────────────────────────────────────────────────────────
 // Стан редактора
@@ -509,6 +510,29 @@ end
 // ────────────────────────────────────────────────────────────
 blk_mem_gen_0 bram (.clka(lcd_clk), .addra(bram_addra), .douta(bram_douta));
 
+// ── Icon ROM ──
+wire        icon_pixel;
+reg  [14:0] icon_addr_reg;
+reg         drawing_icon;
+
+wire [14:0] icon_base =
+    wave_type_lcd == WAVE_SINE     ? 15'd0     :
+    wave_type_lcd == WAVE_SQUARE   ? 15'd8000  :
+    wave_type_lcd == WAVE_TRIANGLE ? 15'd16000 :
+                                     15'd24000;
+
+wire [15:0] mode_bg_color =
+    wave_type_lcd == WAVE_SINE     ? MODE_COLOR_SINE     :
+    wave_type_lcd == WAVE_SQUARE   ? MODE_COLOR_SQUARE   :
+    wave_type_lcd == WAVE_TRIANGLE ? MODE_COLOR_TRIANGLE :
+                                     MODE_COLOR_PWM;
+
+icon_rom icon_rom_inst (
+    .clk  (lcd_clk),
+    .addr (icon_addr_reg),
+    .pixel(icon_pixel)
+);
+
 lcd lcd_inst (
     .clk(clk), .reset_n(reset_n),
     .fill_color(pixel_data),
@@ -644,6 +668,8 @@ always @(posedge lcd_clk or negedge reset_n) begin
         solid_color    <= BG_COLOR;
         bram_addra     <= 0;
         bram_base_addra<= 0;
+        icon_addr_reg  <= 0;
+        drawing_icon   <= 0;
         x_start <= 0; x_end <= DIGIT_W - 1;
         y_start <= 0; y_end <= DIGIT_H - 1;
         idx3 <= 0;
@@ -779,16 +805,11 @@ always @(posedge lcd_clk or negedge reset_n) begin
                     y_end   <= PWM_Y + DIGIT_H - 4;
                     ts_state <= TS_TRIGGER;
 
-                // ── Крок 26: індикатор режиму DDS ──
+                // ── Крок 26: іконка режиму DDS (з icon_rom) ──
                 end else if (draw_step == 5'd26) begin
-                    solid_fill <= 1;
-                    case (wave_type_lcd)
-                        WAVE_SINE:     solid_color <= MODE_COLOR_SINE;
-                        WAVE_SQUARE:   solid_color <= MODE_COLOR_SQUARE;
-                        WAVE_TRIANGLE: solid_color <= MODE_COLOR_TRIANGLE;
-                        WAVE_PWM:      solid_color <= MODE_COLOR_PWM;
-                        default:       solid_color <= BG_COLOR;
-                    endcase
+                    solid_fill      <= 0;
+                    drawing_icon    <= 1;
+                    bram_base_addra <= 0;
                     x_start <= MODE_X0;
                     x_end   <= MODE_X1;
                     y_start <= MODE_Y0;
@@ -821,10 +842,16 @@ always @(posedge lcd_clk or negedge reset_n) begin
 
             TS_DISPLAY: begin
                 update_screen <= 0;
-                if (start_read_data && !solid_fill)
-                    bram_addra <= bram_base_addra + data_count;
-                if (cmd_ndata_done)
-                    ts_state <= TS_DONE_STEP;
+                if (start_read_data && !solid_fill) begin
+                    if (drawing_icon)
+                        icon_addr_reg <= icon_base + data_count[14:0];
+                    else
+                        bram_addra <= bram_base_addra + data_count;
+                end
+                if (cmd_ndata_done) begin
+                    drawing_icon <= 0;
+                    ts_state     <= TS_DONE_STEP;
+                end
             end
 
             TS_DONE_STEP: begin

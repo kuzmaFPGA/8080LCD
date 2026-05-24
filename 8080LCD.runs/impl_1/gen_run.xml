@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1779649483">
+<GenRun Id="impl_1" LaunchPart="xc7a35tcsg325-1" LaunchTime="1779653058">
   <File Type="PA-TCL" Name="top_level.tcl"/>
   <File Type="REPORTS-TCL" Name="top_level_reports.tcl"/>
   <File Type="INIT-TIMING" Name="top_level_timing_summary_init.rpt"/>
@@ -251,6 +251,23 @@
       <FileInfo>
         <Attr Name="ImportPath" Val="C:/Users/kuzem/Downloads/sine_lut.mem"/>
         <Attr Name="ImportTime" Val="1779517619"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/Downloads/icon_rom.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="C:/Users/kuzem/Downloads/icon_rom.v"/>
+        <Attr Name="ImportTime" Val="1779651007"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/Downloads/icon_lut.mem">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="C:/Users/kuzem/Downloads/icon_lut.mem"/>
+        <Attr Name="ImportTime" Val="1779650996"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>

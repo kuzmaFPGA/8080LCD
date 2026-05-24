@@ -259,6 +259,23 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/Downloads/icon_rom.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="C:/Users/kuzem/Downloads/icon_rom.v"/>
+          <Attr Name="ImportTime" Val="1779651007"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Downloads/icon_lut.mem">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="C:/Users/kuzem/Downloads/icon_lut.mem"/>
+          <Attr Name="ImportTime" Val="1779650996"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="top_level"/>
