@@ -54,7 +54,8 @@ module top_level (
     inout  [15:0] SDRAM_DQ,
     // DAC 14-біт @ 165 МГц
     output [13:0] DAC_DATA,
-    output        DAC_CLK
+    output        DAC_CLK,
+    output        DAC_CLK_TEST  // clk_dac / 100 для тестування
 );
 
 // ────────────────────────────────────────────────────────────
@@ -76,10 +77,10 @@ localparam DOT_W        = 16'd16;        // ширина прямокутник�
 localparam DOT_SIZE     = 16'd16;        // висота точки
 
 // Колір курсора
-localparam CURSOR_COLOR = GREEN;
+localparam CURSOR_COLOR = 16'h07E0;      // зелений
 localparam CURSOR_H     = 16'd8;
-localparam BG_COLOR     = BLUE;
-localparam FG_COLOR     = YELLOW;
+localparam BG_COLOR     = WHITE;
+localparam FG_COLOR     = RED;
 
 // Типи сигналу
 localparam WAVE_SINE     = 2'd0,
@@ -586,8 +587,12 @@ always @(posedge clk_main) begin
                digit_backup[{wave_type, 3'd6}]*27'd10         +
                digit_backup[{wave_type, 3'd7}];
 
-    // phase_inc = freq_hz * 1705716 >> 16  (fixed-point)
-    phase_inc <= (freq_hz * 32'd1705716) >> 16;
+    // phase_inc = freq_hz * 2^32 / 165_000_000
+    // K_fixed = round(2^48 / 165e6) = 1_705_716
+    // КРИТИЧНО: розширюємо до 48 біт!
+    // Без розширення Verilog обчислює як 32-біт: overflow вже при ~2.5 кГц.
+    // Приклад: 10 кГц × 1705716 = 17 млрд > 2^32 → неправильний phase_inc.
+    phase_inc <= ({21'd0, freq_hz} * 48'd1_705_716) >> 16;
 
     pwm_duty  <= pwm_digit[0]*14'd1000 + pwm_digit[1]*14'd100 +
                  pwm_digit[2]*14'd10   + pwm_digit[3];
@@ -630,14 +635,60 @@ dds dds_inst (
     .dac_out      (dac_value)
 );
 
-// Реєструємо вихід ЦАП на тактовому домені DAC для синхронної передачі
-reg [13:0] dac_data_reg;
-always @(posedge clk_dac) dac_data_reg <= dac_value;
+// ── DAC виходи ──────────────────────────────────────────────────
+// (* IOB = "TRUE" *) розміщує FF в IOB → мінімальна затримка clock-to-output.
+// Це критично для 165 МГц: data і clock мають йти з мінімальним skew.
+// DAC904 MODE pin:
+//   MODE = LOW  → straight binary   (0x0000=min, 0x2000=mid, 0x3FFF=max)
+//   MODE = HIGH → two's complement  (0x2000=min, 0x0000=mid, 0x1FFF=max)
+// Встанови DAC_TWOS_COMPLEMENT = 1 якщо MODE=HIGH (two's complement)
+localparam DAC_TWOS_COMPLEMENT = 0;
+
+wire [13:0] dac_formatted = DAC_TWOS_COMPLEMENT
+    ? {~dac_value[13], dac_value[12:0]}  // XOR MSB: straight→two's complement
+    :  dac_value;                          // straight binary (за замовчуванням)
+
+(* IOB = "TRUE" *) reg [13:0] dac_data_reg;
+always @(posedge clk_dac or negedge reset_n) begin
+    if (!reset_n) dac_data_reg <= 14'd0;
+    else          dac_data_reg <= dac_formatted;
+end
 assign DAC_DATA = dac_data_reg;
 
-// Виведення тактового сигналу ЦАП (ODDR краще, але прямого assign достатньо
-// для перевірки; для роботи з реальним ЦАП використати ODDR primitive)
-assign DAC_CLK = clk_dac;
+// DAC_CLK через ODDR - стандартний спосіб форвардингу тактового на 165 МГц.
+// Без ODDR PLL-CLK → OBUF має великий skew відносно даних → DAC не засемплює коректно.
+ODDR #(
+    .DDR_CLK_EDGE("SAME_EDGE"),
+    .INIT        (1'b0),
+    .SRTYPE      ("SYNC")
+) oddr_dac_clk (
+    .Q (DAC_CLK),
+    .C (clk_dac),
+    .CE(1'b1),
+    .D1(1'b1),   // HIGH на rising edge → форвардимо clk_dac як є
+    .D2(1'b0),   // LOW  на falling edge
+    .R (1'b0),
+    .S (1'b0)
+);
+
+// ── Тест-вихід: clk_dac / 100 = 1.65 МГц ──────────────────
+// Лічильник 0..49 → toggle → 50% duty cycle, 165/100 = 1.65 МГц
+reg [5:0] dac_test_cnt;
+reg       dac_test_reg;
+
+always @(posedge clk_dac or negedge reset_n) begin
+    if (!reset_n) begin
+        dac_test_cnt <= 6'd0;
+        dac_test_reg <= 1'b0;
+    end else if (dac_test_cnt == 6'd49) begin
+        dac_test_cnt <= 6'd0;
+        dac_test_reg <= ~dac_test_reg;  // toggle кожні 50 тактів
+    end else begin
+        dac_test_cnt <= dac_test_cnt + 6'd1;
+    end
+end
+
+assign DAC_CLK_TEST = dac_test_reg;
 
 // ════════════════════════════════════════════════════════════
 // MAIN FSM малювання

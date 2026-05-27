@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.2 (win64) Build 6060944 Thu Mar 06 19:10:01 MST 2025
-| Date         : Sun May 24 23:06:24 2026
+| Date         : Tue May 26 18:01:05 2026
 | Host         : A8 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_level_methodology_drc_routed.rpt -pb top_level_methodology_drc_routed.pb -rpx top_level_methodology_drc_routed.rpx
 | Design       : top_level
@@ -23,14 +23,14 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
-             Checks found: 124
+             Checks found: 135
 +-----------+----------+--------------------------------------------+--------+
 | Rule      | Severity | Description                                | Checks |
 +-----------+----------+--------------------------------------------+--------+
 | LUTAR-1   | Warning  | LUT drives async reset alert               | 1      |
-| SYNTH-6   | Warning  | Timing of a RAM block might be sub-optimal | 3      |
+| SYNTH-6   | Warning  | Timing of a RAM block might be sub-optimal | 2      |
 | SYNTH-10  | Warning  | Wide multiplier                            | 3      |
-| TIMING-16 | Warning  | Large setup violation                      | 93     |
+| TIMING-16 | Warning  | Large setup violation                      | 105    |
 | TIMING-18 | Warning  | Missing input or output delay              | 24     |
 +-----------+----------+--------------------------------------------+--------+
 
@@ -38,27 +38,22 @@ Table of Contents
 -----------------
 LUTAR-1#1 Warning
 LUT drives async reset alert  
-LUT cell dds_inst/dac_out[13]_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) dds_inst/phase_acc_reg[25]/CLR, dds_inst/phase_acc_reg[26]/CLR,
-dds_inst/phase_acc_reg[27]/CLR, dds_inst/phase_acc_reg[28]/CLR,
+LUT cell dds_inst/q34_d1_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) dds_inst/phase_acc_reg[27]/CLR, dds_inst/phase_acc_reg[28]/CLR,
 dds_inst/phase_acc_reg[29]/CLR, dds_inst/phase_acc_reg[2]/CLR,
 dds_inst/phase_acc_reg[30]/CLR, dds_inst/phase_acc_reg[31]/CLR,
 dds_inst/phase_acc_reg[3]/CLR, dds_inst/phase_acc_reg[4]/CLR,
 dds_inst/phase_acc_reg[5]/CLR, dds_inst/phase_acc_reg[6]/CLR,
 dds_inst/phase_acc_reg[7]/CLR, dds_inst/phase_acc_reg[8]/CLR,
-dds_inst/phase_acc_reg[9]/CLR (the first 15 of 46 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+dds_inst/phase_acc_reg[9]/CLR, dds_inst/q34_d1_reg/CLR,
+dds_inst/q34_d2_reg/CLR (the first 15 of 74 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
 SYNTH-6#1 Warning
 Timing of a RAM block might be sub-optimal  
-The timing for the instance dds_inst/sine_lut_inst/val_reg_0, implemented as a RAM block, might be sub-optimal as no output register was merged into the block.
+The timing for the instance dds_inst/sine_lut_q_inst/val_reg, implemented as a RAM block, might be sub-optimal as no output register was merged into the block.
 Related violations: <none>
 
 SYNTH-6#2 Warning
-Timing of a RAM block might be sub-optimal  
-The timing for the instance dds_inst/sine_lut_inst/val_reg_1, implemented as a RAM block, might be sub-optimal as no output register was merged into the block.
-Related violations: <none>
-
-SYNTH-6#3 Warning
 Timing of a RAM block might be sub-optimal  
 The timing for the instance icon_rom_inst/byte_out_reg, implemented as a RAM block, might be sub-optimal as no output register was merged into the block.
 Related violations: <none>
@@ -80,467 +75,527 @@ Related violations: <none>
 
 TIMING-16#1 Warning
 Large setup violation  
-There is a large setup violation of -1.006 ns between digit_reg[4][0]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[4][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.000 ns between pwm_digit_reg[0][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[0][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#2 Warning
 Large setup violation  
-There is a large setup violation of -1.010 ns between pwm_digit_reg[0][3]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[0][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.002 ns between digit_reg[7][3]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[7][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#3 Warning
 Large setup violation  
-There is a large setup violation of -1.010 ns between pwm_digit_reg[1][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[1][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.034 ns between pwm_digit_reg[1][2]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[1][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#4 Warning
 Large setup violation  
-There is a large setup violation of -1.011 ns between digit_reg[5][0]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[5][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.058 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[0][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#5 Warning
 Large setup violation  
-There is a large setup violation of -1.034 ns between digit_reg[5][3]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[5][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.072 ns between digit_reg[6][3]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[6][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#6 Warning
 Large setup violation  
-There is a large setup violation of -1.038 ns between wave_type_reg[1]_replica_3/C (clocked by clk_out3_clk_wiz_1) and wave_type_lcd_reg[1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.073 ns between digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[0][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#7 Warning
 Large setup violation  
-There is a large setup violation of -1.043 ns between cursor_pos_reg[3]/C (clocked by clk_out3_clk_wiz_1) and cursor_pos_lcd_reg[3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.087 ns between pwm_digit_reg[2][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[2][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#8 Warning
 Large setup violation  
-There is a large setup violation of -1.046 ns between digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[2][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.087 ns between pwm_digit_reg[3][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[3][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#9 Warning
 Large setup violation  
-There is a large setup violation of -1.084 ns between insert_mode_reg/C (clocked by clk_out3_clk_wiz_1) and insert_mode_lcd_reg/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.090 ns between pwm_digit_reg[3][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[3][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#10 Warning
 Large setup violation  
-There is a large setup violation of -1.108 ns between digit_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[0][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.097 ns between pwm_digit_reg[3][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_12/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#11 Warning
 Large setup violation  
-There is a large setup violation of -1.127 ns between digit_reg[6][1]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[6][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.103 ns between insert_mode_reg/C (clocked by clk_out3_clk_wiz_1) and insert_mode_lcd_reg/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#12 Warning
 Large setup violation  
-There is a large setup violation of -1.135 ns between digit_reg[4][3]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[4][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.115 ns between digit_reg[0][1]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[0][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#13 Warning
 Large setup violation  
-There is a large setup violation of -1.153 ns between digit_reg[6][0]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[6][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.138 ns between wave_type_reg[1]_replica_3/C (clocked by clk_out3_clk_wiz_1) and wave_type_lcd_reg[1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#14 Warning
 Large setup violation  
-There is a large setup violation of -1.155 ns between pwm_digit_reg[2][3]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[2][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.144 ns between pwm_digit_reg[0][3]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[0][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#15 Warning
 Large setup violation  
-There is a large setup violation of -1.166 ns between pwm_digit_reg[2][2]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[2][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.156 ns between digit_reg[5][1]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[5][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#16 Warning
 Large setup violation  
-There is a large setup violation of -1.181 ns between digit_reg[3][1]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[3][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.204 ns between cursor_pos_reg[3]/C (clocked by clk_out3_clk_wiz_1) and cursor_pos_lcd_reg[3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#17 Warning
 Large setup violation  
-There is a large setup violation of -1.183 ns between pwm_digit_reg[1][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[1][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.328 ns between digit_reg[5][3]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[5][3]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#18 Warning
 Large setup violation  
-There is a large setup violation of -1.190 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[0][0]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.366 ns between pwm_digit_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[0][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#19 Warning
 Large setup violation  
-There is a large setup violation of -1.192 ns between digit_reg[2][2]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[2][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.382 ns between digit_reg[5][2]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[5][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#20 Warning
 Large setup violation  
-There is a large setup violation of -1.315 ns between digit_reg[4][2]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[4][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.382 ns between pwm_digit_reg[3][2]/C (clocked by clk_out3_clk_wiz_1) and pwm_digit_lcd_reg[3][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#21 Warning
 Large setup violation  
-There is a large setup violation of -1.425 ns between phase_inc_s1_reg[3]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[3]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.411 ns between phase_inc_s1_reg[4]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[4]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#22 Warning
 Large setup violation  
-There is a large setup violation of -1.451 ns between phase_inc_s1_reg[1]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[1]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.425 ns between phase_inc_s1_reg[21]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[21]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#23 Warning
 Large setup violation  
-There is a large setup violation of -1.467 ns between phase_inc_reg[0]/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[0]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.433 ns between phase_inc_s1_reg[16]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[16]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#24 Warning
 Large setup violation  
-There is a large setup violation of -1.471 ns between phase_inc_s1_reg[15]_psdsp_10/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[15]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.439 ns between pwm_thr_s1_reg[3]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[3]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#25 Warning
 Large setup violation  
-There is a large setup violation of -1.475 ns between phase_inc_s1_reg[14]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[14]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.445 ns between phase_inc_s1_reg[11]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[11]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#26 Warning
 Large setup violation  
-There is a large setup violation of -1.478 ns between phase_inc_s1_reg[6]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[6]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.450 ns between pwm_thr_s1_reg[4]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[4]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#27 Warning
 Large setup violation  
-There is a large setup violation of -1.536 ns between phase_inc_s1_reg[8]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[8]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.468 ns between phase_inc_s1_reg[18]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[18]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#28 Warning
 Large setup violation  
-There is a large setup violation of -1.542 ns between phase_inc_s1_reg[2]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[2]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.472 ns between phase_inc_s1_reg[1]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[1]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#29 Warning
 Large setup violation  
-There is a large setup violation of -1.545 ns between pwm_thr_s1_reg[6]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[6]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.473 ns between phase_inc_s1_reg[27]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[27]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#30 Warning
 Large setup violation  
-There is a large setup violation of -1.560 ns between pwm_thr_s1_reg[1]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[1]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.479 ns between phase_inc_s1_reg[23]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[23]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#31 Warning
 Large setup violation  
-There is a large setup violation of -1.576 ns between pwm_thr_s1_reg[11]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[11]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.480 ns between phase_inc_s1_reg[17]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[17]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#32 Warning
 Large setup violation  
-There is a large setup violation of -1.586 ns between phase_inc_s1_reg[5]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[5]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.482 ns between phase_inc_s1_reg[2]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[2]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#33 Warning
 Large setup violation  
-There is a large setup violation of -1.586 ns between phase_inc_s1_reg[9]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[9]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.487 ns between phase_inc_s1_reg[25]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[25]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#34 Warning
 Large setup violation  
-There is a large setup violation of -1.587 ns between pwm_thr_s1_reg[12]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[12]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.489 ns between pwm_thr_s1_reg[10]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[10]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#35 Warning
 Large setup violation  
-There is a large setup violation of -1.588 ns between pwm_thr_s1_reg[7]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[7]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.491 ns between phase_inc_s1_reg[10]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[10]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#36 Warning
 Large setup violation  
-There is a large setup violation of -1.594 ns between pwm_thr_s1_reg[13]_psdsp_13/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[13]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.496 ns between pwm_thr_s1_reg[13]_psdsp_13/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[13]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#37 Warning
 Large setup violation  
-There is a large setup violation of -1.611 ns between pwm_thr_s1_reg[5]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[5]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.499 ns between phase_inc_s1_reg[15]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[15]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#38 Warning
 Large setup violation  
-There is a large setup violation of -1.620 ns between phase_inc_s1_reg[7]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[7]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.500 ns between phase_inc_s1_reg[20]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[20]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#39 Warning
 Large setup violation  
-There is a large setup violation of -1.634 ns between pwm_thr_s1_reg[4]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[4]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.500 ns between phase_inc_s1_reg[30]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[30]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#40 Warning
 Large setup violation  
-There is a large setup violation of -1.644 ns between pwm_thr_s1_reg[2]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[2]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.501 ns between phase_inc_s1_reg[12]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[12]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#41 Warning
 Large setup violation  
-There is a large setup violation of -1.648 ns between pwm_thr_s1_reg[10]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[10]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.501 ns between phase_inc_s1_reg[9]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[9]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#42 Warning
 Large setup violation  
-There is a large setup violation of -1.669 ns between pwm_thr_s1_reg[0]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[0]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.518 ns between pwm_thr_s1_reg[1]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[1]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#43 Warning
 Large setup violation  
-There is a large setup violation of -1.677 ns between phase_inc_s1_reg[10]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[10]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.531 ns between phase_inc_s1_reg[29]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[29]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#44 Warning
 Large setup violation  
-There is a large setup violation of -1.688 ns between pwm_thr_s1_reg[8]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[8]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.537 ns between pwm_thr_s1_reg[9]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[9]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#45 Warning
 Large setup violation  
-There is a large setup violation of -1.692 ns between phase_inc_s1_reg[11]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[11]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.539 ns between pwm_thr_s1_reg[5]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[5]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#46 Warning
 Large setup violation  
-There is a large setup violation of -1.707 ns between pwm_thr_s1_reg[3]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[3]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.549 ns between pwm_thr_s1_reg[6]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[6]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#47 Warning
 Large setup violation  
-There is a large setup violation of -1.709 ns between phase_inc_s1_reg[4]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[4]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.576 ns between phase_inc_s1_reg[5]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[5]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#48 Warning
 Large setup violation  
-There is a large setup violation of -1.716 ns between pwm_thr_s1_reg[9]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[9]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.578 ns between phase_inc_s1_reg[7]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[7]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#49 Warning
 Large setup violation  
-There is a large setup violation of -1.718 ns between phase_inc_s1_reg[13]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[13]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.579 ns between pwm_thr_s1_reg[11]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[11]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#50 Warning
 Large setup violation  
-There is a large setup violation of -1.743 ns between digit_reg[6][2]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[6][2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.615 ns between phase_inc_s1_reg[22]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[22]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#51 Warning
 Large setup violation  
-There is a large setup violation of -1.744 ns between phase_inc_s1_reg[12]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[12]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.619 ns between phase_inc_s1_reg[3]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[3]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#52 Warning
 Large setup violation  
-There is a large setup violation of -1.747 ns between cursor_pos_reg[2]/C (clocked by clk_out3_clk_wiz_1) and cursor_pos_lcd_reg[2]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.638 ns between phase_inc_reg[0]/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[0]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#53 Warning
 Large setup violation  
-There is a large setup violation of -1.748 ns between wave_type_reg[0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc1_i_5_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.656 ns between phase_inc_s1_reg[8]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[8]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#54 Warning
 Large setup violation  
-There is a large setup violation of -1.812 ns between digit_reg[4][1]/C (clocked by clk_out3_clk_wiz_1) and digit_lcd_reg[4][1]/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.661 ns between phase_inc_s1_reg[31]_psdsp_10/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[31]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#55 Warning
 Large setup violation  
-There is a large setup violation of -10.333 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_5/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.664 ns between phase_inc_s1_reg[6]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[6]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#56 Warning
 Large setup violation  
-There is a large setup violation of -10.393 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_4/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.666 ns between pwm_thr_s1_reg[7]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[7]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#57 Warning
 Large setup violation  
-There is a large setup violation of -10.603 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_3/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.666 ns between pwm_thr_s1_reg[8]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[8]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#58 Warning
 Large setup violation  
-There is a large setup violation of -10.714 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_2/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.672 ns between phase_inc_s1_reg[14]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[14]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#59 Warning
 Large setup violation  
-There is a large setup violation of -10.865 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_1/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.673 ns between phase_inc_s1_reg[19]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[19]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#60 Warning
 Large setup violation  
-There is a large setup violation of -10.947 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.692 ns between phase_inc_s1_reg[26]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[26]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#61 Warning
 Large setup violation  
-There is a large setup violation of -11.325 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_9/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.694 ns between phase_inc_s1_reg[24]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[24]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#62 Warning
 Large setup violation  
-There is a large setup violation of -11.436 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_8/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.695 ns between pwm_thr_s1_reg[12]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[12]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#63 Warning
 Large setup violation  
-There is a large setup violation of -11.689 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_7/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.714 ns between phase_inc_s1_reg[28]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[28]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#64 Warning
 Large setup violation  
-There is a large setup violation of -11.749 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_6/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.754 ns between pwm_thr_s1_reg[0]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[0]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#65 Warning
 Large setup violation  
-There is a large setup violation of -11.959 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_5/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.759 ns between pwm_thr_s1_reg[2]_psdsp/C (clocked by clk_out1_clk_wiz_1) and pwm_thr_s1_reg[2]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#66 Warning
 Large setup violation  
-There is a large setup violation of -12.070 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_4/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.774 ns between phase_inc_s1_reg[13]_psdsp/C (clocked by clk_out1_clk_wiz_1) and phase_inc_s1_reg[13]/D (clocked by clk_out2_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#67 Warning
 Large setup violation  
-There is a large setup violation of -12.071 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_3/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -1.816 ns between wave_type_reg[0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc1_i_5_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#68 Warning
 Large setup violation  
-There is a large setup violation of -12.131 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_2/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -10.105 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_5/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#69 Warning
 Large setup violation  
-There is a large setup violation of -12.335 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp_1/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -10.170 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_4/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#70 Warning
 Large setup violation  
-There is a large setup violation of -12.446 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[15]_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -10.470 ns between digit_backup_reg[24][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_3/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#71 Warning
 Large setup violation  
-There is a large setup violation of -2.171 ns between pwm_digit_reg[2][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_12/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -10.776 ns between digit_backup_reg[24][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_2/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#72 Warning
 Large setup violation  
-There is a large setup violation of -3.121 ns between wave_type_reg[0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_15/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -11.124 ns between digit_backup_reg[24][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_1/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#73 Warning
 Large setup violation  
-There is a large setup violation of -4.203 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_14/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -11.189 ns between digit_backup_reg[24][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#74 Warning
 Large setup violation  
-There is a large setup violation of -4.597 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_11/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -11.402 ns between digit_backup_reg[24][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_9/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#75 Warning
 Large setup violation  
-There is a large setup violation of -4.921 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_10/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -11.506 ns between digit_backup_reg[24][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_8/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#76 Warning
 Large setup violation  
-There is a large setup violation of -5.162 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_13/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -11.683 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_7/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#77 Warning
 Large setup violation  
-There is a large setup violation of -5.245 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_9/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -11.781 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_6/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#78 Warning
 Large setup violation  
-There is a large setup violation of -5.799 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_8/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -12.120 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_5/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#79 Warning
 Large setup violation  
-There is a large setup violation of -6.152 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_4/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -12.224 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_4/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#80 Warning
 Large setup violation  
-There is a large setup violation of -6.263 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_3/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -12.347 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_3/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#81 Warning
 Large setup violation  
-There is a large setup violation of -6.370 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_7/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -12.412 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_2/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#82 Warning
 Large setup violation  
-There is a large setup violation of -6.431 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_12/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -12.520 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp_1/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#83 Warning
 Large setup violation  
-There is a large setup violation of -6.527 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_2/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -12.624 ns between digit_backup_reg[0][2]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_s1_reg[31]_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#84 Warning
 Large setup violation  
-There is a large setup violation of -6.587 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_1/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -3.406 ns between wave_type_reg[0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_15/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#85 Warning
 Large setup violation  
-There is a large setup violation of -6.761 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_6/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -3.961 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_11/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#86 Warning
 Large setup violation  
-There is a large setup violation of -6.785 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_5/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -4.170 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_14/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#87 Warning
 Large setup violation  
-There is a large setup violation of -7.212 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_11/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.024 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_10/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#88 Warning
 Large setup violation  
-There is a large setup violation of -7.556 ns between pwm_digit_reg[0][0]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.126 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_9/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#89 Warning
 Large setup violation  
-There is a large setup violation of -8.403 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_10/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.372 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_8/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#90 Warning
 Large setup violation  
-There is a large setup violation of -8.851 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_9/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.392 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_6/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#91 Warning
 Large setup violation  
-There is a large setup violation of -9.146 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_8/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.468 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_5/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#92 Warning
 Large setup violation  
-There is a large setup violation of -9.682 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_7/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.476 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_7/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-16#93 Warning
 Large setup violation  
-There is a large setup violation of -9.980 ns between digit_backup_reg[14][0]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_6/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+There is a large setup violation of -5.489 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_4/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#94 Warning
+Large setup violation  
+There is a large setup violation of -5.552 ns between pwm_digit_reg[0][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_2/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#95 Warning
+Large setup violation  
+There is a large setup violation of -5.593 ns between pwm_digit_reg[2][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_3/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#96 Warning
+Large setup violation  
+There is a large setup violation of -5.631 ns between pwm_digit_reg[0][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp_1/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#97 Warning
+Large setup violation  
+There is a large setup violation of -5.763 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_13/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#98 Warning
+Large setup violation  
+There is a large setup violation of -5.877 ns between pwm_digit_reg[0][1]/C (clocked by clk_out3_clk_wiz_1) and pwm_thr_s1_reg[13]_psdsp/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#99 Warning
+Large setup violation  
+There is a large setup violation of -6.877 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_12/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#100 Warning
+Large setup violation  
+There is a large setup violation of -7.578 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_11/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#101 Warning
+Large setup violation  
+There is a large setup violation of -8.982 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_10/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#102 Warning
+Large setup violation  
+There is a large setup violation of -9.330 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_9/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#103 Warning
+Large setup violation  
+There is a large setup violation of -9.442 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_8/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#104 Warning
+Large setup violation  
+There is a large setup violation of -9.782 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_7/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#105 Warning
+Large setup violation  
+There is a large setup violation of -9.886 ns between wave_type_reg[1]/C (clocked by clk_out3_clk_wiz_1) and phase_inc_reg[0]_psdsp_6/D (clocked by clk_out1_clk_wiz_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
 Related violations: <none>
 
 TIMING-18#1 Warning

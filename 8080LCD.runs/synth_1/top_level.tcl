@@ -84,8 +84,8 @@ add_files D:/WORK/Project/STM32-LCD_Font_Generator/FontTimesNewRoman128.coe
 add_files D:/WORK/Project/8080LCD/combine.coe
 read_mem {
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/init.mem
-  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Downloads/sine_lut.mem
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Downloads/icon_lut.mem
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Downloads/sine_lut_q.mem
 }
 read_verilog -library xil_defaultlib -sv {
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/constants.vh
@@ -105,21 +105,11 @@ read_verilog -library xil_defaultlib {
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/spi_flash.v
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/sdram.v
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/DDS.v
-  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/sine_lut.v
   D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/imports/Downloads/icon_rom.v
+  D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/new/sine_lut_q.v
 }
 read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
 set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
-
-read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
-set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
-set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
-set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
-
-read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_2/clk_wiz_2.xci
-set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_2/clk_wiz_2_board.xdc]
-set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_2/clk_wiz_2.xdc]
-set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_2/clk_wiz_2_ooc.xdc]
 
 read_ip -quiet D:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1.xci
 set_property used_in_implementation false [get_files -all d:/WORK/Project/8080LCD/8080LCD.srcs/sources_1/ip/clk_wiz_1/clk_wiz_1_board.xdc]
